@@ -1,0 +1,38 @@
+% *************************************************************************
+% AIM:  Instances of aK1 formed by renaming a single variable.
+% *************************************************************************
+
+cnf(ax1,axiom,'*'('1',A) = A).
+cnf(ax2,axiom,'*'(A,'1') = A).
+cnf(ax3,axiom,'\\'(A,'*'(A,B)) = B).
+cnf(ax4,axiom,'*'(A,'\\'(A,B)) = B).
+cnf(ax5,axiom,'/'('*'(A,B),B) = A).
+cnf(ax6,axiom,'*'('/'(A,B),B) = A).
+fof(ax7,axiom,! [X0] : ! [X1] : ! [X2] : ! [X3] : (('*'(X0,X1) = X2 & '*'(X0,X3) = X2) => X1 = X3)).
+fof(ax8,axiom,! [X4] : ! [X5] : ! [X6] : ! [X7] : (('*'(X4,X5) = X6 & '*'(X7,X5) = X6) => X4 = X7)).
+fof(ax9,axiom,! [X8] : ! [X9] : ! [X10] : ('*'(X8,X9) = '*'(X8,X10) => X9 = X10)).
+fof(ax10,axiom,! [X11] : ! [X12] : ! [X13] : ('*'(X11,X12) = '*'(X13,X12) => X11 = X13)).
+cnf(associator,axiom,'\\'('*'(A,'*'(B,C)),'*'('*'(A,B),C)) = a(A,B,C)).
+cnf(commutator,axiom,'\\'('*'(A,B),'*'(B,A)) ='K'(B,A)).
+cnf(ax13,axiom,'\\'('*'(A,B),'*'(A,'*'(B,C))) ='L'(C,B,A)).
+cnf(ax14,axiom,'/'('*'('*'(A,B),C),'*'(B,C)) ='R'(A,B,C)).
+cnf(ax15,axiom,'\\'(A,'*'(B,A)) ='T'(B,A)).
+fof(ax16,axiom,! [X14] : ! [X15] : ! [X16] : (a(X14,X15,X16) ='1' =>'L'(X16,X15,X14) = X16)).
+fof(ax17,axiom,! [X17] : ! [X18] : ! [X19] : ('L'(X17,X18,X19) = X17 => a(X19,X18,X17) ='1')).
+fof(ax18,axiom,! [X20] : ! [X21] : ('T'(X20,X21) = X20 =>'T'(X21,X20) = X21)).
+fof(ax19,axiom,! [X22] : ! [X23] : ('T'(X22,X23) = X22 =>'K'(X22,X23) ='1')).
+fof(ax20,axiom,! [X24] : ! [X25] : ('K'(X24,X25) ='1' =>'T'(X24,X25) = X24)).
+cnf(ax21,axiom,'T'('T'(A,B),C) ='T'('T'(A,C),B)).
+cnf(ax22,axiom,'T'('L'(A,B,C),D) ='L'('T'(A,D),B,C)).
+cnf(ax23,axiom,'T'('R'(A,B,C),D) ='R'('T'(A,D),B,C)).
+cnf(ax24,axiom,'L'('R'(A,B,C),D,E) ='R'('L'(A,D,E),B,C)).
+cnf(ax25,axiom,'L'('L'(A,B,C),D,E) ='L'('L'(A,D,E),B,C)).
+cnf(ax26,axiom,'R'('R'(A,B,C),D,E) ='R'('R'(A,D,E),B,C)).
+cnf(demod_free_ax27,axiom,~ A = B | '*'(C,A) = '*'(C,B)).
+cnf(demod_free_ax28,axiom,~ A = B | '*'(A,C) = '*'(B,C)).
+fof(aK1x1x2,conjecture,! [X26] : ! [X27] : ! [X28] : a('K'(X26,X26),X27,X28) ='1').
+%fof(aK1x1x3,conjecture,! [X29] : ! [X30] : ! [X31] : a('K'(X29,X30),X29,X31) ='1').
+%fof(aK1x1x4,conjecture,! [X32] : ! [X33] : ! [X34] : a('K'(X32,X33),X34,X32) ='1').
+%fof(aK1x2x3,conjecture,! [X35] : ! [X36] : ! [X37] : a('K'(X35,X36),X36,X37) ='1').
+%fof(aK1x2x4,conjecture,! [X38] : ! [X39] : ! [X40] : a('K'(X38,X39),X40,X39) ='1').
+%fof(aK1x3x4,conjecture,! [X41] : ! [X42] : ! [X43] : a('K'(X41,X42),X43,X43) ='1').

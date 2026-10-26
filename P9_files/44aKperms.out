@@ -1,0 +1,1530 @@
+============================== Prover9 ===============================
+Prover9 (64) version 2026-3J, March 2026.
+Process 13858 was started by linaresareva on UML-FG4WX6CDH5,
+Thu Jul  9 16:03:08 2026
+The command was "prover9 -f 44aKperms.in".
+============================== end of head ===========================
+
+============================== INPUT =================================
+
+% Reading from file 44aKperms.in
+
+assign(order,kbo).
+set(lex_order_vars).
+clear(back_demod).
+set(restrict_denials).
+set(para_from_small).
+assign(max_weight,5).
+
+formulas(assumptions).
+a(x,K(y,z),u) = a(x,y,K(u,z)) # label("aK2_eq_aK3 (1243)").
+a(x,K(y,z),u) = a(x,z,K(y,u)) # label("aK2_eq_aK3 (1324)").
+a(x,K(y,z),u) = a(x,u,K(z,y)) # label("aK2_eq_aK3 (1432)").
+a(x,K(y,z),u) = a(y,x,K(z,u)) # label("aK2_eq_aK3 (2134)").
+a(x,K(y,z),u) = a(y,z,K(u,x)) # label("aK2_eq_aK3 (2341)").
+a(x,K(y,z),u) = a(y,u,K(x,z)) # label("aK2_eq_aK3 (2413)").
+a(x,K(y,z),u) = a(z,x,K(u,y)) # label("aK2_eq_aK3 (3142)").
+a(x,K(y,z),u) = a(z,y,K(x,u)) # label("aK2_eq_aK3 (3214)").
+a(x,K(y,z),u) = a(z,u,K(y,x)) # label("aK2_eq_aK3 (3421)").
+a(x,K(y,z),u) = a(u,x,K(y,z)) # label("aK2_eq_aK3 (4123)").
+a(x,K(y,z),u) = a(u,y,K(z,x)) # label("aK2_eq_aK3 (4231)").
+a(x,K(y,z),u) = a(u,z,K(x,y)) # label("aK2_eq_aK3 (4312)").
+a(K(x,y),z,u) = a(x,z,K(u,y)) # label("aK1_eq_aK3").
+K(a(x,y,z),u) = a(x,y,K(z,u)) # label("Ka_eq_aK3").
+x != y | y != z | x = z # label("Transitivity =").
+end_of_list.
+
+formulas(goals).
+K(a(x,y,z),u) = K(a(x,z,u),y) # label("Ka (1342)").
+K(a(x,y,z),u) = K(a(x,u,y),z) # label("Ka (1423)").
+K(a(x,y,z),u) = K(a(y,x,u),z) # label("Ka (2143)").
+K(a(x,y,z),u) = K(a(y,z,x),u) # label("Ka (2314)").
+K(a(x,y,z),u) = K(a(y,u,z),x) # label("Ka (2431)").
+K(a(x,y,z),u) = K(a(z,x,y),u) # label("Ka (3124)").
+K(a(x,y,z),u) = K(a(z,y,u),x) # label("Ka (3241)").
+K(a(x,y,z),u) = K(a(z,u,x),y) # label("Ka (3412)").
+K(a(x,y,z),u) = K(a(u,x,z),y) # label("Ka (4132)").
+K(a(x,y,z),u) = K(a(u,y,x),z) # label("Ka (4213)").
+K(a(x,y,z),u) = K(a(u,z,y),x) # label("Ka (4321)").
+a(K(x,y),z,u) = a(K(x,z),u,y) # label("aK1 (1342)").
+a(K(x,y),z,u) = a(K(x,u),y,z) # label("aK1 (1423)").
+a(K(x,y),z,u) = a(K(y,x),u,z) # label("aK1 (2143)").
+a(K(x,y),z,u) = a(K(y,z),x,u) # label("aK1 (2314)").
+a(K(x,y),z,u) = a(K(y,u),z,x) # label("aK1 (2431)").
+a(K(x,y),z,u) = a(K(z,x),y,u) # label("aK1 (3124)").
+a(K(x,y),z,u) = a(K(z,y),u,x) # label("aK1 (3241)").
+a(K(x,y),z,u) = a(K(z,u),x,y) # label("aK1 (3412)").
+a(K(x,y),z,u) = a(K(u,x),z,y) # label("aK1 (4132)").
+a(K(x,y),z,u) = a(K(u,y),x,z) # label("aK1 (4213)").
+a(K(x,y),z,u) = a(K(u,z),y,x) # label("aK1 (4321)").
+a(x,K(y,z),u) = a(x,K(z,u),y) # label("aK2 (1342)").
+a(x,K(y,z),u) = a(x,K(u,y),z) # label("aK2 (1423)").
+a(x,K(y,z),u) = a(y,K(x,u),z) # label("aK2 (2143)").
+a(x,K(y,z),u) = a(y,K(z,x),u) # label("aK2 (2314)").
+a(x,K(y,z),u) = a(y,K(u,z),x) # label("aK2 (2431)").
+a(x,K(y,z),u) = a(z,K(x,y),u) # label("aK2 (3124)").
+a(x,K(y,z),u) = a(z,K(y,u),x) # label("aK2 (3241)").
+a(x,K(y,z),u) = a(z,K(u,x),y) # label("aK2 (3412)").
+a(x,K(y,z),u) = a(u,K(x,z),y) # label("aK2 (4132)").
+a(x,K(y,z),u) = a(u,K(y,x),z) # label("aK2 (4213)").
+a(x,K(y,z),u) = a(u,K(z,y),x) # label("aK2 (4321)").
+a(x,y,K(z,u)) = a(x,z,K(u,y)) # label("aK3 (1342)").
+a(x,y,K(z,u)) = a(x,u,K(y,z)) # label("aK3 (1423)").
+a(x,y,K(z,u)) = a(y,x,K(u,z)) # label("aK3 (2143)").
+a(x,y,K(z,u)) = a(y,z,K(x,u)) # label("aK3 (2314)").
+a(x,y,K(z,u)) = a(y,u,K(z,x)) # label("aK3 (2431)").
+a(x,y,K(z,u)) = a(z,x,K(y,u)) # label("aK3 (3124)").
+a(x,y,K(z,u)) = a(z,y,K(u,x)) # label("aK3 (3241)").
+a(x,y,K(z,u)) = a(z,u,K(x,y)) # label("aK3 (3412)").
+a(x,y,K(z,u)) = a(u,x,K(z,y)) # label("aK3 (4132)").
+a(x,y,K(z,u)) = a(u,y,K(x,z)) # label("aK3 (4213)").
+a(x,y,K(z,u)) = a(u,z,K(y,x)) # label("aK3 (4321)").
+end_of_list.
+
+formulas(hints).
+a(x,y,K(z,u)) = a(x,z,K(u,y)).
+a(x,K(y,z),u) = a(x,y,K(u,z)).
+a(x,K(y,z),u) = a(x,z,K(y,u)).
+a(x,y,K(z,u)) = a(x,u,K(y,z)).
+a(x,K(y,z),u) = a(x,K(u,y),z).
+a(x,K(y,z),u) = a(x,K(z,u),y).
+a(x,y,K(z,u)) = a(y,x,K(u,z)).
+a(x,K(y,z),u) = a(y,x,K(z,u)).
+a(x,K(y,z),u) = a(y,K(x,u),z).
+a(x,y,K(z,u)) = a(z,x,K(y,u)).
+a(x,y,K(z,u)) = a(y,z,K(x,u)).
+a(x,K(y,z),u) = a(y,K(z,x),u).
+a(x,K(y,z),u) = a(z,K(x,y),u).
+a(x,y,K(z,u)) = a(u,x,K(z,y)).
+a(x,K(y,z),u) = a(x,u,K(z,y)).
+a(x,y,K(z,u)) = a(y,u,K(z,x)).
+a(x,K(y,z),u) = a(y,K(u,z),x).
+a(x,K(y,z),u) = a(u,K(x,z),y).
+a(x,y,K(z,u)) = a(u,y,K(x,z)).
+a(x,K(y,z),u) = a(y,z,K(u,x)).
+a(x,y,K(z,u)) = a(z,y,K(u,x)).
+a(x,y,K(z,u)) = a(u,z,K(y,x)).
+a(x,K(y,z),u) = a(z,K(y,u),x).
+a(x,K(y,z),u) = a(u,K(y,x),z).
+a(x,y,K(z,u)) = a(z,u,K(x,y)).
+a(x,K(y,z),u) = a(y,u,K(x,z)).
+a(x,K(y,z),u) = a(z,K(u,x),y).
+a(x,K(y,z),u) = a(z,x,K(u,y)).
+a(x,K(y,z),u) = a(u,K(z,y),x).
+a(K(x,y),z,u) = a(K(x,u),y,z).
+a(K(x,y),z,u) = a(x,z,K(u,y)).
+a(x,K(y,z),u) = a(K(x,z),y,u).
+a(K(x,y),z,u) = a(x,K(z,y),u).
+a(x,K(y,z),u) = a(K(x,u),z,y).
+a(K(x,y),z,u) = a(x,K(u,z),y).
+a(K(x,y),z,u) = a(K(x,z),u,y).
+a(K(x,y),z,u) = a(K(z,x),y,u).
+a(x,K(y,z),u) = a(K(x,y),u,z).
+a(K(x,y),z,u) = a(x,K(y,u),z).
+a(x,K(y,z),u) = a(K(y,u),x,z).
+a(K(x,y),z,u) = a(z,K(x,u),y).
+a(K(x,y),z,u) = a(K(y,z),x,u).
+a(K(x,y),z,u) = a(K(z,y),u,x).
+a(K(x,y),z,u) = a(K(u,y),x,z).
+a(K(x,y),z,u) = a(K(z,u),x,y).
+a(K(x,y),z,u) = a(K(y,x),u,z).
+a(x,K(y,z),u) = a(K(y,x),z,u).
+a(K(x,y),z,u) = a(y,K(x,z),u).
+a(K(x,y),z,u) = a(K(u,x),z,y).
+a(K(x,y),z,u) = a(K(y,u),z,x).
+a(K(x,y),z,u) = a(K(u,z),y,x).
+a(x,K(y,z),u) = a(K(y,z),u,x).
+a(K(x,y),z,u) = a(u,K(x,y),z).
+K(a(x,y,z),u) = K(a(x,z,u),y).
+K(a(x,y,z),u) = a(x,y,K(z,u)).
+a(x,y,K(z,u)) = K(a(x,y,z),u).
+a(x,K(y,z),u) = K(a(x,y,u),z).
+a(x,K(y,z),u) = K(a(x,z,y),u).
+K(a(x,y,z),u) = K(a(x,u,y),z).
+K(a(x,y,z),u) = K(a(y,u,z),x).
+a(x,K(y,z),u) = K(a(x,u,z),y).
+a(x,K(y,z),u) = K(a(y,x,z),u).
+K(a(x,y,z),u) = K(a(u,x,z),y).
+K(a(x,y,z),u) = K(a(y,z,x),u).
+K(a(x,y,z),u) = K(a(z,x,y),u).
+K(a(x,y,z),u) = K(a(y,x,u),z).
+K(a(x,y,z),u) = K(a(u,z,y),x).
+a(x,K(y,z),u) = K(a(y,z,u),x).
+K(a(x,y,z),u) = K(a(z,y,u),x).
+K(a(x,y,z),u) = K(a(u,y,x),z).
+K(a(x,y,z),u) = K(a(z,u,x),y).
+a(x,K(y,z),u) = K(a(y,u,x),z).
+end_of_list.
+
+============================== end of input ==========================
+
+============================== PROCESS NON-CLAUSAL FORMULAS ==========
+
+% Formulas that are not ordinary clauses:
+1 K(a(x,y,z),u) = K(a(x,z,u),y) # label("Ka (1342)") # label(non_clause) # label(goal).  [goal].
+2 K(a(x,y,z),u) = K(a(x,u,y),z) # label("Ka (1423)") # label(non_clause) # label(goal).  [goal].
+3 K(a(x,y,z),u) = K(a(y,x,u),z) # label("Ka (2143)") # label(non_clause) # label(goal).  [goal].
+4 K(a(x,y,z),u) = K(a(y,z,x),u) # label("Ka (2314)") # label(non_clause) # label(goal).  [goal].
+5 K(a(x,y,z),u) = K(a(y,u,z),x) # label("Ka (2431)") # label(non_clause) # label(goal).  [goal].
+6 K(a(x,y,z),u) = K(a(z,x,y),u) # label("Ka (3124)") # label(non_clause) # label(goal).  [goal].
+7 K(a(x,y,z),u) = K(a(z,y,u),x) # label("Ka (3241)") # label(non_clause) # label(goal).  [goal].
+8 K(a(x,y,z),u) = K(a(z,u,x),y) # label("Ka (3412)") # label(non_clause) # label(goal).  [goal].
+9 K(a(x,y,z),u) = K(a(u,x,z),y) # label("Ka (4132)") # label(non_clause) # label(goal).  [goal].
+10 K(a(x,y,z),u) = K(a(u,y,x),z) # label("Ka (4213)") # label(non_clause) # label(goal).  [goal].
+11 K(a(x,y,z),u) = K(a(u,z,y),x) # label("Ka (4321)") # label(non_clause) # label(goal).  [goal].
+12 a(K(x,y),z,u) = a(K(x,z),u,y) # label("aK1 (1342)") # label(non_clause) # label(goal).  [goal].
+13 a(K(x,y),z,u) = a(K(x,u),y,z) # label("aK1 (1423)") # label(non_clause) # label(goal).  [goal].
+14 a(K(x,y),z,u) = a(K(y,x),u,z) # label("aK1 (2143)") # label(non_clause) # label(goal).  [goal].
+15 a(K(x,y),z,u) = a(K(y,z),x,u) # label("aK1 (2314)") # label(non_clause) # label(goal).  [goal].
+16 a(K(x,y),z,u) = a(K(y,u),z,x) # label("aK1 (2431)") # label(non_clause) # label(goal).  [goal].
+17 a(K(x,y),z,u) = a(K(z,x),y,u) # label("aK1 (3124)") # label(non_clause) # label(goal).  [goal].
+18 a(K(x,y),z,u) = a(K(z,y),u,x) # label("aK1 (3241)") # label(non_clause) # label(goal).  [goal].
+19 a(K(x,y),z,u) = a(K(z,u),x,y) # label("aK1 (3412)") # label(non_clause) # label(goal).  [goal].
+20 a(K(x,y),z,u) = a(K(u,x),z,y) # label("aK1 (4132)") # label(non_clause) # label(goal).  [goal].
+21 a(K(x,y),z,u) = a(K(u,y),x,z) # label("aK1 (4213)") # label(non_clause) # label(goal).  [goal].
+22 a(K(x,y),z,u) = a(K(u,z),y,x) # label("aK1 (4321)") # label(non_clause) # label(goal).  [goal].
+23 a(x,K(y,z),u) = a(x,K(z,u),y) # label("aK2 (1342)") # label(non_clause) # label(goal).  [goal].
+24 a(x,K(y,z),u) = a(x,K(u,y),z) # label("aK2 (1423)") # label(non_clause) # label(goal).  [goal].
+25 a(x,K(y,z),u) = a(y,K(x,u),z) # label("aK2 (2143)") # label(non_clause) # label(goal).  [goal].
+26 a(x,K(y,z),u) = a(y,K(z,x),u) # label("aK2 (2314)") # label(non_clause) # label(goal).  [goal].
+27 a(x,K(y,z),u) = a(y,K(u,z),x) # label("aK2 (2431)") # label(non_clause) # label(goal).  [goal].
+28 a(x,K(y,z),u) = a(z,K(x,y),u) # label("aK2 (3124)") # label(non_clause) # label(goal).  [goal].
+29 a(x,K(y,z),u) = a(z,K(y,u),x) # label("aK2 (3241)") # label(non_clause) # label(goal).  [goal].
+30 a(x,K(y,z),u) = a(z,K(u,x),y) # label("aK2 (3412)") # label(non_clause) # label(goal).  [goal].
+31 a(x,K(y,z),u) = a(u,K(x,z),y) # label("aK2 (4132)") # label(non_clause) # label(goal).  [goal].
+32 a(x,K(y,z),u) = a(u,K(y,x),z) # label("aK2 (4213)") # label(non_clause) # label(goal).  [goal].
+33 a(x,K(y,z),u) = a(u,K(z,y),x) # label("aK2 (4321)") # label(non_clause) # label(goal).  [goal].
+34 a(x,y,K(z,u)) = a(x,z,K(u,y)) # label("aK3 (1342)") # label(non_clause) # label(goal).  [goal].
+35 a(x,y,K(z,u)) = a(x,u,K(y,z)) # label("aK3 (1423)") # label(non_clause) # label(goal).  [goal].
+36 a(x,y,K(z,u)) = a(y,x,K(u,z)) # label("aK3 (2143)") # label(non_clause) # label(goal).  [goal].
+37 a(x,y,K(z,u)) = a(y,z,K(x,u)) # label("aK3 (2314)") # label(non_clause) # label(goal).  [goal].
+38 a(x,y,K(z,u)) = a(y,u,K(z,x)) # label("aK3 (2431)") # label(non_clause) # label(goal).  [goal].
+39 a(x,y,K(z,u)) = a(z,x,K(y,u)) # label("aK3 (3124)") # label(non_clause) # label(goal).  [goal].
+40 a(x,y,K(z,u)) = a(z,y,K(u,x)) # label("aK3 (3241)") # label(non_clause) # label(goal).  [goal].
+41 a(x,y,K(z,u)) = a(z,u,K(x,y)) # label("aK3 (3412)") # label(non_clause) # label(goal).  [goal].
+42 a(x,y,K(z,u)) = a(u,x,K(z,y)) # label("aK3 (4132)") # label(non_clause) # label(goal).  [goal].
+43 a(x,y,K(z,u)) = a(u,y,K(x,z)) # label("aK3 (4213)") # label(non_clause) # label(goal).  [goal].
+44 a(x,y,K(z,u)) = a(u,z,K(y,x)) # label("aK3 (4321)") # label(non_clause) # label(goal).  [goal].
+
+============================== end of process non-clausal formulas ===
+
+============================== PROCESS INITIAL CLAUSES ===============
+
+% Clauses before input processing:
+
+formulas(usable).
+end_of_list.
+
+formulas(sos).
+a(x,K(y,z),u) = a(x,y,K(u,z)) # label("aK2_eq_aK3 (1243)").  [assumption].
+a(x,K(y,z),u) = a(x,z,K(y,u)) # label("aK2_eq_aK3 (1324)").  [assumption].
+a(x,K(y,z),u) = a(x,u,K(z,y)) # label("aK2_eq_aK3 (1432)").  [assumption].
+a(x,K(y,z),u) = a(y,x,K(z,u)) # label("aK2_eq_aK3 (2134)").  [assumption].
+a(x,K(y,z),u) = a(y,z,K(u,x)) # label("aK2_eq_aK3 (2341)").  [assumption].
+a(x,K(y,z),u) = a(y,u,K(x,z)) # label("aK2_eq_aK3 (2413)").  [assumption].
+a(x,K(y,z),u) = a(z,x,K(u,y)) # label("aK2_eq_aK3 (3142)").  [assumption].
+a(x,K(y,z),u) = a(z,y,K(x,u)) # label("aK2_eq_aK3 (3214)").  [assumption].
+a(x,K(y,z),u) = a(z,u,K(y,x)) # label("aK2_eq_aK3 (3421)").  [assumption].
+a(x,K(y,z),u) = a(u,x,K(y,z)) # label("aK2_eq_aK3 (4123)").  [assumption].
+a(x,K(y,z),u) = a(u,y,K(z,x)) # label("aK2_eq_aK3 (4231)").  [assumption].
+a(x,K(y,z),u) = a(u,z,K(x,y)) # label("aK2_eq_aK3 (4312)").  [assumption].
+a(K(x,y),z,u) = a(x,z,K(u,y)) # label("aK1_eq_aK3").  [assumption].
+K(a(x,y,z),u) = a(x,y,K(z,u)) # label("Ka_eq_aK3").  [assumption].
+x != y | y != z | x = z # label("Transitivity =").  [assumption].
+K(a(c1,c3,c4),c2) != K(a(c1,c2,c3),c4) # label("Ka (1342)").  [deny(1)].
+K(a(c5,c8,c6),c7) != K(a(c5,c6,c7),c8) # label("Ka (1423)").  [deny(2)].
+K(a(c10,c9,c12),c11) != K(a(c9,c10,c11),c12) # label("Ka (2143)").  [deny(3)].
+K(a(c14,c15,c13),c16) != K(a(c13,c14,c15),c16) # label("Ka (2314)").  [deny(4)].
+K(a(c18,c20,c19),c17) != K(a(c17,c18,c19),c20) # label("Ka (2431)").  [deny(5)].
+K(a(c23,c21,c22),c24) != K(a(c21,c22,c23),c24) # label("Ka (3124)").  [deny(6)].
+K(a(c27,c26,c28),c25) != K(a(c25,c26,c27),c28) # label("Ka (3241)").  [deny(7)].
+K(a(c31,c32,c29),c30) != K(a(c29,c30,c31),c32) # label("Ka (3412)").  [deny(8)].
+K(a(c36,c33,c35),c34) != K(a(c33,c34,c35),c36) # label("Ka (4132)").  [deny(9)].
+K(a(c40,c38,c37),c39) != K(a(c37,c38,c39),c40) # label("Ka (4213)").  [deny(10)].
+K(a(c44,c43,c42),c41) != K(a(c41,c42,c43),c44) # label("Ka (4321)").  [deny(11)].
+a(K(c45,c47),c48,c46) != a(K(c45,c46),c47,c48) # label("aK1 (1342)").  [deny(12)].
+a(K(c49,c52),c50,c51) != a(K(c49,c50),c51,c52) # label("aK1 (1423)").  [deny(13)].
+a(K(c54,c53),c56,c55) != a(K(c53,c54),c55,c56) # label("aK1 (2143)").  [deny(14)].
+a(K(c58,c59),c57,c60) != a(K(c57,c58),c59,c60) # label("aK1 (2314)").  [deny(15)].
+a(K(c62,c64),c63,c61) != a(K(c61,c62),c63,c64) # label("aK1 (2431)").  [deny(16)].
+a(K(c67,c65),c66,c68) != a(K(c65,c66),c67,c68) # label("aK1 (3124)").  [deny(17)].
+a(K(c71,c70),c72,c69) != a(K(c69,c70),c71,c72) # label("aK1 (3241)").  [deny(18)].
+a(K(c75,c76),c73,c74) != a(K(c73,c74),c75,c76) # label("aK1 (3412)").  [deny(19)].
+a(K(c80,c77),c79,c78) != a(K(c77,c78),c79,c80) # label("aK1 (4132)").  [deny(20)].
+a(K(c84,c82),c81,c83) != a(K(c81,c82),c83,c84) # label("aK1 (4213)").  [deny(21)].
+a(K(c88,c87),c86,c85) != a(K(c85,c86),c87,c88) # label("aK1 (4321)").  [deny(22)].
+a(c89,K(c91,c92),c90) != a(c89,K(c90,c91),c92) # label("aK2 (1342)").  [deny(23)].
+a(c93,K(c96,c94),c95) != a(c93,K(c94,c95),c96) # label("aK2 (1423)").  [deny(24)].
+a(c98,K(c97,c100),c99) != a(c97,K(c98,c99),c100) # label("aK2 (2143)").  [deny(25)].
+a(c102,K(c103,c101),c104) != a(c101,K(c102,c103),c104) # label("aK2 (2314)").  [deny(26)].
+a(c106,K(c108,c107),c105) != a(c105,K(c106,c107),c108) # label("aK2 (2431)").  [deny(27)].
+a(c111,K(c109,c110),c112) != a(c109,K(c110,c111),c112) # label("aK2 (3124)").  [deny(28)].
+a(c115,K(c114,c116),c113) != a(c113,K(c114,c115),c116) # label("aK2 (3241)").  [deny(29)].
+a(c119,K(c120,c117),c118) != a(c117,K(c118,c119),c120) # label("aK2 (3412)").  [deny(30)].
+a(c124,K(c121,c123),c122) != a(c121,K(c122,c123),c124) # label("aK2 (4132)").  [deny(31)].
+a(c128,K(c126,c125),c127) != a(c125,K(c126,c127),c128) # label("aK2 (4213)").  [deny(32)].
+a(c132,K(c131,c130),c129) != a(c129,K(c130,c131),c132) # label("aK2 (4321)").  [deny(33)].
+a(c133,c135,K(c136,c134)) != a(c133,c134,K(c135,c136)) # label("aK3 (1342)").  [deny(34)].
+a(c137,c140,K(c138,c139)) != a(c137,c138,K(c139,c140)) # label("aK3 (1423)").  [deny(35)].
+a(c142,c141,K(c144,c143)) != a(c141,c142,K(c143,c144)) # label("aK3 (2143)").  [deny(36)].
+a(c146,c147,K(c145,c148)) != a(c145,c146,K(c147,c148)) # label("aK3 (2314)").  [deny(37)].
+a(c150,c152,K(c151,c149)) != a(c149,c150,K(c151,c152)) # label("aK3 (2431)").  [deny(38)].
+a(c155,c153,K(c154,c156)) != a(c153,c154,K(c155,c156)) # label("aK3 (3124)").  [deny(39)].
+a(c159,c158,K(c160,c157)) != a(c157,c158,K(c159,c160)) # label("aK3 (3241)").  [deny(40)].
+a(c163,c164,K(c161,c162)) != a(c161,c162,K(c163,c164)) # label("aK3 (3412)").  [deny(41)].
+a(c168,c165,K(c167,c166)) != a(c165,c166,K(c167,c168)) # label("aK3 (4132)").  [deny(42)].
+a(c172,c170,K(c169,c171)) != a(c169,c170,K(c171,c172)) # label("aK3 (4213)").  [deny(43)].
+a(c176,c175,K(c174,c173)) != a(c173,c174,K(c175,c176)) # label("aK3 (4321)").  [deny(44)].
+end_of_list.
+
+formulas(demodulators).
+end_of_list.
+
+% 72 hints input.
+
+============================== PREDICATE ELIMINATION =================
+
+No predicates eliminated.
+
+============================== end predicate elimination =============
+
+Auto_denials:
+  % copying label "Ka (1342)" to answer in negative clause
+  % copying label "Ka (1423)" to answer in negative clause
+  % copying label "Ka (2143)" to answer in negative clause
+  % copying label "Ka (2314)" to answer in negative clause
+  % copying label "Ka (2431)" to answer in negative clause
+  % copying label "Ka (3124)" to answer in negative clause
+  % copying label "Ka (3241)" to answer in negative clause
+  % copying label "Ka (3412)" to answer in negative clause
+  % copying label "Ka (4132)" to answer in negative clause
+  % copying label "Ka (4213)" to answer in negative clause
+  % copying label "Ka (4321)" to answer in negative clause
+  % copying label "aK1 (1342)" to answer in negative clause
+  % copying label "aK1 (1423)" to answer in negative clause
+  % copying label "aK1 (2143)" to answer in negative clause
+  % copying label "aK1 (2314)" to answer in negative clause
+  % copying label "aK1 (2431)" to answer in negative clause
+  % copying label "aK1 (3124)" to answer in negative clause
+  % copying label "aK1 (3241)" to answer in negative clause
+  % copying label "aK1 (3412)" to answer in negative clause
+  % copying label "aK1 (4132)" to answer in negative clause
+  % copying label "aK1 (4213)" to answer in negative clause
+  % copying label "aK1 (4321)" to answer in negative clause
+  % copying label "aK2 (1342)" to answer in negative clause
+  % copying label "aK2 (1423)" to answer in negative clause
+  % copying label "aK2 (2143)" to answer in negative clause
+  % copying label "aK2 (2314)" to answer in negative clause
+  % copying label "aK2 (2431)" to answer in negative clause
+  % copying label "aK2 (3124)" to answer in negative clause
+  % copying label "aK2 (3241)" to answer in negative clause
+  % copying label "aK2 (3412)" to answer in negative clause
+  % copying label "aK2 (4132)" to answer in negative clause
+  % copying label "aK2 (4213)" to answer in negative clause
+  % copying label "aK2 (4321)" to answer in negative clause
+  % copying label "aK3 (1342)" to answer in negative clause
+  % copying label "aK3 (1423)" to answer in negative clause
+  % copying label "aK3 (2143)" to answer in negative clause
+  % copying label "aK3 (2314)" to answer in negative clause
+  % copying label "aK3 (2431)" to answer in negative clause
+  % copying label "aK3 (3124)" to answer in negative clause
+  % copying label "aK3 (3241)" to answer in negative clause
+  % copying label "aK3 (3412)" to answer in negative clause
+  % copying label "aK3 (4132)" to answer in negative clause
+  % copying label "aK3 (4213)" to answer in negative clause
+  % copying label "aK3 (4321)" to answer in negative clause
+  % assign(max_proofs, 44).  % (Horn set with more than one neg. clause)
+
+Term ordering decisions:
+Function symbol KB weights:  c1=1. c2=1. c3=1. c4=1. c5=1. c6=1. c7=1. c8=1. c9=1. c10=1. c11=1. c12=1. c13=1. c14=1. c15=1. c16=1. c17=1. c18=1. c19=1. c20=1. c21=1. c22=1. c23=1. c24=1. c25=1. c26=1. c27=1. c28=1. c29=1. c30=1. c31=1. c32=1. c33=1. c34=1. c35=1. c36=1. c37=1. c38=1. c39=1. c40=1. c41=1. c42=1. c43=1. c44=1. c45=1. c46=1. c47=1. c48=1. c49=1. c50=1. c51=1. c52=1. c53=1. c54=1. c55=1. c56=1. c57=1. c58=1. c59=1. c60=1. c61=1. c62=1. c63=1. c64=1. c65=1. c66=1. c67=1. c68=1. c69=1. c70=1. c71=1. c72=1. c73=1. c74=1. c75=1. c76=1. c77=1. c78=1. c79=1. c80=1. c81=1. c82=1. c83=1. c84=1. c85=1. c86=1. c87=1. c88=1. c89=1. c90=1. c91=1. c92=1. c93=1. c94=1. c95=1. c96=1. c97=1. c98=1. c99=1. c100=1. c101=1. c102=1. c103=1. c104=1. c105=1. c106=1. c107=1. c108=1. c109=1. c110=1. c111=1. c112=1. c113=1. c114=1. c115=1. c116=1. c117=1. c118=1. c119=1. c120=1. c121=1. c122=1. c123=1. c124=1. c125=1. c126=1. c127=1. c128=1. c129=1. c130=1. c131=1. c132=1. c133=1. c134=1. c135=1. c136=1. c137=1. c138=1. c139=1. c140=1. c141=1. c142=1. c143=1. c144=1. c145=1. c146=1. c147=1. c148=1. c149=1. c150=1. c151=1. c152=1. c153=1. c154=1. c155=1. c156=1. c157=1. c158=1. c159=1. c160=1. c161=1. c162=1. c163=1. c164=1. c165=1. c166=1. c167=1. c168=1. c169=1. c170=1. c171=1. c172=1. c173=1. c174=1. c175=1. c176=1. K=1. a=1.
+Predicate symbol precedence:  predicate_order([ = ]).
+Function symbol precedence:  function_order([ c1, c2, c3, c4, c5, c6, c7, c8, c9, c10, c11, c12, c13, c14, c15, c16, c17, c18, c19, c20, c21, c22, c23, c24, c25, c26, c27, c28, c29, c30, c31, c32, c33, c34, c35, c36, c37, c38, c39, c40, c41, c42, c43, c44, c45, c46, c47, c48, c49, c50, c51, c52, c53, c54, c55, c56, c57, c58, c59, c60, c61, c62, c63, c64, c65, c66, c67, c68, c69, c70, c71, c72, c73, c74, c75, c76, c77, c78, c79, c80, c81, c82, c83, c84, c85, c86, c87, c88, c89, c90, c91, c92, c93, c94, c95, c96, c97, c98, c99, c100, c101, c102, c103, c104, c105, c106, c107, c108, c109, c110, c111, c112, c113, c114, c115, c116, c117, c118, c119, c120, c121, c122, c123, c124, c125, c126, c127, c128, c129, c130, c131, c132, c133, c134, c135, c136, c137, c138, c139, c140, c141, c142, c143, c144, c145, c146, c147, c148, c149, c150, c151, c152, c153, c154, c155, c156, c157, c158, c159, c160, c161, c162, c163, c164, c165, c166, c167, c168, c169, c170, c171, c172, c173, c174, c175, c176, K, a ]).
+Skipping inverse_order, because term ordering is KBO.
+Unfolding symbols: (none).
+
+Auto_inference settings:
+  % set(paramodulation).  % (positive equality literals)
+  % set(hyper_resolution).  % (nonunit Horn with equality)
+    % set(hyper_resolution) -> set(pos_hyper_resolution).
+  % set(neg_ur_resolution).  % (nonunit Horn with equality)
+  % assign(para_lit_limit, 3).  % (nonunit Horn with equality)
+
+Auto_process settings:  (no changes).
+
+kept:      45 a(x,K(y,z),u) = a(x,y,K(u,z)) # label("aK2_eq_aK3 (1243)").  [assumption].
+kept:      46 a(x,K(y,z),u) = a(x,z,K(y,u)) # label("aK2_eq_aK3 (1324)").  [assumption].
+kept:      47 a(x,K(y,z),u) = a(x,u,K(z,y)) # label("aK2_eq_aK3 (1432)").  [assumption].
+kept:      48 a(x,K(y,z),u) = a(y,x,K(z,u)) # label("aK2_eq_aK3 (2134)").  [assumption].
+kept:      49 a(x,K(y,z),u) = a(y,z,K(u,x)) # label("aK2_eq_aK3 (2341)").  [assumption].
+kept:      50 a(x,K(y,z),u) = a(y,u,K(x,z)) # label("aK2_eq_aK3 (2413)").  [assumption].
+kept:      51 a(x,K(y,z),u) = a(z,x,K(u,y)) # label("aK2_eq_aK3 (3142)").  [assumption].
+kept:      52 a(x,K(y,z),u) = a(z,y,K(x,u)) # label("aK2_eq_aK3 (3214)").  [assumption].
+kept:      53 a(x,K(y,z),u) = a(z,u,K(y,x)) # label("aK2_eq_aK3 (3421)").  [assumption].
+kept:      54 a(x,K(y,z),u) = a(u,x,K(y,z)) # label("aK2_eq_aK3 (4123)").  [assumption].
+kept:      55 a(x,K(y,z),u) = a(u,y,K(z,x)) # label("aK2_eq_aK3 (4231)").  [assumption].
+kept:      56 a(x,K(y,z),u) = a(u,z,K(x,y)) # label("aK2_eq_aK3 (4312)").  [assumption].
+kept:      57 a(K(x,y),z,u) = a(x,z,K(u,y)) # label("aK1_eq_aK3").  [assumption].
+           58 K(a(x,y,z),u) = a(x,y,K(z,u)) # label("Ka_eq_aK3").  [assumption].
+kept:      59 a(x,y,K(z,u)) = K(a(x,y,z),u).  [copy(58),flip(a)].
+kept:      60 x != y | y != z | x = z # label("Transitivity =").  [assumption].
+kept:      61 K(a(c1,c3,c4),c2) != K(a(c1,c2,c3),c4) # label("Ka (1342)") # answer("Ka (1342)").  [deny(1)].
+kept:      62 K(a(c5,c8,c6),c7) != K(a(c5,c6,c7),c8) # label("Ka (1423)") # answer("Ka (1423)").  [deny(2)].
+kept:      63 K(a(c10,c9,c12),c11) != K(a(c9,c10,c11),c12) # label("Ka (2143)") # answer("Ka (2143)").  [deny(3)].
+kept:      64 K(a(c14,c15,c13),c16) != K(a(c13,c14,c15),c16) # label("Ka (2314)") # answer("Ka (2314)").  [deny(4)].
+kept:      65 K(a(c18,c20,c19),c17) != K(a(c17,c18,c19),c20) # label("Ka (2431)") # answer("Ka (2431)").  [deny(5)].
+kept:      66 K(a(c23,c21,c22),c24) != K(a(c21,c22,c23),c24) # label("Ka (3124)") # answer("Ka (3124)").  [deny(6)].
+kept:      67 K(a(c27,c26,c28),c25) != K(a(c25,c26,c27),c28) # label("Ka (3241)") # answer("Ka (3241)").  [deny(7)].
+kept:      68 K(a(c31,c32,c29),c30) != K(a(c29,c30,c31),c32) # label("Ka (3412)") # answer("Ka (3412)").  [deny(8)].
+kept:      69 K(a(c36,c33,c35),c34) != K(a(c33,c34,c35),c36) # label("Ka (4132)") # answer("Ka (4132)").  [deny(9)].
+kept:      70 K(a(c40,c38,c37),c39) != K(a(c37,c38,c39),c40) # label("Ka (4213)") # answer("Ka (4213)").  [deny(10)].
+kept:      71 K(a(c44,c43,c42),c41) != K(a(c41,c42,c43),c44) # label("Ka (4321)") # answer("Ka (4321)").  [deny(11)].
+kept:      72 a(K(c45,c47),c48,c46) != a(K(c45,c46),c47,c48) # label("aK1 (1342)") # answer("aK1 (1342)").  [deny(12)].
+kept:      73 a(K(c49,c52),c50,c51) != a(K(c49,c50),c51,c52) # label("aK1 (1423)") # answer("aK1 (1423)").  [deny(13)].
+kept:      74 a(K(c54,c53),c56,c55) != a(K(c53,c54),c55,c56) # label("aK1 (2143)") # answer("aK1 (2143)").  [deny(14)].
+kept:      75 a(K(c58,c59),c57,c60) != a(K(c57,c58),c59,c60) # label("aK1 (2314)") # answer("aK1 (2314)").  [deny(15)].
+kept:      76 a(K(c62,c64),c63,c61) != a(K(c61,c62),c63,c64) # label("aK1 (2431)") # answer("aK1 (2431)").  [deny(16)].
+kept:      77 a(K(c67,c65),c66,c68) != a(K(c65,c66),c67,c68) # label("aK1 (3124)") # answer("aK1 (3124)").  [deny(17)].
+kept:      78 a(K(c71,c70),c72,c69) != a(K(c69,c70),c71,c72) # label("aK1 (3241)") # answer("aK1 (3241)").  [deny(18)].
+kept:      79 a(K(c75,c76),c73,c74) != a(K(c73,c74),c75,c76) # label("aK1 (3412)") # answer("aK1 (3412)").  [deny(19)].
+kept:      80 a(K(c80,c77),c79,c78) != a(K(c77,c78),c79,c80) # label("aK1 (4132)") # answer("aK1 (4132)").  [deny(20)].
+kept:      81 a(K(c84,c82),c81,c83) != a(K(c81,c82),c83,c84) # label("aK1 (4213)") # answer("aK1 (4213)").  [deny(21)].
+kept:      82 a(K(c88,c87),c86,c85) != a(K(c85,c86),c87,c88) # label("aK1 (4321)") # answer("aK1 (4321)").  [deny(22)].
+kept:      83 a(c89,K(c91,c92),c90) != a(c89,K(c90,c91),c92) # label("aK2 (1342)") # answer("aK2 (1342)").  [deny(23)].
+kept:      84 a(c93,K(c96,c94),c95) != a(c93,K(c94,c95),c96) # label("aK2 (1423)") # answer("aK2 (1423)").  [deny(24)].
+kept:      85 a(c98,K(c97,c100),c99) != a(c97,K(c98,c99),c100) # label("aK2 (2143)") # answer("aK2 (2143)").  [deny(25)].
+kept:      86 a(c102,K(c103,c101),c104) != a(c101,K(c102,c103),c104) # label("aK2 (2314)") # answer("aK2 (2314)").  [deny(26)].
+kept:      87 a(c106,K(c108,c107),c105) != a(c105,K(c106,c107),c108) # label("aK2 (2431)") # answer("aK2 (2431)").  [deny(27)].
+kept:      88 a(c111,K(c109,c110),c112) != a(c109,K(c110,c111),c112) # label("aK2 (3124)") # answer("aK2 (3124)").  [deny(28)].
+kept:      89 a(c115,K(c114,c116),c113) != a(c113,K(c114,c115),c116) # label("aK2 (3241)") # answer("aK2 (3241)").  [deny(29)].
+kept:      90 a(c119,K(c120,c117),c118) != a(c117,K(c118,c119),c120) # label("aK2 (3412)") # answer("aK2 (3412)").  [deny(30)].
+kept:      91 a(c124,K(c121,c123),c122) != a(c121,K(c122,c123),c124) # label("aK2 (4132)") # answer("aK2 (4132)").  [deny(31)].
+kept:      92 a(c128,K(c126,c125),c127) != a(c125,K(c126,c127),c128) # label("aK2 (4213)") # answer("aK2 (4213)").  [deny(32)].
+kept:      93 a(c132,K(c131,c130),c129) != a(c129,K(c130,c131),c132) # label("aK2 (4321)") # answer("aK2 (4321)").  [deny(33)].
+kept:      94 a(c133,c135,K(c136,c134)) != a(c133,c134,K(c135,c136)) # label("aK3 (1342)") # answer("aK3 (1342)").  [deny(34)].
+kept:      95 a(c137,c140,K(c138,c139)) != a(c137,c138,K(c139,c140)) # label("aK3 (1423)") # answer("aK3 (1423)").  [deny(35)].
+kept:      96 a(c142,c141,K(c144,c143)) != a(c141,c142,K(c143,c144)) # label("aK3 (2143)") # answer("aK3 (2143)").  [deny(36)].
+kept:      97 a(c146,c147,K(c145,c148)) != a(c145,c146,K(c147,c148)) # label("aK3 (2314)") # answer("aK3 (2314)").  [deny(37)].
+kept:      98 a(c150,c152,K(c151,c149)) != a(c149,c150,K(c151,c152)) # label("aK3 (2431)") # answer("aK3 (2431)").  [deny(38)].
+kept:      99 a(c155,c153,K(c154,c156)) != a(c153,c154,K(c155,c156)) # label("aK3 (3124)") # answer("aK3 (3124)").  [deny(39)].
+kept:      100 a(c159,c158,K(c160,c157)) != a(c157,c158,K(c159,c160)) # label("aK3 (3241)") # answer("aK3 (3241)").  [deny(40)].
+kept:      101 a(c163,c164,K(c161,c162)) != a(c161,c162,K(c163,c164)) # label("aK3 (3412)") # answer("aK3 (3412)").  [deny(41)].
+kept:      102 a(c168,c165,K(c167,c166)) != a(c165,c166,K(c167,c168)) # label("aK3 (4132)") # answer("aK3 (4132)").  [deny(42)].
+kept:      103 a(c172,c170,K(c169,c171)) != a(c169,c170,K(c171,c172)) # label("aK3 (4213)") # answer("aK3 (4213)").  [deny(43)].
+kept:      104 a(c176,c175,K(c174,c173)) != a(c173,c174,K(c175,c176)) # label("aK3 (4321)") # answer("aK3 (4321)").  [deny(44)].
+
+============================== end of process initial clauses ========
+
+============================== CLAUSES FOR SEARCH ====================
+
+% Clauses after input processing:
+
+formulas(usable).
+61 K(a(c1,c3,c4),c2) != K(a(c1,c2,c3),c4) # label("Ka (1342)") # answer("Ka (1342)").  [deny(1)].
+62 K(a(c5,c8,c6),c7) != K(a(c5,c6,c7),c8) # label("Ka (1423)") # answer("Ka (1423)").  [deny(2)].
+63 K(a(c10,c9,c12),c11) != K(a(c9,c10,c11),c12) # label("Ka (2143)") # answer("Ka (2143)").  [deny(3)].
+64 K(a(c14,c15,c13),c16) != K(a(c13,c14,c15),c16) # label("Ka (2314)") # answer("Ka (2314)").  [deny(4)].
+65 K(a(c18,c20,c19),c17) != K(a(c17,c18,c19),c20) # label("Ka (2431)") # answer("Ka (2431)").  [deny(5)].
+66 K(a(c23,c21,c22),c24) != K(a(c21,c22,c23),c24) # label("Ka (3124)") # answer("Ka (3124)").  [deny(6)].
+67 K(a(c27,c26,c28),c25) != K(a(c25,c26,c27),c28) # label("Ka (3241)") # answer("Ka (3241)").  [deny(7)].
+68 K(a(c31,c32,c29),c30) != K(a(c29,c30,c31),c32) # label("Ka (3412)") # answer("Ka (3412)").  [deny(8)].
+69 K(a(c36,c33,c35),c34) != K(a(c33,c34,c35),c36) # label("Ka (4132)") # answer("Ka (4132)").  [deny(9)].
+70 K(a(c40,c38,c37),c39) != K(a(c37,c38,c39),c40) # label("Ka (4213)") # answer("Ka (4213)").  [deny(10)].
+71 K(a(c44,c43,c42),c41) != K(a(c41,c42,c43),c44) # label("Ka (4321)") # answer("Ka (4321)").  [deny(11)].
+72 a(K(c45,c47),c48,c46) != a(K(c45,c46),c47,c48) # label("aK1 (1342)") # answer("aK1 (1342)").  [deny(12)].
+73 a(K(c49,c52),c50,c51) != a(K(c49,c50),c51,c52) # label("aK1 (1423)") # answer("aK1 (1423)").  [deny(13)].
+74 a(K(c54,c53),c56,c55) != a(K(c53,c54),c55,c56) # label("aK1 (2143)") # answer("aK1 (2143)").  [deny(14)].
+75 a(K(c58,c59),c57,c60) != a(K(c57,c58),c59,c60) # label("aK1 (2314)") # answer("aK1 (2314)").  [deny(15)].
+76 a(K(c62,c64),c63,c61) != a(K(c61,c62),c63,c64) # label("aK1 (2431)") # answer("aK1 (2431)").  [deny(16)].
+77 a(K(c67,c65),c66,c68) != a(K(c65,c66),c67,c68) # label("aK1 (3124)") # answer("aK1 (3124)").  [deny(17)].
+78 a(K(c71,c70),c72,c69) != a(K(c69,c70),c71,c72) # label("aK1 (3241)") # answer("aK1 (3241)").  [deny(18)].
+79 a(K(c75,c76),c73,c74) != a(K(c73,c74),c75,c76) # label("aK1 (3412)") # answer("aK1 (3412)").  [deny(19)].
+80 a(K(c80,c77),c79,c78) != a(K(c77,c78),c79,c80) # label("aK1 (4132)") # answer("aK1 (4132)").  [deny(20)].
+81 a(K(c84,c82),c81,c83) != a(K(c81,c82),c83,c84) # label("aK1 (4213)") # answer("aK1 (4213)").  [deny(21)].
+82 a(K(c88,c87),c86,c85) != a(K(c85,c86),c87,c88) # label("aK1 (4321)") # answer("aK1 (4321)").  [deny(22)].
+83 a(c89,K(c91,c92),c90) != a(c89,K(c90,c91),c92) # label("aK2 (1342)") # answer("aK2 (1342)").  [deny(23)].
+84 a(c93,K(c96,c94),c95) != a(c93,K(c94,c95),c96) # label("aK2 (1423)") # answer("aK2 (1423)").  [deny(24)].
+85 a(c98,K(c97,c100),c99) != a(c97,K(c98,c99),c100) # label("aK2 (2143)") # answer("aK2 (2143)").  [deny(25)].
+86 a(c102,K(c103,c101),c104) != a(c101,K(c102,c103),c104) # label("aK2 (2314)") # answer("aK2 (2314)").  [deny(26)].
+87 a(c106,K(c108,c107),c105) != a(c105,K(c106,c107),c108) # label("aK2 (2431)") # answer("aK2 (2431)").  [deny(27)].
+88 a(c111,K(c109,c110),c112) != a(c109,K(c110,c111),c112) # label("aK2 (3124)") # answer("aK2 (3124)").  [deny(28)].
+89 a(c115,K(c114,c116),c113) != a(c113,K(c114,c115),c116) # label("aK2 (3241)") # answer("aK2 (3241)").  [deny(29)].
+90 a(c119,K(c120,c117),c118) != a(c117,K(c118,c119),c120) # label("aK2 (3412)") # answer("aK2 (3412)").  [deny(30)].
+91 a(c124,K(c121,c123),c122) != a(c121,K(c122,c123),c124) # label("aK2 (4132)") # answer("aK2 (4132)").  [deny(31)].
+92 a(c128,K(c126,c125),c127) != a(c125,K(c126,c127),c128) # label("aK2 (4213)") # answer("aK2 (4213)").  [deny(32)].
+93 a(c132,K(c131,c130),c129) != a(c129,K(c130,c131),c132) # label("aK2 (4321)") # answer("aK2 (4321)").  [deny(33)].
+94 a(c133,c135,K(c136,c134)) != a(c133,c134,K(c135,c136)) # label("aK3 (1342)") # answer("aK3 (1342)").  [deny(34)].
+95 a(c137,c140,K(c138,c139)) != a(c137,c138,K(c139,c140)) # label("aK3 (1423)") # answer("aK3 (1423)").  [deny(35)].
+96 a(c142,c141,K(c144,c143)) != a(c141,c142,K(c143,c144)) # label("aK3 (2143)") # answer("aK3 (2143)").  [deny(36)].
+97 a(c146,c147,K(c145,c148)) != a(c145,c146,K(c147,c148)) # label("aK3 (2314)") # answer("aK3 (2314)").  [deny(37)].
+98 a(c150,c152,K(c151,c149)) != a(c149,c150,K(c151,c152)) # label("aK3 (2431)") # answer("aK3 (2431)").  [deny(38)].
+99 a(c155,c153,K(c154,c156)) != a(c153,c154,K(c155,c156)) # label("aK3 (3124)") # answer("aK3 (3124)").  [deny(39)].
+100 a(c159,c158,K(c160,c157)) != a(c157,c158,K(c159,c160)) # label("aK3 (3241)") # answer("aK3 (3241)").  [deny(40)].
+101 a(c163,c164,K(c161,c162)) != a(c161,c162,K(c163,c164)) # label("aK3 (3412)") # answer("aK3 (3412)").  [deny(41)].
+102 a(c168,c165,K(c167,c166)) != a(c165,c166,K(c167,c168)) # label("aK3 (4132)") # answer("aK3 (4132)").  [deny(42)].
+103 a(c172,c170,K(c169,c171)) != a(c169,c170,K(c171,c172)) # label("aK3 (4213)") # answer("aK3 (4213)").  [deny(43)].
+104 a(c176,c175,K(c174,c173)) != a(c173,c174,K(c175,c176)) # label("aK3 (4321)") # answer("aK3 (4321)").  [deny(44)].
+end_of_list.
+
+formulas(sos).
+45 a(x,K(y,z),u) = a(x,y,K(u,z)) # label("aK2_eq_aK3 (1243)").  [assumption].
+46 a(x,K(y,z),u) = a(x,z,K(y,u)) # label("aK2_eq_aK3 (1324)").  [assumption].
+47 a(x,K(y,z),u) = a(x,u,K(z,y)) # label("aK2_eq_aK3 (1432)").  [assumption].
+48 a(x,K(y,z),u) = a(y,x,K(z,u)) # label("aK2_eq_aK3 (2134)").  [assumption].
+49 a(x,K(y,z),u) = a(y,z,K(u,x)) # label("aK2_eq_aK3 (2341)").  [assumption].
+50 a(x,K(y,z),u) = a(y,u,K(x,z)) # label("aK2_eq_aK3 (2413)").  [assumption].
+51 a(x,K(y,z),u) = a(z,x,K(u,y)) # label("aK2_eq_aK3 (3142)").  [assumption].
+52 a(x,K(y,z),u) = a(z,y,K(x,u)) # label("aK2_eq_aK3 (3214)").  [assumption].
+53 a(x,K(y,z),u) = a(z,u,K(y,x)) # label("aK2_eq_aK3 (3421)").  [assumption].
+54 a(x,K(y,z),u) = a(u,x,K(y,z)) # label("aK2_eq_aK3 (4123)").  [assumption].
+55 a(x,K(y,z),u) = a(u,y,K(z,x)) # label("aK2_eq_aK3 (4231)").  [assumption].
+56 a(x,K(y,z),u) = a(u,z,K(x,y)) # label("aK2_eq_aK3 (4312)").  [assumption].
+57 a(K(x,y),z,u) = a(x,z,K(u,y)) # label("aK1_eq_aK3").  [assumption].
+59 a(x,y,K(z,u)) = K(a(x,y,z),u).  [copy(58),flip(a)].
+60 x != y | y != z | x = z # label("Transitivity =").  [assumption].
+end_of_list.
+
+formulas(demodulators).
+end_of_list.
+
+% 49 hints (72 processed, 23 redundant).
+
+============================== end of clauses for search =============
+
+============================== SEARCH ================================
+
+% Starting search at 0.01 seconds.
+
+given #1 (I,wt=13): 45 a(x,K(y,z),u) = a(x,y,K(u,z)) # label("aK2_eq_aK3 (1243)").  [assumption].
+
+given #2 (I,wt=13): 46 a(x,K(y,z),u) = a(x,z,K(y,u)) # label("aK2_eq_aK3 (1324)").  [assumption].
+
+============================== PROOF =================================
+
+% Proof 1 at 0.01 (+ 0.01) seconds: "aK3 (1342)".
+% Length of proof: 6 (0 new hints)
+% Level of proof: 2
+% Maximum clause weight: 13.000
+% Given clauses in run: 2
+% Given clauses in proof: 2 (0 new hints)
+
+34 a(x,y,K(z,u)) = a(x,z,K(u,y)) # label("aK3 (1342)") # label(non_clause) # label(goal).  [goal].
+45 a(x,K(y,z),u) = a(x,y,K(u,z)) # label("aK2_eq_aK3 (1243)").  [assumption].
+46 a(x,K(y,z),u) = a(x,z,K(y,u)) # label("aK2_eq_aK3 (1324)").  [assumption].
+94 a(c133,c135,K(c136,c134)) != a(c133,c134,K(c135,c136)) # label("aK3 (1342)") # answer("aK3 (1342)").  [deny(34)].
+105 a(x,y,K(z,u)) = a(x,u,K(y,z)).  [para(46(a,1),45(a,1)),flip(a)].
+106 $F # answer("aK3 (1342)").  [resolve(105,a,94,a)].
+
+============================== end of proof ==========================
+
+============================== PROOF =================================
+
+% Proof 2 at 0.01 (+ 0.01) seconds: "aK3 (1423)".
+% Length of proof: 6 (0 new hints)
+% Level of proof: 2
+% Maximum clause weight: 13.000
+% Given clauses in run: 2
+% Given clauses in proof: 2 (0 new hints)
+
+35 a(x,y,K(z,u)) = a(x,u,K(y,z)) # label("aK3 (1423)") # label(non_clause) # label(goal).  [goal].
+45 a(x,K(y,z),u) = a(x,y,K(u,z)) # label("aK2_eq_aK3 (1243)").  [assumption].
+46 a(x,K(y,z),u) = a(x,z,K(y,u)) # label("aK2_eq_aK3 (1324)").  [assumption].
+95 a(c137,c140,K(c138,c139)) != a(c137,c138,K(c139,c140)) # label("aK3 (1423)") # answer("aK3 (1423)").  [deny(35)].
+105 a(x,y,K(z,u)) = a(x,u,K(y,z)).  [para(46(a,1),45(a,1)),flip(a)].
+107 $F # answer("aK3 (1423)").  [resolve(105,a,95,a(flip))].
+
+============================== end of proof ==========================
+
+============================== PROOF =================================
+
+% Proof 3 at 0.01 (+ 0.01) seconds: "aK2 (1342)".
+% Length of proof: 6 (0 new hints)
+% Level of proof: 2
+% Maximum clause weight: 13.000
+% Given clauses in run: 2
+% Given clauses in proof: 2 (0 new hints)
+
+23 a(x,K(y,z),u) = a(x,K(z,u),y) # label("aK2 (1342)") # label(non_clause) # label(goal).  [goal].
+45 a(x,K(y,z),u) = a(x,y,K(u,z)) # label("aK2_eq_aK3 (1243)").  [assumption].
+46 a(x,K(y,z),u) = a(x,z,K(y,u)) # label("aK2_eq_aK3 (1324)").  [assumption].
+83 a(c89,K(c91,c92),c90) != a(c89,K(c90,c91),c92) # label("aK2 (1342)") # answer("aK2 (1342)").  [deny(23)].
+108 a(x,K(y,z),u) = a(x,K(u,y),z).  [para(46(a,2),45(a,2))].
+109 $F # answer("aK2 (1342)").  [resolve(108,a,83,a)].
+
+============================== end of proof ==========================
+
+============================== PROOF =================================
+
+% Proof 4 at 0.01 (+ 0.01) seconds: "aK2 (1423)".
+% Length of proof: 6 (0 new hints)
+% Level of proof: 2
+% Maximum clause weight: 13.000
+% Given clauses in run: 2
+% Given clauses in proof: 2 (0 new hints)
+
+24 a(x,K(y,z),u) = a(x,K(u,y),z) # label("aK2 (1423)") # label(non_clause) # label(goal).  [goal].
+45 a(x,K(y,z),u) = a(x,y,K(u,z)) # label("aK2_eq_aK3 (1243)").  [assumption].
+46 a(x,K(y,z),u) = a(x,z,K(y,u)) # label("aK2_eq_aK3 (1324)").  [assumption].
+84 a(c93,K(c96,c94),c95) != a(c93,K(c94,c95),c96) # label("aK2 (1423)") # answer("aK2 (1423)").  [deny(24)].
+108 a(x,K(y,z),u) = a(x,K(u,y),z).  [para(46(a,2),45(a,2))].
+110 $F # answer("aK2 (1423)").  [resolve(108,a,84,a(flip))].
+
+============================== end of proof ==========================
+
+% Disable descendants (x means already disabled):
+ 84 83 95 94
+
+given #3 (I,wt=13): 47 a(x,K(y,z),u) = a(x,u,K(z,y)) # label("aK2_eq_aK3 (1432)").  [assumption].
+
+given #4 (I,wt=13): 48 a(x,K(y,z),u) = a(y,x,K(z,u)) # label("aK2_eq_aK3 (2134)").  [assumption].
+
+============================== PROOF =================================
+
+% Proof 5 at 0.01 (+ 0.01) seconds: "aK3 (2143)".
+% Length of proof: 6 (0 new hints)
+% Level of proof: 2
+% Maximum clause weight: 13.000
+% Given clauses in run: 4
+% Given clauses in proof: 2 (0 new hints)
+
+36 a(x,y,K(z,u)) = a(y,x,K(u,z)) # label("aK3 (2143)") # label(non_clause) # label(goal).  [goal].
+45 a(x,K(y,z),u) = a(x,y,K(u,z)) # label("aK2_eq_aK3 (1243)").  [assumption].
+48 a(x,K(y,z),u) = a(y,x,K(z,u)) # label("aK2_eq_aK3 (2134)").  [assumption].
+96 a(c142,c141,K(c144,c143)) != a(c141,c142,K(c143,c144)) # label("aK3 (2143)") # answer("aK3 (2143)").  [deny(36)].
+111 a(x,y,K(z,u)) = a(y,x,K(u,z)).  [para(48(a,1),45(a,1))].
+112 $F # answer("aK3 (2143)").  [resolve(111,a,96,a)].
+
+============================== end of proof ==========================
+
+============================== PROOF =================================
+
+% Proof 6 at 0.01 (+ 0.01) seconds: "aK2 (2143)".
+% Length of proof: 6 (0 new hints)
+% Level of proof: 2
+% Maximum clause weight: 13.000
+% Given clauses in run: 4
+% Given clauses in proof: 2 (0 new hints)
+
+25 a(x,K(y,z),u) = a(y,K(x,u),z) # label("aK2 (2143)") # label(non_clause) # label(goal).  [goal].
+45 a(x,K(y,z),u) = a(x,y,K(u,z)) # label("aK2_eq_aK3 (1243)").  [assumption].
+48 a(x,K(y,z),u) = a(y,x,K(z,u)) # label("aK2_eq_aK3 (2134)").  [assumption].
+85 a(c98,K(c97,c100),c99) != a(c97,K(c98,c99),c100) # label("aK2 (2143)") # answer("aK2 (2143)").  [deny(25)].
+113 a(x,K(y,z),u) = a(y,K(x,u),z).  [para(48(a,2),45(a,2))].
+114 $F # answer("aK2 (2143)").  [resolve(113,a,85,a)].
+
+============================== end of proof ==========================
+
+============================== PROOF =================================
+
+% Proof 7 at 0.01 (+ 0.01) seconds: "aK3 (2314)".
+% Length of proof: 6 (0 new hints)
+% Level of proof: 2
+% Maximum clause weight: 13.000
+% Given clauses in run: 4
+% Given clauses in proof: 2 (0 new hints)
+
+37 a(x,y,K(z,u)) = a(y,z,K(x,u)) # label("aK3 (2314)") # label(non_clause) # label(goal).  [goal].
+46 a(x,K(y,z),u) = a(x,z,K(y,u)) # label("aK2_eq_aK3 (1324)").  [assumption].
+48 a(x,K(y,z),u) = a(y,x,K(z,u)) # label("aK2_eq_aK3 (2134)").  [assumption].
+97 a(c146,c147,K(c145,c148)) != a(c145,c146,K(c147,c148)) # label("aK3 (2314)") # answer("aK3 (2314)").  [deny(37)].
+115 a(x,y,K(z,u)) = a(z,x,K(y,u)).  [para(48(a,1),46(a,1)),flip(a)].
+116 $F # answer("aK3 (2314)").  [resolve(115,a,97,a)].
+
+============================== end of proof ==========================
+
+============================== PROOF =================================
+
+% Proof 8 at 0.01 (+ 0.01) seconds: "aK3 (3124)".
+% Length of proof: 6 (0 new hints)
+% Level of proof: 2
+% Maximum clause weight: 13.000
+% Given clauses in run: 4
+% Given clauses in proof: 2 (0 new hints)
+
+39 a(x,y,K(z,u)) = a(z,x,K(y,u)) # label("aK3 (3124)") # label(non_clause) # label(goal).  [goal].
+46 a(x,K(y,z),u) = a(x,z,K(y,u)) # label("aK2_eq_aK3 (1324)").  [assumption].
+48 a(x,K(y,z),u) = a(y,x,K(z,u)) # label("aK2_eq_aK3 (2134)").  [assumption].
+99 a(c155,c153,K(c154,c156)) != a(c153,c154,K(c155,c156)) # label("aK3 (3124)") # answer("aK3 (3124)").  [deny(39)].
+115 a(x,y,K(z,u)) = a(z,x,K(y,u)).  [para(48(a,1),46(a,1)),flip(a)].
+117 $F # answer("aK3 (3124)").  [resolve(115,a,99,a(flip))].
+
+============================== end of proof ==========================
+
+============================== PROOF =================================
+
+% Proof 9 at 0.01 (+ 0.01) seconds: "aK2 (2314)".
+% Length of proof: 6 (0 new hints)
+% Level of proof: 2
+% Maximum clause weight: 13.000
+% Given clauses in run: 4
+% Given clauses in proof: 2 (0 new hints)
+
+26 a(x,K(y,z),u) = a(y,K(z,x),u) # label("aK2 (2314)") # label(non_clause) # label(goal).  [goal].
+46 a(x,K(y,z),u) = a(x,z,K(y,u)) # label("aK2_eq_aK3 (1324)").  [assumption].
+48 a(x,K(y,z),u) = a(y,x,K(z,u)) # label("aK2_eq_aK3 (2134)").  [assumption].
+86 a(c102,K(c103,c101),c104) != a(c101,K(c102,c103),c104) # label("aK2 (2314)") # answer("aK2 (2314)").  [deny(26)].
+118 a(x,K(y,z),u) = a(z,K(x,y),u).  [para(48(a,2),46(a,2))].
+119 $F # answer("aK2 (2314)").  [resolve(118,a,86,a)].
+
+============================== end of proof ==========================
+
+============================== PROOF =================================
+
+% Proof 10 at 0.01 (+ 0.01) seconds: "aK2 (3124)".
+% Length of proof: 6 (0 new hints)
+% Level of proof: 2
+% Maximum clause weight: 13.000
+% Given clauses in run: 4
+% Given clauses in proof: 2 (0 new hints)
+
+28 a(x,K(y,z),u) = a(z,K(x,y),u) # label("aK2 (3124)") # label(non_clause) # label(goal).  [goal].
+46 a(x,K(y,z),u) = a(x,z,K(y,u)) # label("aK2_eq_aK3 (1324)").  [assumption].
+48 a(x,K(y,z),u) = a(y,x,K(z,u)) # label("aK2_eq_aK3 (2134)").  [assumption].
+88 a(c111,K(c109,c110),c112) != a(c109,K(c110,c111),c112) # label("aK2 (3124)") # answer("aK2 (3124)").  [deny(28)].
+118 a(x,K(y,z),u) = a(z,K(x,y),u).  [para(48(a,2),46(a,2))].
+120 $F # answer("aK2 (3124)").  [resolve(118,a,88,a(flip))].
+
+============================== end of proof ==========================
+
+============================== PROOF =================================
+
+% Proof 11 at 0.01 (+ 0.01) seconds: "aK3 (2431)".
+% Length of proof: 6 (0 new hints)
+% Level of proof: 2
+% Maximum clause weight: 13.000
+% Given clauses in run: 4
+% Given clauses in proof: 2 (0 new hints)
+
+38 a(x,y,K(z,u)) = a(y,u,K(z,x)) # label("aK3 (2431)") # label(non_clause) # label(goal).  [goal].
+47 a(x,K(y,z),u) = a(x,u,K(z,y)) # label("aK2_eq_aK3 (1432)").  [assumption].
+48 a(x,K(y,z),u) = a(y,x,K(z,u)) # label("aK2_eq_aK3 (2134)").  [assumption].
+98 a(c150,c152,K(c151,c149)) != a(c149,c150,K(c151,c152)) # label("aK3 (2431)") # answer("aK3 (2431)").  [deny(38)].
+121 a(x,y,K(z,u)) = a(u,x,K(z,y)).  [para(48(a,1),47(a,1)),flip(a)].
+122 $F # answer("aK3 (2431)").  [resolve(121,a,98,a)].
+
+============================== end of proof ==========================
+
+============================== PROOF =================================
+
+% Proof 12 at 0.01 (+ 0.01) seconds: "aK3 (4132)".
+% Length of proof: 6 (0 new hints)
+% Level of proof: 2
+% Maximum clause weight: 13.000
+% Given clauses in run: 4
+% Given clauses in proof: 2 (0 new hints)
+
+42 a(x,y,K(z,u)) = a(u,x,K(z,y)) # label("aK3 (4132)") # label(non_clause) # label(goal).  [goal].
+47 a(x,K(y,z),u) = a(x,u,K(z,y)) # label("aK2_eq_aK3 (1432)").  [assumption].
+48 a(x,K(y,z),u) = a(y,x,K(z,u)) # label("aK2_eq_aK3 (2134)").  [assumption].
+102 a(c168,c165,K(c167,c166)) != a(c165,c166,K(c167,c168)) # label("aK3 (4132)") # answer("aK3 (4132)").  [deny(42)].
+121 a(x,y,K(z,u)) = a(u,x,K(z,y)).  [para(48(a,1),47(a,1)),flip(a)].
+123 $F # answer("aK3 (4132)").  [resolve(121,a,102,a(flip))].
+
+============================== end of proof ==========================
+
+============================== PROOF =================================
+
+% Proof 13 at 0.01 (+ 0.01) seconds: "aK2 (2431)".
+% Length of proof: 6 (0 new hints)
+% Level of proof: 2
+% Maximum clause weight: 13.000
+% Given clauses in run: 4
+% Given clauses in proof: 2 (0 new hints)
+
+27 a(x,K(y,z),u) = a(y,K(u,z),x) # label("aK2 (2431)") # label(non_clause) # label(goal).  [goal].
+47 a(x,K(y,z),u) = a(x,u,K(z,y)) # label("aK2_eq_aK3 (1432)").  [assumption].
+48 a(x,K(y,z),u) = a(y,x,K(z,u)) # label("aK2_eq_aK3 (2134)").  [assumption].
+87 a(c106,K(c108,c107),c105) != a(c105,K(c106,c107),c108) # label("aK2 (2431)") # answer("aK2 (2431)").  [deny(27)].
+124 a(x,K(y,z),u) = a(u,K(x,z),y).  [para(48(a,2),47(a,2))].
+125 $F # answer("aK2 (2431)").  [resolve(124,a,87,a)].
+
+============================== end of proof ==========================
+
+============================== PROOF =================================
+
+% Proof 14 at 0.01 (+ 0.01) seconds: "aK2 (4132)".
+% Length of proof: 6 (0 new hints)
+% Level of proof: 2
+% Maximum clause weight: 13.000
+% Given clauses in run: 4
+% Given clauses in proof: 2 (0 new hints)
+
+31 a(x,K(y,z),u) = a(u,K(x,z),y) # label("aK2 (4132)") # label(non_clause) # label(goal).  [goal].
+47 a(x,K(y,z),u) = a(x,u,K(z,y)) # label("aK2_eq_aK3 (1432)").  [assumption].
+48 a(x,K(y,z),u) = a(y,x,K(z,u)) # label("aK2_eq_aK3 (2134)").  [assumption].
+91 a(c124,K(c121,c123),c122) != a(c121,K(c122,c123),c124) # label("aK2 (4132)") # answer("aK2 (4132)").  [deny(31)].
+124 a(x,K(y,z),u) = a(u,K(x,z),y).  [para(48(a,2),47(a,2))].
+126 $F # answer("aK2 (4132)").  [resolve(124,a,91,a(flip))].
+
+============================== end of proof ==========================
+
+% Disable descendants (x means already disabled):
+ 91 87 102 98 88 86 99 97 85 96
+
+
+given #5 (I,wt=13): 49 a(x,K(y,z),u) = a(y,z,K(u,x)) # label("aK2_eq_aK3 (2341)").  [assumption].
+
+============================== PROOF =================================
+
+% Proof 15 at 0.01 (+ 0.01) seconds: "aK3 (3241)".
+% Length of proof: 6 (0 new hints)
+% Level of proof: 2
+% Maximum clause weight: 13.000
+% Given clauses in run: 5
+% Given clauses in proof: 2 (0 new hints)
+
+40 a(x,y,K(z,u)) = a(z,y,K(u,x)) # label("aK3 (3241)") # label(non_clause) # label(goal).  [goal].
+46 a(x,K(y,z),u) = a(x,z,K(y,u)) # label("aK2_eq_aK3 (1324)").  [assumption].
+49 a(x,K(y,z),u) = a(y,z,K(u,x)) # label("aK2_eq_aK3 (2341)").  [assumption].
+100 a(c159,c158,K(c160,c157)) != a(c157,c158,K(c159,c160)) # label("aK3 (3241)") # answer("aK3 (3241)").  [deny(40)].
+127 a(x,y,K(z,u)) = a(u,y,K(x,z)).  [para(49(a,1),46(a,1))].
+128 $F # answer("aK3 (3241)").  [resolve(127,a,100,a)].
+
+============================== end of proof ==========================
+
+============================== PROOF =================================
+
+% Proof 16 at 0.01 (+ 0.01) seconds: "aK3 (4213)".
+% Length of proof: 6 (0 new hints)
+% Level of proof: 2
+% Maximum clause weight: 13.000
+% Given clauses in run: 5
+% Given clauses in proof: 2 (0 new hints)
+
+43 a(x,y,K(z,u)) = a(u,y,K(x,z)) # label("aK3 (4213)") # label(non_clause) # label(goal).  [goal].
+46 a(x,K(y,z),u) = a(x,z,K(y,u)) # label("aK2_eq_aK3 (1324)").  [assumption].
+49 a(x,K(y,z),u) = a(y,z,K(u,x)) # label("aK2_eq_aK3 (2341)").  [assumption].
+103 a(c172,c170,K(c169,c171)) != a(c169,c170,K(c171,c172)) # label("aK3 (4213)") # answer("aK3 (4213)").  [deny(43)].
+127 a(x,y,K(z,u)) = a(u,y,K(x,z)).  [para(49(a,1),46(a,1))].
+129 $F # answer("aK3 (4213)").  [resolve(127,a,103,a(flip))].
+
+============================== end of proof ==========================
+
+============================== PROOF =================================
+
+% Proof 17 at 0.01 (+ 0.01) seconds: "aK3 (4321)".
+% Length of proof: 6 (0 new hints)
+% Level of proof: 2
+% Maximum clause weight: 13.000
+% Given clauses in run: 5
+% Given clauses in proof: 2 (0 new hints)
+
+44 a(x,y,K(z,u)) = a(u,z,K(y,x)) # label("aK3 (4321)") # label(non_clause) # label(goal).  [goal].
+47 a(x,K(y,z),u) = a(x,u,K(z,y)) # label("aK2_eq_aK3 (1432)").  [assumption].
+49 a(x,K(y,z),u) = a(y,z,K(u,x)) # label("aK2_eq_aK3 (2341)").  [assumption].
+104 a(c176,c175,K(c174,c173)) != a(c173,c174,K(c175,c176)) # label("aK3 (4321)") # answer("aK3 (4321)").  [deny(44)].
+130 a(x,y,K(z,u)) = a(u,z,K(y,x)).  [para(49(a,1),47(a,1))].
+131 $F # answer("aK3 (4321)").  [resolve(130,a,104,a)].
+
+============================== end of proof ==========================
+
+============================== PROOF =================================
+
+% Proof 18 at 0.01 (+ 0.01) seconds: "aK2 (3241)".
+% Length of proof: 6 (0 new hints)
+% Level of proof: 2
+% Maximum clause weight: 13.000
+% Given clauses in run: 5
+% Given clauses in proof: 2 (0 new hints)
+
+29 a(x,K(y,z),u) = a(z,K(y,u),x) # label("aK2 (3241)") # label(non_clause) # label(goal).  [goal].
+48 a(x,K(y,z),u) = a(y,x,K(z,u)) # label("aK2_eq_aK3 (2134)").  [assumption].
+49 a(x,K(y,z),u) = a(y,z,K(u,x)) # label("aK2_eq_aK3 (2341)").  [assumption].
+89 a(c115,K(c114,c116),c113) != a(c113,K(c114,c115),c116) # label("aK2 (3241)") # answer("aK2 (3241)").  [deny(29)].
+132 a(x,K(y,z),u) = a(u,K(y,x),z).  [para(49(a,2),48(a,2))].
+133 $F # answer("aK2 (3241)").  [resolve(132,a,89,a)].
+
+============================== end of proof ==========================
+
+============================== PROOF =================================
+
+% Proof 19 at 0.01 (+ 0.01) seconds: "aK2 (4213)".
+% Length of proof: 6 (0 new hints)
+% Level of proof: 2
+% Maximum clause weight: 13.000
+% Given clauses in run: 5
+% Given clauses in proof: 2 (0 new hints)
+
+32 a(x,K(y,z),u) = a(u,K(y,x),z) # label("aK2 (4213)") # label(non_clause) # label(goal).  [goal].
+48 a(x,K(y,z),u) = a(y,x,K(z,u)) # label("aK2_eq_aK3 (2134)").  [assumption].
+49 a(x,K(y,z),u) = a(y,z,K(u,x)) # label("aK2_eq_aK3 (2341)").  [assumption].
+92 a(c128,K(c126,c125),c127) != a(c125,K(c126,c127),c128) # label("aK2 (4213)") # answer("aK2 (4213)").  [deny(32)].
+132 a(x,K(y,z),u) = a(u,K(y,x),z).  [para(49(a,2),48(a,2))].
+134 $F # answer("aK2 (4213)").  [resolve(132,a,92,a(flip))].
+
+============================== end of proof ==========================
+
+% Disable descendants (x means already disabled):
+ 92 89 104 103 100
+
+given #6 (I,wt=13): 50 a(x,K(y,z),u) = a(y,u,K(x,z)) # label("aK2_eq_aK3 (2413)").  [assumption].
+
+============================== PROOF =================================
+
+% Proof 20 at 0.01 (+ 0.01) seconds: "aK3 (3412)".
+% Length of proof: 6 (0 new hints)
+% Level of proof: 2
+% Maximum clause weight: 13.000
+% Given clauses in run: 6
+% Given clauses in proof: 2 (0 new hints)
+
+41 a(x,y,K(z,u)) = a(z,u,K(x,y)) # label("aK3 (3412)") # label(non_clause) # label(goal).  [goal].
+46 a(x,K(y,z),u) = a(x,z,K(y,u)) # label("aK2_eq_aK3 (1324)").  [assumption].
+50 a(x,K(y,z),u) = a(y,u,K(x,z)) # label("aK2_eq_aK3 (2413)").  [assumption].
+101 a(c163,c164,K(c161,c162)) != a(c161,c162,K(c163,c164)) # label("aK3 (3412)") # answer("aK3 (3412)").  [deny(41)].
+135 a(x,y,K(z,u)) = a(z,u,K(x,y)).  [para(50(a,1),46(a,1))].
+136 $F # answer("aK3 (3412)").  [resolve(135,a,101,a)].
+
+============================== end of proof ==========================
+
+% Disable descendants (x means already disabled):
+ 101
+
+given #7 (I,wt=13): 51 a(x,K(y,z),u) = a(z,x,K(u,y)) # label("aK2_eq_aK3 (3142)").  [assumption].
+
+============================== PROOF =================================
+
+% Proof 21 at 0.01 (+ 0.01) seconds: "aK2 (3412)".
+% Length of proof: 6 (0 new hints)
+% Level of proof: 2
+% Maximum clause weight: 13.000
+% Given clauses in run: 7
+% Given clauses in proof: 2 (0 new hints)
+
+30 a(x,K(y,z),u) = a(z,K(u,x),y) # label("aK2 (3412)") # label(non_clause) # label(goal).  [goal].
+46 a(x,K(y,z),u) = a(x,z,K(y,u)) # label("aK2_eq_aK3 (1324)").  [assumption].
+51 a(x,K(y,z),u) = a(z,x,K(u,y)) # label("aK2_eq_aK3 (3142)").  [assumption].
+90 a(c119,K(c120,c117),c118) != a(c117,K(c118,c119),c120) # label("aK2 (3412)") # answer("aK2 (3412)").  [deny(30)].
+137 a(x,K(y,z),u) = a(z,K(u,x),y).  [para(51(a,2),46(a,2))].
+138 $F # answer("aK2 (3412)").  [resolve(137,a,90,a)].
+
+============================== end of proof ==========================
+
+============================== PROOF =================================
+
+% Proof 22 at 0.01 (+ 0.01) seconds: "aK2 (4321)".
+% Length of proof: 6 (0 new hints)
+% Level of proof: 2
+% Maximum clause weight: 13.000
+% Given clauses in run: 7
+% Given clauses in proof: 2 (0 new hints)
+
+33 a(x,K(y,z),u) = a(u,K(z,y),x) # label("aK2 (4321)") # label(non_clause) # label(goal).  [goal].
+50 a(x,K(y,z),u) = a(y,u,K(x,z)) # label("aK2_eq_aK3 (2413)").  [assumption].
+51 a(x,K(y,z),u) = a(z,x,K(u,y)) # label("aK2_eq_aK3 (3142)").  [assumption].
+93 a(c132,K(c131,c130),c129) != a(c129,K(c130,c131),c132) # label("aK2 (4321)") # answer("aK2 (4321)").  [deny(33)].
+139 a(x,K(y,z),u) = a(u,K(z,y),x).  [para(51(a,2),50(a,2))].
+140 $F # answer("aK2 (4321)").  [resolve(139,a,93,a)].
+
+============================== end of proof ==========================
+
+% Disable descendants (x means already disabled):
+ 93 90
+
+given #8 (I,wt=13): 52 a(x,K(y,z),u) = a(z,y,K(x,u)) # label("aK2_eq_aK3 (3214)").  [assumption].
+
+given #9 (I,wt=13): 53 a(x,K(y,z),u) = a(z,u,K(y,x)) # label("aK2_eq_aK3 (3421)").  [assumption].
+
+given #10 (I,wt=13): 54 a(x,K(y,z),u) = a(u,x,K(y,z)) # label("aK2_eq_aK3 (4123)").  [assumption].
+
+given #11 (I,wt=13): 55 a(x,K(y,z),u) = a(u,y,K(z,x)) # label("aK2_eq_aK3 (4231)").  [assumption].
+
+given #12 (I,wt=13): 56 a(x,K(y,z),u) = a(u,z,K(x,y)) # label("aK2_eq_aK3 (4312)").  [assumption].
+
+given #13 (I,wt=13): 57 a(K(x,y),z,u) = a(x,z,K(u,y)) # label("aK1_eq_aK3").  [assumption].
+
+given #14 (I,wt=13): 59 a(x,y,K(z,u)) = K(a(x,y,z),u).  [copy(58),flip(a)].
+
+given #15 (I,wt=9): 60 x != y | y != z | x = z # label("Transitivity =").  [assumption].
+
+given #16 (H,wt=13): 105 a(x,y,K(z,u)) = a(x,u,K(y,z)).  [para(46(a,1),45(a,1)),flip(a)].
+
+given #17 (H,wt=13): 108 a(x,K(y,z),u) = a(x,K(u,y),z).  [para(46(a,2),45(a,2))].
+
+given #18 (H,wt=13): 111 a(x,y,K(z,u)) = a(y,x,K(u,z)).  [para(48(a,1),45(a,1))].
+
+given #19 (H,wt=13): 113 a(x,K(y,z),u) = a(y,K(x,u),z).  [para(48(a,2),45(a,2))].
+
+given #20 (H,wt=13): 115 a(x,y,K(z,u)) = a(z,x,K(y,u)).  [para(48(a,1),46(a,1)),flip(a)].
+
+given #21 (H,wt=13): 118 a(x,K(y,z),u) = a(z,K(x,y),u).  [para(48(a,2),46(a,2))].
+
+given #22 (H,wt=13): 121 a(x,y,K(z,u)) = a(u,x,K(z,y)).  [para(48(a,1),47(a,1)),flip(a)].
+
+given #23 (H,wt=13): 124 a(x,K(y,z),u) = a(u,K(x,z),y).  [para(48(a,2),47(a,2))].
+
+given #24 (H,wt=13): 127 a(x,y,K(z,u)) = a(u,y,K(x,z)).  [para(49(a,1),46(a,1))].
+
+given #25 (H,wt=13): 130 a(x,y,K(z,u)) = a(u,z,K(y,x)).  [para(49(a,1),47(a,1))].
+
+given #26 (H,wt=13): 132 a(x,K(y,z),u) = a(u,K(y,x),z).  [para(49(a,2),48(a,2))].
+
+given #27 (H,wt=13): 135 a(x,y,K(z,u)) = a(z,u,K(x,y)).  [para(50(a,1),46(a,1))].
+
+given #28 (H,wt=13): 137 a(x,K(y,z),u) = a(z,K(u,x),y).  [para(51(a,2),46(a,2))].
+
+given #29 (H,wt=13): 139 a(x,K(y,z),u) = a(u,K(z,y),x).  [para(51(a,2),50(a,2))].
+
+given #30 (H,wt=13): 141 a(K(x,y),z,u) = a(x,K(z,y),u).  [para(57(a,2),45(a,2)),flip(a)].
+
+given #31 (H,wt=13): 142 a(K(x,y),z,u) = a(x,K(u,z),y).  [para(57(a,2),46(a,2)),flip(a)].
+
+============================== PROOF =================================
+
+% Proof 23 at 0.01 (+ 0.01) seconds: "aK1 (1342)".
+% Length of proof: 10 (0 new hints)
+% Level of proof: 3
+% Maximum clause weight: 13.000
+% Given clauses in run: 31
+% Given clauses in proof: 6 (0 new hints)
+
+12 a(K(x,y),z,u) = a(K(x,z),u,y) # label("aK1 (1342)") # label(non_clause) # label(goal).  [goal].
+45 a(x,K(y,z),u) = a(x,y,K(u,z)) # label("aK2_eq_aK3 (1243)").  [assumption].
+46 a(x,K(y,z),u) = a(x,z,K(y,u)) # label("aK2_eq_aK3 (1324)").  [assumption].
+57 a(K(x,y),z,u) = a(x,z,K(u,y)) # label("aK1_eq_aK3").  [assumption].
+60 x != y | y != z | x = z # label("Transitivity =").  [assumption].
+72 a(K(c45,c47),c48,c46) != a(K(c45,c46),c47,c48) # label("aK1 (1342)") # answer("aK1 (1342)").  [deny(12)].
+141 a(K(x,y),z,u) = a(x,K(z,y),u).  [para(57(a,2),45(a,2)),flip(a)].
+142 a(K(x,y),z,u) = a(x,K(u,z),y).  [para(57(a,2),46(a,2)),flip(a)].
+153 a(K(x,y),z,u) = a(K(x,u),y,z).  [hyper(60,a,142,a,b,141,a(flip)),flip(a)].
+154 $F # answer("aK1 (1342)").  [resolve(153,a,72,a)].
+
+============================== end of proof ==========================
+
+============================== PROOF =================================
+
+% Proof 24 at 0.01 (+ 0.01) seconds: "aK1 (1423)".
+% Length of proof: 10 (0 new hints)
+% Level of proof: 3
+% Maximum clause weight: 13.000
+% Given clauses in run: 31
+% Given clauses in proof: 6 (0 new hints)
+
+13 a(K(x,y),z,u) = a(K(x,u),y,z) # label("aK1 (1423)") # label(non_clause) # label(goal).  [goal].
+45 a(x,K(y,z),u) = a(x,y,K(u,z)) # label("aK2_eq_aK3 (1243)").  [assumption].
+46 a(x,K(y,z),u) = a(x,z,K(y,u)) # label("aK2_eq_aK3 (1324)").  [assumption].
+57 a(K(x,y),z,u) = a(x,z,K(u,y)) # label("aK1_eq_aK3").  [assumption].
+60 x != y | y != z | x = z # label("Transitivity =").  [assumption].
+73 a(K(c49,c52),c50,c51) != a(K(c49,c50),c51,c52) # label("aK1 (1423)") # answer("aK1 (1423)").  [deny(13)].
+141 a(K(x,y),z,u) = a(x,K(z,y),u).  [para(57(a,2),45(a,2)),flip(a)].
+142 a(K(x,y),z,u) = a(x,K(u,z),y).  [para(57(a,2),46(a,2)),flip(a)].
+153 a(K(x,y),z,u) = a(K(x,u),y,z).  [hyper(60,a,142,a,b,141,a(flip)),flip(a)].
+155 $F # answer("aK1 (1423)").  [resolve(153,a,73,a(flip))].
+
+============================== end of proof ==========================
+
+% Disable descendants (x means already disabled):
+ 73 72
+
+given #32 (H,wt=13): 143 a(K(x,y),z,u) = a(x,K(y,u),z).  [para(57(a,2),47(a,2)),flip(a)].
+
+given #33 (H,wt=13): 144 a(K(x,y),z,u) = a(z,K(x,u),y).  [para(57(a,2),48(a,2)),flip(a)].
+
+============================== PROOF =================================
+
+% Proof 25 at 0.02 (+ 0.01) seconds: "aK1 (2314)".
+% Length of proof: 10 (0 new hints)
+% Level of proof: 3
+% Maximum clause weight: 13.000
+% Given clauses in run: 33
+% Given clauses in proof: 6 (0 new hints)
+
+15 a(K(x,y),z,u) = a(K(y,z),x,u) # label("aK1 (2314)") # label(non_clause) # label(goal).  [goal].
+47 a(x,K(y,z),u) = a(x,u,K(z,y)) # label("aK2_eq_aK3 (1432)").  [assumption].
+48 a(x,K(y,z),u) = a(y,x,K(z,u)) # label("aK2_eq_aK3 (2134)").  [assumption].
+57 a(K(x,y),z,u) = a(x,z,K(u,y)) # label("aK1_eq_aK3").  [assumption].
+60 x != y | y != z | x = z # label("Transitivity =").  [assumption].
+75 a(K(c58,c59),c57,c60) != a(K(c57,c58),c59,c60) # label("aK1 (2314)") # answer("aK1 (2314)").  [deny(15)].
+143 a(K(x,y),z,u) = a(x,K(y,u),z).  [para(57(a,2),47(a,2)),flip(a)].
+144 a(K(x,y),z,u) = a(z,K(x,u),y).  [para(57(a,2),48(a,2)),flip(a)].
+156 a(K(x,y),z,u) = a(K(z,x),y,u).  [hyper(60,a,144,a,b,143,a(flip))].
+157 $F # answer("aK1 (2314)").  [resolve(156,a,75,a)].
+
+============================== end of proof ==========================
+
+============================== PROOF =================================
+
+% Proof 26 at 0.02 (+ 0.01) seconds: "aK1 (3124)".
+% Length of proof: 10 (0 new hints)
+% Level of proof: 3
+% Maximum clause weight: 13.000
+% Given clauses in run: 33
+% Given clauses in proof: 6 (0 new hints)
+
+17 a(K(x,y),z,u) = a(K(z,x),y,u) # label("aK1 (3124)") # label(non_clause) # label(goal).  [goal].
+47 a(x,K(y,z),u) = a(x,u,K(z,y)) # label("aK2_eq_aK3 (1432)").  [assumption].
+48 a(x,K(y,z),u) = a(y,x,K(z,u)) # label("aK2_eq_aK3 (2134)").  [assumption].
+57 a(K(x,y),z,u) = a(x,z,K(u,y)) # label("aK1_eq_aK3").  [assumption].
+60 x != y | y != z | x = z # label("Transitivity =").  [assumption].
+77 a(K(c67,c65),c66,c68) != a(K(c65,c66),c67,c68) # label("aK1 (3124)") # answer("aK1 (3124)").  [deny(17)].
+143 a(K(x,y),z,u) = a(x,K(y,u),z).  [para(57(a,2),47(a,2)),flip(a)].
+144 a(K(x,y),z,u) = a(z,K(x,u),y).  [para(57(a,2),48(a,2)),flip(a)].
+156 a(K(x,y),z,u) = a(K(z,x),y,u).  [hyper(60,a,144,a,b,143,a(flip))].
+158 $F # answer("aK1 (3124)").  [resolve(156,a,77,a(flip))].
+
+============================== end of proof ==========================
+
+============================== PROOF =================================
+
+% Proof 27 at 0.02 (+ 0.01) seconds: "aK1 (3241)".
+% Length of proof: 10 (0 new hints)
+% Level of proof: 3
+% Maximum clause weight: 13.000
+% Given clauses in run: 33
+% Given clauses in proof: 6 (0 new hints)
+
+18 a(K(x,y),z,u) = a(K(z,y),u,x) # label("aK1 (3241)") # label(non_clause) # label(goal).  [goal].
+46 a(x,K(y,z),u) = a(x,z,K(y,u)) # label("aK2_eq_aK3 (1324)").  [assumption].
+48 a(x,K(y,z),u) = a(y,x,K(z,u)) # label("aK2_eq_aK3 (2134)").  [assumption].
+57 a(K(x,y),z,u) = a(x,z,K(u,y)) # label("aK1_eq_aK3").  [assumption].
+60 x != y | y != z | x = z # label("Transitivity =").  [assumption].
+78 a(K(c71,c70),c72,c69) != a(K(c69,c70),c71,c72) # label("aK1 (3241)") # answer("aK1 (3241)").  [deny(18)].
+142 a(K(x,y),z,u) = a(x,K(u,z),y).  [para(57(a,2),46(a,2)),flip(a)].
+144 a(K(x,y),z,u) = a(z,K(x,u),y).  [para(57(a,2),48(a,2)),flip(a)].
+159 a(K(x,y),z,u) = a(K(u,y),x,z).  [hyper(60,a,144,a,b,142,a(flip)),flip(a)].
+160 $F # answer("aK1 (3241)").  [resolve(159,a,78,a)].
+
+============================== end of proof ==========================
+
+============================== PROOF =================================
+
+% Proof 28 at 0.02 (+ 0.01) seconds: "aK1 (4213)".
+% Length of proof: 10 (0 new hints)
+% Level of proof: 3
+% Maximum clause weight: 13.000
+% Given clauses in run: 33
+% Given clauses in proof: 6 (0 new hints)
+
+21 a(K(x,y),z,u) = a(K(u,y),x,z) # label("aK1 (4213)") # label(non_clause) # label(goal).  [goal].
+46 a(x,K(y,z),u) = a(x,z,K(y,u)) # label("aK2_eq_aK3 (1324)").  [assumption].
+48 a(x,K(y,z),u) = a(y,x,K(z,u)) # label("aK2_eq_aK3 (2134)").  [assumption].
+57 a(K(x,y),z,u) = a(x,z,K(u,y)) # label("aK1_eq_aK3").  [assumption].
+60 x != y | y != z | x = z # label("Transitivity =").  [assumption].
+81 a(K(c84,c82),c81,c83) != a(K(c81,c82),c83,c84) # label("aK1 (4213)") # answer("aK1 (4213)").  [deny(21)].
+142 a(K(x,y),z,u) = a(x,K(u,z),y).  [para(57(a,2),46(a,2)),flip(a)].
+144 a(K(x,y),z,u) = a(z,K(x,u),y).  [para(57(a,2),48(a,2)),flip(a)].
+159 a(K(x,y),z,u) = a(K(u,y),x,z).  [hyper(60,a,144,a,b,142,a(flip)),flip(a)].
+161 $F # answer("aK1 (4213)").  [resolve(159,a,81,a(flip))].
+
+============================== end of proof ==========================
+
+============================== PROOF =================================
+
+% Proof 29 at 0.02 (+ 0.01) seconds: "aK1 (3412)".
+% Length of proof: 10 (0 new hints)
+% Level of proof: 3
+% Maximum clause weight: 13.000
+% Given clauses in run: 33
+% Given clauses in proof: 6 (0 new hints)
+
+19 a(K(x,y),z,u) = a(K(z,u),x,y) # label("aK1 (3412)") # label(non_clause) # label(goal).  [goal].
+45 a(x,K(y,z),u) = a(x,y,K(u,z)) # label("aK2_eq_aK3 (1243)").  [assumption].
+48 a(x,K(y,z),u) = a(y,x,K(z,u)) # label("aK2_eq_aK3 (2134)").  [assumption].
+57 a(K(x,y),z,u) = a(x,z,K(u,y)) # label("aK1_eq_aK3").  [assumption].
+60 x != y | y != z | x = z # label("Transitivity =").  [assumption].
+79 a(K(c75,c76),c73,c74) != a(K(c73,c74),c75,c76) # label("aK1 (3412)") # answer("aK1 (3412)").  [deny(19)].
+141 a(K(x,y),z,u) = a(x,K(z,y),u).  [para(57(a,2),45(a,2)),flip(a)].
+144 a(K(x,y),z,u) = a(z,K(x,u),y).  [para(57(a,2),48(a,2)),flip(a)].
+162 a(K(x,y),z,u) = a(K(z,u),x,y).  [hyper(60,a,144,a,b,141,a(flip))].
+163 $F # answer("aK1 (3412)").  [resolve(162,a,79,a)].
+
+============================== end of proof ==========================
+
+% Disable descendants (x means already disabled):
+ 79 81 78 77 75
+
+given #34 (H,wt=13): 145 a(K(x,y),z,u) = a(y,K(x,z),u).  [para(57(a,2),49(a,2)),flip(a)].
+
+============================== PROOF =================================
+
+% Proof 30 at 0.02 (+ 0.01) seconds: "aK1 (2143)".
+% Length of proof: 10 (0 new hints)
+% Level of proof: 3
+% Maximum clause weight: 13.000
+% Given clauses in run: 34
+% Given clauses in proof: 6 (0 new hints)
+
+14 a(K(x,y),z,u) = a(K(y,x),u,z) # label("aK1 (2143)") # label(non_clause) # label(goal).  [goal].
+47 a(x,K(y,z),u) = a(x,u,K(z,y)) # label("aK2_eq_aK3 (1432)").  [assumption].
+49 a(x,K(y,z),u) = a(y,z,K(u,x)) # label("aK2_eq_aK3 (2341)").  [assumption].
+57 a(K(x,y),z,u) = a(x,z,K(u,y)) # label("aK1_eq_aK3").  [assumption].
+60 x != y | y != z | x = z # label("Transitivity =").  [assumption].
+74 a(K(c54,c53),c56,c55) != a(K(c53,c54),c55,c56) # label("aK1 (2143)") # answer("aK1 (2143)").  [deny(14)].
+143 a(K(x,y),z,u) = a(x,K(y,u),z).  [para(57(a,2),47(a,2)),flip(a)].
+145 a(K(x,y),z,u) = a(y,K(x,z),u).  [para(57(a,2),49(a,2)),flip(a)].
+164 a(K(x,y),z,u) = a(K(y,x),u,z).  [hyper(60,a,145,a,b,143,a(flip))].
+165 $F # answer("aK1 (2143)").  [resolve(164,a,74,a)].
+
+============================== end of proof ==========================
+
+============================== PROOF =================================
+
+% Proof 31 at 0.02 (+ 0.01) seconds: "aK1 (2431)".
+% Length of proof: 10 (0 new hints)
+% Level of proof: 3
+% Maximum clause weight: 13.000
+% Given clauses in run: 34
+% Given clauses in proof: 6 (0 new hints)
+
+16 a(K(x,y),z,u) = a(K(y,u),z,x) # label("aK1 (2431)") # label(non_clause) # label(goal).  [goal].
+46 a(x,K(y,z),u) = a(x,z,K(y,u)) # label("aK2_eq_aK3 (1324)").  [assumption].
+49 a(x,K(y,z),u) = a(y,z,K(u,x)) # label("aK2_eq_aK3 (2341)").  [assumption].
+57 a(K(x,y),z,u) = a(x,z,K(u,y)) # label("aK1_eq_aK3").  [assumption].
+60 x != y | y != z | x = z # label("Transitivity =").  [assumption].
+76 a(K(c62,c64),c63,c61) != a(K(c61,c62),c63,c64) # label("aK1 (2431)") # answer("aK1 (2431)").  [deny(16)].
+142 a(K(x,y),z,u) = a(x,K(u,z),y).  [para(57(a,2),46(a,2)),flip(a)].
+145 a(K(x,y),z,u) = a(y,K(x,z),u).  [para(57(a,2),49(a,2)),flip(a)].
+166 a(K(x,y),z,u) = a(K(u,x),z,y).  [hyper(60,a,145,a,b,142,a(flip)),flip(a)].
+167 $F # answer("aK1 (2431)").  [resolve(166,a,76,a)].
+
+============================== end of proof ==========================
+
+============================== PROOF =================================
+
+% Proof 32 at 0.02 (+ 0.01) seconds: "aK1 (4132)".
+% Length of proof: 10 (0 new hints)
+% Level of proof: 3
+% Maximum clause weight: 13.000
+% Given clauses in run: 34
+% Given clauses in proof: 6 (0 new hints)
+
+20 a(K(x,y),z,u) = a(K(u,x),z,y) # label("aK1 (4132)") # label(non_clause) # label(goal).  [goal].
+46 a(x,K(y,z),u) = a(x,z,K(y,u)) # label("aK2_eq_aK3 (1324)").  [assumption].
+49 a(x,K(y,z),u) = a(y,z,K(u,x)) # label("aK2_eq_aK3 (2341)").  [assumption].
+57 a(K(x,y),z,u) = a(x,z,K(u,y)) # label("aK1_eq_aK3").  [assumption].
+60 x != y | y != z | x = z # label("Transitivity =").  [assumption].
+80 a(K(c80,c77),c79,c78) != a(K(c77,c78),c79,c80) # label("aK1 (4132)") # answer("aK1 (4132)").  [deny(20)].
+142 a(K(x,y),z,u) = a(x,K(u,z),y).  [para(57(a,2),46(a,2)),flip(a)].
+145 a(K(x,y),z,u) = a(y,K(x,z),u).  [para(57(a,2),49(a,2)),flip(a)].
+166 a(K(x,y),z,u) = a(K(u,x),z,y).  [hyper(60,a,145,a,b,142,a(flip)),flip(a)].
+168 $F # answer("aK1 (4132)").  [resolve(166,a,80,a(flip))].
+
+============================== end of proof ==========================
+
+% Disable descendants (x means already disabled):
+ 80 76 74
+
+given #35 (H,wt=13): 146 a(K(x,y),z,u) = a(u,K(x,y),z).  [para(57(a,2),50(a,2)),flip(a)].
+
+============================== PROOF =================================
+
+% Proof 33 at 0.02 (+ 0.01) seconds: "aK1 (4321)".
+% Length of proof: 10 (0 new hints)
+% Level of proof: 3
+% Maximum clause weight: 13.000
+% Given clauses in run: 35
+% Given clauses in proof: 6 (0 new hints)
+
+22 a(K(x,y),z,u) = a(K(u,z),y,x) # label("aK1 (4321)") # label(non_clause) # label(goal).  [goal].
+46 a(x,K(y,z),u) = a(x,z,K(y,u)) # label("aK2_eq_aK3 (1324)").  [assumption].
+50 a(x,K(y,z),u) = a(y,u,K(x,z)) # label("aK2_eq_aK3 (2413)").  [assumption].
+57 a(K(x,y),z,u) = a(x,z,K(u,y)) # label("aK1_eq_aK3").  [assumption].
+60 x != y | y != z | x = z # label("Transitivity =").  [assumption].
+82 a(K(c88,c87),c86,c85) != a(K(c85,c86),c87,c88) # label("aK1 (4321)") # answer("aK1 (4321)").  [deny(22)].
+142 a(K(x,y),z,u) = a(x,K(u,z),y).  [para(57(a,2),46(a,2)),flip(a)].
+146 a(K(x,y),z,u) = a(u,K(x,y),z).  [para(57(a,2),50(a,2)),flip(a)].
+169 a(K(x,y),z,u) = a(K(u,z),y,x).  [hyper(60,a,146,a,b,142,a(flip))].
+170 $F # answer("aK1 (4321)").  [resolve(169,a,82,a)].
+
+============================== end of proof ==========================
+
+% Disable descendants (x means already disabled):
+ 82
+
+given #36 (H,wt=13): 147 a(x,K(y,z),u) = K(a(x,y,u),z).  [para(59(a,1),45(a,2))].
+
+given #37 (H,wt=13): 148 a(x,K(y,z),u) = K(a(x,z,y),u).  [para(59(a,1),46(a,2))].
+
+============================== PROOF =================================
+
+% Proof 34 at 0.02 (+ 0.01) seconds: "Ka (1342)".
+% Length of proof: 11 (0 new hints)
+% Level of proof: 4
+% Maximum clause weight: 13.000
+% Given clauses in run: 37
+% Given clauses in proof: 6 (0 new hints)
+
+1 K(a(x,y,z),u) = K(a(x,z,u),y) # label("Ka (1342)") # label(non_clause) # label(goal).  [goal].
+45 a(x,K(y,z),u) = a(x,y,K(u,z)) # label("aK2_eq_aK3 (1243)").  [assumption].
+46 a(x,K(y,z),u) = a(x,z,K(y,u)) # label("aK2_eq_aK3 (1324)").  [assumption].
+58 K(a(x,y,z),u) = a(x,y,K(z,u)) # label("Ka_eq_aK3").  [assumption].
+59 a(x,y,K(z,u)) = K(a(x,y,z),u).  [copy(58),flip(a)].
+60 x != y | y != z | x = z # label("Transitivity =").  [assumption].
+61 K(a(c1,c3,c4),c2) != K(a(c1,c2,c3),c4) # label("Ka (1342)") # answer("Ka (1342)").  [deny(1)].
+147 a(x,K(y,z),u) = K(a(x,y,u),z).  [para(59(a,1),45(a,2))].
+148 a(x,K(y,z),u) = K(a(x,z,y),u).  [para(59(a,1),46(a,2))].
+171 K(a(x,y,z),u) = K(a(x,u,y),z).  [hyper(60,a,147,a(flip),b,148,a)].
+172 $F # answer("Ka (1342)").  [resolve(171,a,61,a)].
+
+============================== end of proof ==========================
+
+============================== PROOF =================================
+
+% Proof 35 at 0.02 (+ 0.01) seconds: "Ka (1423)".
+% Length of proof: 11 (0 new hints)
+% Level of proof: 4
+% Maximum clause weight: 13.000
+% Given clauses in run: 37
+% Given clauses in proof: 6 (0 new hints)
+
+2 K(a(x,y,z),u) = K(a(x,u,y),z) # label("Ka (1423)") # label(non_clause) # label(goal).  [goal].
+45 a(x,K(y,z),u) = a(x,y,K(u,z)) # label("aK2_eq_aK3 (1243)").  [assumption].
+46 a(x,K(y,z),u) = a(x,z,K(y,u)) # label("aK2_eq_aK3 (1324)").  [assumption].
+58 K(a(x,y,z),u) = a(x,y,K(z,u)) # label("Ka_eq_aK3").  [assumption].
+59 a(x,y,K(z,u)) = K(a(x,y,z),u).  [copy(58),flip(a)].
+60 x != y | y != z | x = z # label("Transitivity =").  [assumption].
+62 K(a(c5,c8,c6),c7) != K(a(c5,c6,c7),c8) # label("Ka (1423)") # answer("Ka (1423)").  [deny(2)].
+147 a(x,K(y,z),u) = K(a(x,y,u),z).  [para(59(a,1),45(a,2))].
+148 a(x,K(y,z),u) = K(a(x,z,y),u).  [para(59(a,1),46(a,2))].
+171 K(a(x,y,z),u) = K(a(x,u,y),z).  [hyper(60,a,147,a(flip),b,148,a)].
+173 $F # answer("Ka (1423)").  [resolve(171,a,62,a(flip))].
+
+============================== end of proof ==========================
+
+% Disable descendants (x means already disabled):
+ 62 61
+
+given #38 (H,wt=13): 149 a(x,K(y,z),u) = K(a(x,u,z),y).  [para(59(a,1),47(a,2))].
+
+given #39 (H,wt=13): 150 a(x,K(y,z),u) = K(a(y,x,z),u).  [para(59(a,1),48(a,2))].
+
+============================== PROOF =================================
+
+% Proof 36 at 0.02 (+ 0.01) seconds: "Ka (2431)".
+% Length of proof: 11 (0 new hints)
+% Level of proof: 4
+% Maximum clause weight: 13.000
+% Given clauses in run: 39
+% Given clauses in proof: 6 (0 new hints)
+
+5 K(a(x,y,z),u) = K(a(y,u,z),x) # label("Ka (2431)") # label(non_clause) # label(goal).  [goal].
+47 a(x,K(y,z),u) = a(x,u,K(z,y)) # label("aK2_eq_aK3 (1432)").  [assumption].
+48 a(x,K(y,z),u) = a(y,x,K(z,u)) # label("aK2_eq_aK3 (2134)").  [assumption].
+58 K(a(x,y,z),u) = a(x,y,K(z,u)) # label("Ka_eq_aK3").  [assumption].
+59 a(x,y,K(z,u)) = K(a(x,y,z),u).  [copy(58),flip(a)].
+60 x != y | y != z | x = z # label("Transitivity =").  [assumption].
+65 K(a(c18,c20,c19),c17) != K(a(c17,c18,c19),c20) # label("Ka (2431)") # answer("Ka (2431)").  [deny(5)].
+149 a(x,K(y,z),u) = K(a(x,u,z),y).  [para(59(a,1),47(a,2))].
+150 a(x,K(y,z),u) = K(a(y,x,z),u).  [para(59(a,1),48(a,2))].
+174 K(a(x,y,z),u) = K(a(u,x,z),y).  [hyper(60,a,149,a(flip),b,150,a)].
+175 $F # answer("Ka (2431)").  [resolve(174,a,65,a)].
+
+============================== end of proof ==========================
+
+============================== PROOF =================================
+
+% Proof 37 at 0.02 (+ 0.01) seconds: "Ka (4132)".
+% Length of proof: 11 (0 new hints)
+% Level of proof: 4
+% Maximum clause weight: 13.000
+% Given clauses in run: 39
+% Given clauses in proof: 6 (0 new hints)
+
+9 K(a(x,y,z),u) = K(a(u,x,z),y) # label("Ka (4132)") # label(non_clause) # label(goal).  [goal].
+47 a(x,K(y,z),u) = a(x,u,K(z,y)) # label("aK2_eq_aK3 (1432)").  [assumption].
+48 a(x,K(y,z),u) = a(y,x,K(z,u)) # label("aK2_eq_aK3 (2134)").  [assumption].
+58 K(a(x,y,z),u) = a(x,y,K(z,u)) # label("Ka_eq_aK3").  [assumption].
+59 a(x,y,K(z,u)) = K(a(x,y,z),u).  [copy(58),flip(a)].
+60 x != y | y != z | x = z # label("Transitivity =").  [assumption].
+69 K(a(c36,c33,c35),c34) != K(a(c33,c34,c35),c36) # label("Ka (4132)") # answer("Ka (4132)").  [deny(9)].
+149 a(x,K(y,z),u) = K(a(x,u,z),y).  [para(59(a,1),47(a,2))].
+150 a(x,K(y,z),u) = K(a(y,x,z),u).  [para(59(a,1),48(a,2))].
+174 K(a(x,y,z),u) = K(a(u,x,z),y).  [hyper(60,a,149,a(flip),b,150,a)].
+176 $F # answer("Ka (4132)").  [resolve(174,a,69,a(flip))].
+
+============================== end of proof ==========================
+
+============================== PROOF =================================
+
+% Proof 38 at 0.02 (+ 0.01) seconds: "Ka (2314)".
+% Length of proof: 11 (0 new hints)
+% Level of proof: 4
+% Maximum clause weight: 13.000
+% Given clauses in run: 39
+% Given clauses in proof: 6 (0 new hints)
+
+4 K(a(x,y,z),u) = K(a(y,z,x),u) # label("Ka (2314)") # label(non_clause) # label(goal).  [goal].
+46 a(x,K(y,z),u) = a(x,z,K(y,u)) # label("aK2_eq_aK3 (1324)").  [assumption].
+48 a(x,K(y,z),u) = a(y,x,K(z,u)) # label("aK2_eq_aK3 (2134)").  [assumption].
+58 K(a(x,y,z),u) = a(x,y,K(z,u)) # label("Ka_eq_aK3").  [assumption].
+59 a(x,y,K(z,u)) = K(a(x,y,z),u).  [copy(58),flip(a)].
+60 x != y | y != z | x = z # label("Transitivity =").  [assumption].
+64 K(a(c14,c15,c13),c16) != K(a(c13,c14,c15),c16) # label("Ka (2314)") # answer("Ka (2314)").  [deny(4)].
+148 a(x,K(y,z),u) = K(a(x,z,y),u).  [para(59(a,1),46(a,2))].
+150 a(x,K(y,z),u) = K(a(y,x,z),u).  [para(59(a,1),48(a,2))].
+177 K(a(x,y,z),u) = K(a(z,x,y),u).  [hyper(60,a,148,a(flip),b,150,a)].
+178 $F # answer("Ka (2314)").  [resolve(177,a,64,a)].
+
+============================== end of proof ==========================
+
+============================== PROOF =================================
+
+% Proof 39 at 0.02 (+ 0.01) seconds: "Ka (3124)".
+% Length of proof: 11 (0 new hints)
+% Level of proof: 4
+% Maximum clause weight: 13.000
+% Given clauses in run: 39
+% Given clauses in proof: 6 (0 new hints)
+
+6 K(a(x,y,z),u) = K(a(z,x,y),u) # label("Ka (3124)") # label(non_clause) # label(goal).  [goal].
+46 a(x,K(y,z),u) = a(x,z,K(y,u)) # label("aK2_eq_aK3 (1324)").  [assumption].
+48 a(x,K(y,z),u) = a(y,x,K(z,u)) # label("aK2_eq_aK3 (2134)").  [assumption].
+58 K(a(x,y,z),u) = a(x,y,K(z,u)) # label("Ka_eq_aK3").  [assumption].
+59 a(x,y,K(z,u)) = K(a(x,y,z),u).  [copy(58),flip(a)].
+60 x != y | y != z | x = z # label("Transitivity =").  [assumption].
+66 K(a(c23,c21,c22),c24) != K(a(c21,c22,c23),c24) # label("Ka (3124)") # answer("Ka (3124)").  [deny(6)].
+148 a(x,K(y,z),u) = K(a(x,z,y),u).  [para(59(a,1),46(a,2))].
+150 a(x,K(y,z),u) = K(a(y,x,z),u).  [para(59(a,1),48(a,2))].
+177 K(a(x,y,z),u) = K(a(z,x,y),u).  [hyper(60,a,148,a(flip),b,150,a)].
+179 $F # answer("Ka (3124)").  [resolve(177,a,66,a(flip))].
+
+============================== end of proof ==========================
+
+============================== PROOF =================================
+
+% Proof 40 at 0.02 (+ 0.01) seconds: "Ka (2143)".
+% Length of proof: 11 (0 new hints)
+% Level of proof: 4
+% Maximum clause weight: 13.000
+% Given clauses in run: 39
+% Given clauses in proof: 6 (0 new hints)
+
+3 K(a(x,y,z),u) = K(a(y,x,u),z) # label("Ka (2143)") # label(non_clause) # label(goal).  [goal].
+45 a(x,K(y,z),u) = a(x,y,K(u,z)) # label("aK2_eq_aK3 (1243)").  [assumption].
+48 a(x,K(y,z),u) = a(y,x,K(z,u)) # label("aK2_eq_aK3 (2134)").  [assumption].
+58 K(a(x,y,z),u) = a(x,y,K(z,u)) # label("Ka_eq_aK3").  [assumption].
+59 a(x,y,K(z,u)) = K(a(x,y,z),u).  [copy(58),flip(a)].
+60 x != y | y != z | x = z # label("Transitivity =").  [assumption].
+63 K(a(c10,c9,c12),c11) != K(a(c9,c10,c11),c12) # label("Ka (2143)") # answer("Ka (2143)").  [deny(3)].
+147 a(x,K(y,z),u) = K(a(x,y,u),z).  [para(59(a,1),45(a,2))].
+150 a(x,K(y,z),u) = K(a(y,x,z),u).  [para(59(a,1),48(a,2))].
+180 K(a(x,y,z),u) = K(a(y,x,u),z).  [hyper(60,a,147,a(flip),b,150,a)].
+181 $F # answer("Ka (2143)").  [resolve(180,a,63,a)].
+
+============================== end of proof ==========================
+
+% Disable descendants (x means already disabled):
+ 63 66 64 69 65
+
+given #40 (H,wt=13): 151 a(x,K(y,z),u) = K(a(y,z,u),x).  [para(59(a,1),49(a,2))].
+
+============================== PROOF =================================
+
+% Proof 41 at 0.02 (+ 0.01) seconds: "Ka (4321)".
+% Length of proof: 11 (0 new hints)
+% Level of proof: 4
+% Maximum clause weight: 13.000
+% Given clauses in run: 40
+% Given clauses in proof: 6 (0 new hints)
+
+11 K(a(x,y,z),u) = K(a(u,z,y),x) # label("Ka (4321)") # label(non_clause) # label(goal).  [goal].
+47 a(x,K(y,z),u) = a(x,u,K(z,y)) # label("aK2_eq_aK3 (1432)").  [assumption].
+49 a(x,K(y,z),u) = a(y,z,K(u,x)) # label("aK2_eq_aK3 (2341)").  [assumption].
+58 K(a(x,y,z),u) = a(x,y,K(z,u)) # label("Ka_eq_aK3").  [assumption].
+59 a(x,y,K(z,u)) = K(a(x,y,z),u).  [copy(58),flip(a)].
+60 x != y | y != z | x = z # label("Transitivity =").  [assumption].
+71 K(a(c44,c43,c42),c41) != K(a(c41,c42,c43),c44) # label("Ka (4321)") # answer("Ka (4321)").  [deny(11)].
+149 a(x,K(y,z),u) = K(a(x,u,z),y).  [para(59(a,1),47(a,2))].
+151 a(x,K(y,z),u) = K(a(y,z,u),x).  [para(59(a,1),49(a,2))].
+182 K(a(x,y,z),u) = K(a(u,z,y),x).  [hyper(60,a,149,a(flip),b,151,a)].
+183 $F # answer("Ka (4321)").  [resolve(182,a,71,a)].
+
+============================== end of proof ==========================
+
+============================== PROOF =================================
+
+% Proof 42 at 0.02 (+ 0.01) seconds: "Ka (3241)".
+% Length of proof: 11 (0 new hints)
+% Level of proof: 4
+% Maximum clause weight: 13.000
+% Given clauses in run: 40
+% Given clauses in proof: 6 (0 new hints)
+
+7 K(a(x,y,z),u) = K(a(z,y,u),x) # label("Ka (3241)") # label(non_clause) # label(goal).  [goal].
+46 a(x,K(y,z),u) = a(x,z,K(y,u)) # label("aK2_eq_aK3 (1324)").  [assumption].
+49 a(x,K(y,z),u) = a(y,z,K(u,x)) # label("aK2_eq_aK3 (2341)").  [assumption].
+58 K(a(x,y,z),u) = a(x,y,K(z,u)) # label("Ka_eq_aK3").  [assumption].
+59 a(x,y,K(z,u)) = K(a(x,y,z),u).  [copy(58),flip(a)].
+60 x != y | y != z | x = z # label("Transitivity =").  [assumption].
+67 K(a(c27,c26,c28),c25) != K(a(c25,c26,c27),c28) # label("Ka (3241)") # answer("Ka (3241)").  [deny(7)].
+148 a(x,K(y,z),u) = K(a(x,z,y),u).  [para(59(a,1),46(a,2))].
+151 a(x,K(y,z),u) = K(a(y,z,u),x).  [para(59(a,1),49(a,2))].
+184 K(a(x,y,z),u) = K(a(u,y,x),z).  [hyper(60,a,148,a(flip),b,151,a),flip(a)].
+185 $F # answer("Ka (3241)").  [resolve(184,a,67,a)].
+
+============================== end of proof ==========================
+
+============================== PROOF =================================
+
+% Proof 43 at 0.02 (+ 0.01) seconds: "Ka (4213)".
+% Length of proof: 11 (0 new hints)
+% Level of proof: 4
+% Maximum clause weight: 13.000
+% Given clauses in run: 40
+% Given clauses in proof: 6 (0 new hints)
+
+10 K(a(x,y,z),u) = K(a(u,y,x),z) # label("Ka (4213)") # label(non_clause) # label(goal).  [goal].
+46 a(x,K(y,z),u) = a(x,z,K(y,u)) # label("aK2_eq_aK3 (1324)").  [assumption].
+49 a(x,K(y,z),u) = a(y,z,K(u,x)) # label("aK2_eq_aK3 (2341)").  [assumption].
+58 K(a(x,y,z),u) = a(x,y,K(z,u)) # label("Ka_eq_aK3").  [assumption].
+59 a(x,y,K(z,u)) = K(a(x,y,z),u).  [copy(58),flip(a)].
+60 x != y | y != z | x = z # label("Transitivity =").  [assumption].
+70 K(a(c40,c38,c37),c39) != K(a(c37,c38,c39),c40) # label("Ka (4213)") # answer("Ka (4213)").  [deny(10)].
+148 a(x,K(y,z),u) = K(a(x,z,y),u).  [para(59(a,1),46(a,2))].
+151 a(x,K(y,z),u) = K(a(y,z,u),x).  [para(59(a,1),49(a,2))].
+184 K(a(x,y,z),u) = K(a(u,y,x),z).  [hyper(60,a,148,a(flip),b,151,a),flip(a)].
+186 $F # answer("Ka (4213)").  [resolve(184,a,70,a(flip))].
+
+============================== end of proof ==========================
+
+% Disable descendants (x means already disabled):
+ 70 67 71
+
+given #41 (H,wt=13): 152 a(x,K(y,z),u) = K(a(y,u,x),z).  [para(59(a,1),50(a,2))].
+
+============================== PROOF =================================
+
+% Proof 44 at 0.02 (+ 0.01) seconds: "Ka (3412)".
+% Length of proof: 11 (0 new hints)
+% Level of proof: 4
+% Maximum clause weight: 13.000
+% Given clauses in run: 41
+% Given clauses in proof: 6 (0 new hints)
+
+8 K(a(x,y,z),u) = K(a(z,u,x),y) # label("Ka (3412)") # label(non_clause) # label(goal).  [goal].
+46 a(x,K(y,z),u) = a(x,z,K(y,u)) # label("aK2_eq_aK3 (1324)").  [assumption].
+50 a(x,K(y,z),u) = a(y,u,K(x,z)) # label("aK2_eq_aK3 (2413)").  [assumption].
+58 K(a(x,y,z),u) = a(x,y,K(z,u)) # label("Ka_eq_aK3").  [assumption].
+59 a(x,y,K(z,u)) = K(a(x,y,z),u).  [copy(58),flip(a)].
+60 x != y | y != z | x = z # label("Transitivity =").  [assumption].
+68 K(a(c31,c32,c29),c30) != K(a(c29,c30,c31),c32) # label("Ka (3412)") # answer("Ka (3412)").  [deny(8)].
+148 a(x,K(y,z),u) = K(a(x,z,y),u).  [para(59(a,1),46(a,2))].
+152 a(x,K(y,z),u) = K(a(y,u,x),z).  [para(59(a,1),50(a,2))].
+187 K(a(x,y,z),u) = K(a(z,u,x),y).  [hyper(60,a,148,a(flip),b,152,a)].
+188 $F # answer("Ka (3412)").  [resolve(187,a,68,a)].
+
+============================== end of proof ==========================
+
+============================== STATISTICS ============================
+
+Given=41. Generated=9122. Kept=99. proofs=44.
+Usable=42. Sos=13. Demods=0. Limbo=0, Disabled=102. Hints=72.
+Kept_by_rule=0, Deleted_by_rule=6683.
+Forward_subsumed=2340. Back_subsumed=0.
+Sos_limit_deleted=0. Sos_displaced=0. Sos_removed=0.
+New_demodulators=0 (0 lex), Back_demodulated=0. Back_unit_deleted=0.
+Demod_attempts=0. Demod_rewrites=0.
+Res_instance_prunes=0. Para_instance_prunes=0. Basic_paramod_prunes=0.
+Nonunit_fsub_feature_tests=0. Nonunit_bsub_feature_tests=1.
+Max_Clause_ID=188.
+Megabytes=0.43.
+User_CPU=0.02, System_CPU=0.01, Wall_clock=0.
+
+============================== end of statistics =====================
+
+============================== end of search =========================
+
+THEOREM PROVED
+
+Exiting with 44 proofs.
+
+Process 13858 exit (max_proofs) Thu Jul  9 16:03:08 2026

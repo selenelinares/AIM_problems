@@ -1,0 +1,1409 @@
+============================== Prover9 ===============================
+Prover9 (64) version 2026-3J, March 2026.
+Process 16160 was started by linaresareva on UML-FG4WX6CDH5,
+Thu Jul  9 16:34:44 2026
+The command was "prover9 -f R1dist_to_aK1.in".
+============================== end of head ===========================
+
+============================== INPUT =================================
+
+% Reading from file R1dist_to_aK1.in
+
+assign(order,kbo).
+set(lex_order_vars).
+set(para_from_small).
+clear(back_demod).
+set(restrict_denials).
+assign(max_weight,5).
+
+formulas(assumptions).
+1 * x = x.
+x * 1 = x.
+x \ (x * y) = y.
+x * (x \ y) = y.
+(x * y) / y = x.
+(x / y) * y = x.
+x * y = u & x * z = u -> y = z.
+y * x = u & z * x = u -> y = z.
+x * y = x * z -> y = z.
+y * x = z * x -> y = z.
+x != y | z * x = z * y.
+x != y | x * z = y * z.
+(x * (y * z)) \ ((x * y) * z) = a(x,y,z) # label("associator").
+(x * y) \ (y * x) = K(y,x) # label("commutator").
+(y * x) \ (y * (x * u)) = L(u,x,y).
+((u * x) * y) / (x * y) = R(u,x,y).
+x \ (u * x) = T(u,x).
+a(x,y,z) = 1 -> L(z,y,x) = z.
+L(x,y,z) = x -> a(z,y,x) = 1.
+T(x,y) = x -> T(y,x) = y.
+T(x,y) = x -> K(x,y) = 1.
+K(x,y) = 1 -> T(x,y) = x.
+T(T(u,x),y) = T(T(u,y),x).
+T(L(u,x,y),z) = L(T(u,z),x,y).
+T(R(u,x,y),z) = R(T(u,z),x,y).
+L(R(u,x,y),z,w) = R(L(u,z,w),x,y).
+L(L(u,x,y),z,w) = L(L(u,z,w),x,y).
+R(R(u,x,y),z,w) = R(R(u,z,w),x,y).
+R(x1,y,z) * R(x2,y,z) = R(x1 * x2,y,z) # label("R1dist").
+end_of_list.
+
+formulas(goals).
+a(K(x,y),z,u) = 1 # label("aK1").
+end_of_list.
+
+formulas(hints).
+a(K(x,y),z,u) = 1.
+1 * x = x.
+x * 1 = x.
+x \ (x * y) = y.
+x * (x \ y) = y.
+(x * y) / y = x.
+(x / y) * y = x.
+x * y != z | x * u != z | u = y.
+x * y != z | u * y != z | u = x.
+x * y != x * z | y = z.
+x * y != z * y | x = z.
+(x * (y * z)) \ ((x * y) * z) = a(x,y,z).
+a(x,y,z) = (x * (y * z)) \ ((x * y) * z).
+(x * y) \ (y * x) = K(y,x).
+K(x,y) = (y * x) \ (x * y).
+(x * y) \ (x * (y * z)) = L(z,y,x).
+L(x,y,z) = (z * y) \ (z * (y * x)).
+((x * y) * z) / (y * z) = R(x,y,z).
+R(x,y,z) = ((x * y) * z) / (y * z).
+x \ (y * x) = T(y,x).
+T(x,y) = y \ (x * y).
+L(x,y,z) != x | a(z,y,x) = 1.
+T(T(x,y),z) = T(T(x,z),y).
+T(L(x,y,z),u) = L(T(x,u),y,z).
+L(T(x,y),z,u) = T(L(x,z,u),y).
+T(R(x,y,z),u) = R(T(x,u),y,z).
+R(T(x,y),z,u) = T(R(x,z,u),y).
+L(R(x,y,z),u,w) = R(L(x,u,w),y,z).
+R(x,y,z) * R(u,y,z) = R(x * u,y,z).
+a(K(c1,c2),c3,c4) != 1.
+1 \ x = x.
+x \ x = 1.
+x / x = 1.
+x / 1 = x.
+x / (y \ x) = y.
+(x / y) \ x = y.
+x != y * z | y \ x = z.
+x * y != z | x \ z = y.
+x * 1 != y | x = y.
+x != y * z | x / z = y.
+x * y != z | z / y = x.
+(x * (y * z)) * a(x,y,z) = (x * y) * z.
+(x * y) * L(z,y,x) = x * (y * z).
+L(x \ y,x,z) = (z * x) \ (z * y).
+L(x,y,z / y) = z \ ((z / y) * (y * x)).
+x \ ((x / y) * (y * z)) = L(z,y,x / y).
+R(1,x,y) = (x * y) / (x * y).
+(x * y) / (x * y) = R(1,x,y).
+R(x,y,1) = (x * y) / (y * 1).
+(x * y) / (y * 1) = R(x,y,1).
+R(x,x \ y,z) = (y * z) / ((x \ y) * z).
+R(x,y,y \ z) = ((x * y) * (y \ z)) / z.
+((x * y) * (y \ z)) / z = R(x,y,y \ z).
+R(x,y,z) * (y * z) = (x * y) * z.
+R(x / y,y,z) = (x * z) / (y * z).
+R(x,y / z,z) = ((x * (y / z)) * z) / y.
+((x * (y / z)) * z) / y = R(x,y / z,z).
+x * T(y,x) = y * x.
+T(x / y,y) = y \ x.
+x * y != z | x = z / y.
+R(x,y,z) = R(x * u,y,z) / R(u,y,z).
+R(x * y,z,u) / R(y,z,u) = R(x,z,u).
+x * y != z | y = x \ z.
+R(x,y,z) = R(u,y,z) \ R(u * x,y,z).
+R(x,y,z) \ R(x * u,y,z) = R(u,y,z).
+(x * y) / T(x,y) = y.
+R(x,y,z) \ ((x * y) * z) = y * z.
+R(x,y,T(z,y)) = ((x * y) * T(z,y)) / (z * y).
+((x * y) * T(z,y)) / (z * y) = R(x,y,T(z,y)).
+T(x,T(y,x)) = T(y,x) \ (y * x).
+T(x,y) \ (x * y) = T(y,T(x,y)).
+x * T(T(y,x),z) = T(y,z) * x.
+x * R(T(y,x),z,u) = R(y,z,u) * x.
+R(1,x,y) = 1.
+(x * y) / y = R(x,y,1).
+R(x,y,1) = x.
+x * T(x \ y,z) = T(y / x,z) * x.
+T(x / y,z) * y = y * T(y \ x,z).
+x * (y * z) != (x * y) * u | L(z,y,x) = u.
+(x * y) * z != x * (y * u) | L(u,y,x) = z.
+T(x,x * y) = L(y \ (x * y),y,x).
+L(x \ (y * x),x,y) = T(y,y * x).
+L(T(x,y) \ z,T(x,y),y) = (x * y) \ (y * z).
+R(x,y / z,z) * y = (x * (y / z)) * z.
+a(R(x,y,z),y,z) = ((x * y) * z) \ ((R(x,y,z) * y) * z).
+((x * y) * z) \ ((R(x,y,z) * y) * z) = a(R(x,y,z),y,z).
+R(1 / x,x,y) = y / (x * y).
+R(x / y,y,y \ z) = (x * (y \ z)) / z.
+R((x / y) / z,z,y) = x / (z * y).
+R(T(x / y,z),y,u) = T((x * u) / (y * u),z).
+T((x * y) / (z * y),u) = R(T(x / z,u),z,y).
+R(1 / x,x,x \ y) = (x \ y) / y.
+R(T(1 / x,y),x,z) = T(z / (x * z),y).
+T(x / (y * x),z) = R(T(1 / y,z),y,x).
+R(1 / x,x,y) \ y = x * y.
+R(x,x \ 1,y) \ y = (x \ 1) * y.
+L(T(x,y),y,x) = T(x,x * y).
+L(T(T(x,y),z),y,x) = T(T(x,x * y),z).
+R(T((x / y) / z,u),z,y) = T(x / (z * y),u).
+(x / (y * z)) * R(u,y,z) = R(((x / z) / y) * u,y,z).
+R(((x / y) / z) * u,z,y) = (x / (z * y)) * R(u,z,y).
+R(x,x \ (y / z),z) = y / ((x \ (y / z)) * z).
+R(1 / x,x,x \ 1) = x \ 1.
+R(x,y,y \ 1) * (y \ 1) = R(x * (1 / y),y,y \ 1).
+R(x * (1 / y),y,y \ 1) = R(x,y,y \ 1) * (y \ 1).
+x * R(x \ y,z,u) = R(y / x,z,u) * x.
+R(x / y,z,u) * y = y * R(y \ x,z,u).
+(x * T(x \ y,z)) / x = T(y / x,z).
+(x * T(y,z)) / x = T((x * y) / x,z).
+R(x,y * z,a(x,y,z)) \ ((x * y) * z) = (y * z) * a(x,y,z).
+L(x,y,1 / y) = (1 / y) * (y * x).
+(1 / x) * (x * y) = L(y,x,1 / x).
+(1 / x) * (y * x) = L(T(y,x),x,1 / x).
+L(T(x,y),y,1 / y) = (1 / y) * (x * y).
+(1 / x) * (R(y,z,u) * x) = L(R(T(y,x),z,u),x,1 / x).
+L(R(T(x,y),z,u),y,1 / y) = (1 / y) * (R(x,z,u) * y).
+R(x,y,y \ 1) = (x * y) * (y \ 1).
+(x * y) * (y \ 1) = R(x,y,y \ 1).
+R(x,y,y \ 1) / (y \ 1) = x * y.
+R(x,y,y \ 1) != z * (y \ 1) | x * y = z.
+R(x,1 / y,y) = (x * (1 / y)) * y.
+(x * (1 / y)) * y = R(x,1 / y,y).
+R(x,1 / y,y) / y = x * (1 / y).
+R(x,y,z) / R(u,y,z) = R(x / u,y,z).
+R(x,y,z) \ R(u,y,z) = R(x \ u,y,z).
+T(R(x / y,y,y \ z),z) = z \ (x * (y \ z)).
+T(x / ((1 / x) * x),y) / x = T(1 / (1 / x),y) * (1 / x).
+(x * y) * T(T(x,x * y),z) = x * (y * T(T(x,y),z)).
+L(R(T(x,y),z,u),y,1 / y) = R((1 / y) * (x * y),z,u).
+1 / R(x,y,z) = R(1 / x,y,z).
+R(1 / x,y,z) = 1 / R(x,y,z).
+R(1 / x,y,z) \ 1 = R(x,y,z).
+(x \ 1) \ 1 = R(x,x,x \ 1).
+R(x,x,x \ 1) = (x \ 1) \ 1.
+(x * R(x \ y,z,u)) / x = R(y / x,z,u).
+(x * R(y,z,u)) / x = R((x * y) / x,z,u).
+R((x * y) / x,z,u) = (x * R(y,z,u)) / x.
+R((x * y) / x,y,y \ 1) = (x * ((y \ 1) \ 1)) / x.
+R(x,y,T(x,y)) = T(((x * y) * x) / (x * y),y).
+T(((x * y) * x) / (x * y),y) = R(x,y,T(x,y)).
+L(R(T(x,y) \ z,u,w),T(x,y),y) = R((x * y) \ (y * z),u,w).
+T((x * y) / (z * y),z) = R(z \ x,z,y).
+T(x / (y * z),y) = R(y \ (x / z),y,z).
+R(x \ (y / z),x,z) = T(y / (x * z),x).
+R(T(x / y,z),y,y \ z) = z \ (x * (y \ z)).
+R(T(x / y,x),y,y \ x) = y \ x.
+R(T(x / (x / y),x),x / y,(x / y) \ x) = y.
+R(T(x / (x / y),x),x / y,y) = y.
+x * y = (T(y / (y / x),y) * (y / x)) * x.
+(T(x / (x / y),x) * (x / y)) * y = y * x.
+((x / y) * T((x / y) \ x,x)) * y = y * x.
+((x / y) * T(y,x)) * y = y * x.
+(x * y) / x = (y / x) * T(x,y).
+(x / y) * T(y,x) = (y * x) / y.
+((x * y) / x) / T(x,y) = y / x.
+(x / y) \ ((y * x) / y) = T(y,x).
+T(x,y) = (y / x) \ ((x * y) / x).
+T(x / y,T(y,x)) = T(y,x) \ ((y * x) / y).
+T(x,y) \ ((x * y) / x) = T(y / x,T(x,y)).
+((x * y) / y) / T(y,T(x,y)) = T(x,y) / y.
+T(x,y * x) = y \ ((x * (y * x)) / x).
+x \ ((y * (x * y)) / y) = T(y,x * y).
+R(T(x,y * x),y,x) = T((x * (y * x)) / (y * x),y).
+T((x * (y * x)) / (y * x),y) = R(T(x,y * x),y,x).
+x / T(y,T(x,y)) = T(x,y) / y.
+T(x,y) = R(T(x,y * x),y,x).
+R(T(x,y * x),y,x) = T(x,y).
+T(x / (y * z),R(u,y,z)) = R(u,y,z) \ R(((x / z) / y) * u,y,z).
+R(x,y,z) \ R(((u / z) / y) * x,y,z) = T(u / (y * z),R(x,y,z)).
+(x * (1 / y)) * y = R(x,y,y \ 1).
+R(x,y,y \ 1) = R(x,1 / y,y).
+R(x,1 / y,y) = R(x,y,y \ 1).
+R(x,y,y \ 1) = R(x,y \ 1,(y \ 1) \ 1).
+R(x,y \ 1,(y \ 1) \ 1) = R(x,y,y \ 1).
+x * (y * T(T(x,y),z)) = T(x,z) * (x * y).
+x * (T(x,y) * z) = T(x,y) * (x * z).
+T(x,y) * (x * z) = x * (T(x,y) * z).
+T(x,y) \ (x * (T(x,y) * z)) = x * z.
+T(x,y) * z = x * (T(x,y) * (x \ z)).
+x * (T(x,y) * (x \ z)) = T(x,y) * z.
+T(x,y) \ (x * z) = x * (T(x,y) \ z).
+x \ (T(x,y) * z) = T(x,y) * (x \ z).
+T(x,y) \ x = x * (T(x,y) \ 1).
+x * (T(x,y) \ 1) = T(x,y) \ x.
+x * (T(x,y) \ y) = T(y,T(x,y)).
+(x / y) * ((y \ x) \ y) = T(y,T(x / y,y)).
+x \ T(x,y) = T(x,y) * (x \ 1).
+T(x,y) * (x \ 1) = x \ T(x,y).
+(x / y) * ((y \ x) \ y) = T(y,y \ x).
+((x * y) / x) * (y \ x) = T(x,x \ (x * y)).
+((x * y) / x) * (y \ x) = T(x,y).
+T(x,y) = ((x * y) / x) * (y \ x).
+T(x,y) / (y \ x) = (x * y) / x.
+T(x,R(y,y \ 1,x)) = ((x * R(y,y \ 1,x)) / x) * ((y \ 1) * x).
+((x * R(y,y \ 1,x)) / x) * ((y \ 1) * x) = T(x,R(y,y \ 1,x)).
+T(x * y,x) / y = ((x * y) * x) / (x * y).
+((x * y) * x) / (x * y) = T(x * y,x) / y.
+T(x,x / y) / y = (x * (x / y)) / x.
+T(T(x,x / y) / y,x) = x \ (x * (x / y)).
+T(T(x * y,x) / y,y) = R(x,y,T(x,y)).
+R(x,y,T(x,y)) = y \ T(x * y,x).
+x \ T(y * x,y) = R(y,x,T(y,x)).
+x \ T(y,y / x) = R(y / x,x,T(y / x,x)).
+R(x / y,y,T(x / y,y)) = y \ T(x,x / y).
+T(T(x,x / y) / y,x) = x / y.
+T(T(R(x,y,y \ 1),R(x,y,y \ 1) / (y \ 1)) / (y \ 1),R(x,y,y \ 1)) = x * y.
+R(x / y,y,y \ x) = y \ T(x,x / y).
+x \ T(y,y / x) = (y * (x \ y)) / y.
+(x / y) \ T(x,x / (x / y)) = (x * y) / x.
+R((1 / x) * (y * x),z,u) = (1 / x) * (R(y,z,u) * x).
+T(x / 1,y) / x = T(1 / (1 / x),y) * (1 / x).
+T(1 / (1 / x),y) * (1 / x) = T(x / 1,y) / x.
+T(1 / (1 / x),y) * (1 / x) = T(x,y) / x.
+T(x,y) / x = (1 / x) * T((1 / x) \ 1,y).
+(1 / x) * T((1 / x) \ 1,y) = T(x,y) / x.
+(1 / x) * T(x,y) = T(x,y) / x.
+R((x * y) / x,y \ 1,x) * ((y \ 1) * x) = T(x,R(y,y \ 1,x)).
+T(x,R(y,y \ 1,x)) = (((x * y) / x) * (y \ 1)) * x.
+(((x * y) / x) * (y \ 1)) * x = T(x,R(y,y \ 1,x)).
+T(x / (y * z),R(u,y,z)) = R(u \ (((x / z) / y) * u),y,z).
+R(x \ (((y / z) / u) * x),u,z) = T(y / (u * z),R(x,u,z)).
+R(T((x / y) / z,u),z,y) = T(x / (z * y),R(u,z,y)).
+T(x / (y * z),R(u,y,z)) = T(x / (y * z),u).
+T(x,R(y,z,u)) = T((x * (z * u)) / (z * u),y).
+T((x * (y * z)) / (y * z),u) = T(x,R(u,y,z)).
+T(x,y) = T(x,R(y,z,u)).
+T(x,R(y,z,u)) = T(x,y).
+T(x,(y \ 1) \ 1) = T(x,y).
+T(x,y \ z) = T(x,T(z / y,z)).
+T(x,T(y / z,y)) = T(x,z \ y).
+T(x,T(y,z)) = T(x,T(y,z * y)).
+T(x,T(y,z * y)) = T(x,T(y,z)).
+T(T(R(x,y,y \ 1),x * y) / (y \ 1),R(x,y,y \ 1)) = x * y.
+T(R(T(x,x * y),y,y \ 1) / (y \ 1),R(x,y,y \ 1)) = x * y.
+T(T(x,x * y) * y,R(x,y,y \ 1)) = x * y.
+x * y = T(T(x,x * y) * y,x).
+T(T(x,x * y) * y,x) = x * y.
+T(T(x,x * (x \ y)) * (x \ y),x) = y.
+T(T(x,y) * (x \ y),x) = y.
+x * y = (T(x,y) * (x \ y)) * x.
+(T(x,y) * (x \ y)) * x = x * y.
+T(T(R(x,x \ 1,y),y) * ((x \ 1) * y),R(x,x \ 1,y)) = y.
+(T(x,y) * (x \ y)) * (y \ 1) = T(T(x,y) * (x \ y),x) \ (T(x,y) * (x \ y)).
+T(T(x,y) * (x \ y),x) \ (T(x,y) * (x \ y)) = (T(x,y) * (x \ y)) * (y \ 1).
+(x * y) / x = T(x,y) * (x \ y).
+T(x,y) * (x \ y) = (x * y) / x.
+T(x,y) \ ((x * y) / x) = x \ y.
+x \ y = T(y / x,T(x,y)).
+T(x / y,T(y,x)) = y \ x.
+T(x,T(y,x * y)) = y \ (x * y).
+T(x,y) = T(x,T(y,x * y)).
+T(x,T(y,x * y)) = T(x,y).
+T(x,y) = T(x,T(y,x)).
+T(x,T(y,x)) = T(x,y).
+x / T(y,x) = T(x,y) / y.
+T(x,y) / y = x / T(y,x).
+x * (T(x,y) \ y) = T(y,x).
+T(x,x / y) = T(x,y \ x).
+(x / T(y,x)) \ T(x,y) = y.
+T(x,x / (x / y)) = T(x,y).
+(x / y) \ T(x,y) = (x * y) / x.
+T(R(T(x,y),x \ 1,y) * ((x \ 1) * y),R(x,x \ 1,y)) = y.
+T((T(x,y) * (x \ 1)) * y,R(x,x \ 1,y)) = y.
+T((x \ T(x,y)) * y,R(x,x \ 1,y)) = y.
+x = T((y \ T(y,x)) * x,y).
+T((x \ T(x,y)) * y,x) = y.
+T(x,y) = T(x,(x \ T(x,y)) * y).
+T(x,(x \ T(x,y)) * y) = T(x,y).
+(x / y) \ T(x,(x \ T(x,y)) * y) = (x \ T(x,y)) * y.
+(x / y) \ T(x,y) = (x \ T(x,y)) * y.
+(x \ T(x,y)) * y = (x * y) / x.
+((x * y) / x) / y = x \ T(x,y).
+x \ (T(y,x) * (y \ x)) = (T(y,x) * (y \ x)) * (x \ 1).
+(T(x,y) * (x \ y)) * (y \ 1) = y \ (T(x,y) * (x \ y)).
+((x * y) / x) * (y \ 1) = y \ (T(x,y) * (x \ y)).
+x \ (T(y,x) * (y \ x)) = ((y * x) / y) * (x \ 1).
+x \ ((y * x) / y) = ((y * x) / y) * (x \ 1).
+((x * y) / x) * (y \ 1) = y \ ((x * y) / x).
+R((x * y) / x,y \ 1,(y \ 1) \ 1) / ((y \ 1) \ 1) = y \ ((x * y) / x).
+(x \ ((y * x) / y)) * y = T(y,R(x,x \ 1,y)).
+R(x,x \ ((y * x) / y),y) = (y * x) / T(y,R(x,x \ 1,y)).
+(x * y) / T(x,R(y,y \ 1,x)) = R(y,y \ ((x * y) / x),x).
+(x * y) / T(x,y) = R(y,y \ ((x * y) / x),x).
+R(x,x \ ((y * x) / y),y) = (y * x) / T(y,x).
+R(x,x \ ((y * x) / y),y) = x.
+((x * (x \ ((y * x) / y))) * y) \ ((x * (x \ ((y * x) / y))) * y) = a(R(x,x \ ((y * x) / y),y),x \ ((y * x) / y),y).
+R((x * y) / x,y,y \ 1) / ((y \ 1) \ 1) = y \ ((x * y) / x).
+((x * ((y \ 1) \ 1)) / x) / ((y \ 1) \ 1) = y \ ((x * y) / x).
+x \ ((y * x) / y) = y \ T(y,(x \ 1) \ 1).
+x \ T(x,(y \ 1) \ 1) = y \ ((x * y) / x).
+x \ T(x,y) = y \ ((x * y) / x).
+x \ ((y * x) / y) = y \ T(y,x).
+x * (y \ T(y,x)) = (y * x) / y.
+(x * y) / x != y * z | x \ T(x,y) = z.
+a(R(x,x \ ((y * x) / y),y),x \ ((y * x) / y),y) = 1.
+a(x,x \ ((y * x) / y),y) = 1.
+a(T(x,y),T(x,y) \ ((x * y) / y),y) = 1.
+a(T(x,y),T(x,y) \ x,y) = 1.
+R(T(x,y),(T(x,y) \ x) * y,1) \ ((T(x,y) * (T(x,y) \ x)) * y) = ((T(x,y) \ x) * y) * a(T(x,y),T(x,y) \ x,y).
+T(x,y) \ ((T(x,y) * (T(x,y) \ x)) * y) = ((T(x,y) \ x) * y) * a(T(x,y),T(x,y) \ x,y).
+((T(x,y) \ x) * y) * a(T(x,y),T(x,y) \ x,y) = T(x,y) \ ((T(x,y) * (T(x,y) \ x)) * y).
+((T(x,y) \ x) * y) * a(T(x,y),T(x,y) \ x,y) = T(x,y) \ (x * y).
+((T(x,y) \ x) * y) * a(T(x,y),T(x,y) \ x,y) = x * (T(x,y) \ y).
+((T(x,y) \ x) * y) * a(T(x,y),T(x,y) \ x,y) = T(y,x).
+((T(x,y) \ x) * y) * 1 = T(y,x).
+(T(x,y) \ x) * y = T(y,x).
+T(x,y) / x = T(y,x) \ y.
+T(x,y) \ x = T(y,x) / y.
+(R(T(x,y),z,u) \ R(x,z,u)) * y = T(y,R(x,z,u)).
+R(T(x,y) \ x,y,z) \ (T(y,x) * z) = y * z.
+R((1 / x) * T(x,y),z,u) = (1 / x) * (R(T(y,x) \ y,z,u) * x).
+(1 / x) * (R(T(y,x) \ y,z,u) * x) = R((1 / x) * T(x,y),z,u).
+R(T(x,y) \ x,z,u) * y = T(y,R(x,z,u)).
+R(T(x,y) \ x,z,u) * y = T(y,x).
+x * y != T(y,z) | x = T(z,y) \ z.
+R(T(x,y) \ x,z,u) = T(x,y) \ x.
+T(x,y) \ x = (z * u) / (((T(x,y) \ x) \ z) * u).
+(x * y) / (((T(z,u) \ z) \ x) * y) = T(z,u) \ z.
+(T(x,y) \ x) \ (T(y,x) * z) = y * z.
+(T(x,y) \ x) \ z = y * (T(y,x) \ z).
+(T(x,y) \ x) \ x = T(x,y).
+(x * y) / (T(x,z) * y) = T(x,z) \ x.
+x / (T(y,z) * (y \ x)) = T(y,z) \ y.
+(T(x,y) \ x) \ z = T(x,y) * (x \ z).
+T(x,y) * (x \ z) = y * (T(y,x) \ z).
+x * (T(x,y) \ x) = (y * x) / y.
+(x * y) / x = y * (T(y,x) \ y).
+x \ T(x,y) = T(y,x) \ y.
+T(x,y) \ x = y \ T(y,x).
+L(x \ T(x,y),T(y,x),x) = (y * x) \ (x * y).
+L(R(x \ T(x,y),z,u),T(y,x),x) = R((y * x) \ (x * y),z,u).
+x \ T(x,y) = T(x,y) / x.
+T(x,y) / x = x \ T(x,y).
+(1 / x) * T(x,y) = x \ T(x,y).
+K(x,y) = L(x \ T(x,y),T(y,x),x).
+(1 / x) * T(x,y) = R((1 / x) * T(x,y),z,u).
+R((1 / x) * T(x,y),z,u) = (1 / x) * T(x,y).
+R((1 / x) * T(x,y),z,u) = x \ T(x,y).
+R(x \ T(x,y),z,u) = x \ T(x,y).
+L(x \ T(x,y),T(y,x),x) = R((y * x) \ (x * y),z,u).
+R((x * y) \ (y * x),z,u) = L(y \ T(y,x),T(x,y),y).
+K(x,y) = R((y * x) \ (x * y),z,u).
+R((x * y) \ (y * x),z,u) = K(y,x).
+R(K(x,y),z,u) = K(x,y).
+K(x,y) * (z * u) = (K(x,y) * z) * u.
+(K(x,y) * z) * u = K(x,y) * (z * u).
+L(x,y,K(z,u)) = x.
+end_of_list.
+
+============================== end of input ==========================
+
+============================== PROCESS NON-CLAUSAL FORMULAS ==========
+
+% Formulas that are not ordinary clauses:
+1 x * y = u & x * z = u -> y = z # label(non_clause).  [assumption].
+2 y * x = u & z * x = u -> y = z # label(non_clause).  [assumption].
+3 x * y = x * z -> y = z # label(non_clause).  [assumption].
+4 y * x = z * x -> y = z # label(non_clause).  [assumption].
+5 a(x,y,z) = 1 -> L(z,y,x) = z # label(non_clause).  [assumption].
+6 L(x,y,z) = x -> a(z,y,x) = 1 # label(non_clause).  [assumption].
+7 T(x,y) = x -> T(y,x) = y # label(non_clause).  [assumption].
+8 T(x,y) = x -> K(x,y) = 1 # label(non_clause).  [assumption].
+9 K(x,y) = 1 -> T(x,y) = x # label(non_clause).  [assumption].
+10 a(K(x,y),z,u) = 1 # label("aK1") # label(non_clause) # label(goal).  [goal].
+
+============================== end of process non-clausal formulas ===
+
+============================== PROCESS INITIAL CLAUSES ===============
+
+% Clauses before input processing:
+
+formulas(usable).
+end_of_list.
+
+formulas(sos).
+1 * x = x.  [assumption].
+x * 1 = x.  [assumption].
+x \ (x * y) = y.  [assumption].
+x * (x \ y) = y.  [assumption].
+(x * y) / y = x.  [assumption].
+(x / y) * y = x.  [assumption].
+x * y != z | x * u != z | u = y.  [clausify(1)].
+x * y != z | u * y != z | u = x.  [clausify(2)].
+x * y != x * z | y = z.  [clausify(3)].
+x * y != z * y | x = z.  [clausify(4)].
+x != y | z * x = z * y.  [assumption].
+x != y | x * z = y * z.  [assumption].
+(x * (y * z)) \ ((x * y) * z) = a(x,y,z) # label("associator").  [assumption].
+(x * y) \ (y * x) = K(y,x) # label("commutator").  [assumption].
+(x * y) \ (x * (y * z)) = L(z,y,x).  [assumption].
+((x * y) * z) / (y * z) = R(x,y,z).  [assumption].
+x \ (y * x) = T(y,x).  [assumption].
+a(x,y,z) != 1 | L(z,y,x) = z.  [clausify(5)].
+L(x,y,z) != x | a(z,y,x) = 1.  [clausify(6)].
+T(x,y) != x | T(y,x) = y.  [clausify(7)].
+T(x,y) != x | K(x,y) = 1.  [clausify(8)].
+K(x,y) != 1 | T(x,y) = x.  [clausify(9)].
+T(T(x,y),z) = T(T(x,z),y).  [assumption].
+T(L(x,y,z),u) = L(T(x,u),y,z).  [assumption].
+T(R(x,y,z),u) = R(T(x,u),y,z).  [assumption].
+L(R(x,y,z),u,w) = R(L(x,u,w),y,z).  [assumption].
+L(L(x,y,z),u,w) = L(L(x,u,w),y,z).  [assumption].
+R(R(x,y,z),u,w) = R(R(x,u,w),y,z).  [assumption].
+R(x,y,z) * R(u,y,z) = R(x * u,y,z) # label("R1dist").  [assumption].
+a(K(c1,c2),c3,c4) != 1 # label("aK1").  [deny(10)].
+end_of_list.
+
+formulas(demodulators).
+end_of_list.
+
+% 347 hints input.
+
+============================== PREDICATE ELIMINATION =================
+
+No predicates eliminated.
+
+============================== end predicate elimination =============
+
+Auto_denials:
+  % copying label "aK1" to answer in negative clause
+
+Term ordering decisions:
+Function symbol KB weights:  1=1. c1=1. c2=1. c3=1. c4=1. *=1. T=1. \=1. /=1. K=1. R=1. L=1. a=1.
+Predicate symbol precedence:  predicate_order([ = ]).
+Function symbol precedence:  function_order([ 1, c1, c2, c3, c4, *, T, \, /, K, R, L, a ]).
+Skipping inverse_order, because term ordering is KBO.
+Unfolding symbols: K/2 T/2 L/3 R/3 a/3.
+
+Auto_inference settings:
+  % set(paramodulation).  % (positive equality literals)
+  % set(hyper_resolution).  % (nonunit Horn with equality)
+    % set(hyper_resolution) -> set(pos_hyper_resolution).
+  % set(neg_ur_resolution).  % (nonunit Horn with equality)
+  % assign(para_lit_limit, 3).  % (nonunit Horn with equality)
+
+Auto_process settings:  (no changes).
+
+kept:      11 1 * x = x.  [assumption].
+kept:      12 x * 1 = x.  [assumption].
+kept:      13 x \ (x * y) = y.  [assumption].
+kept:      14 x * (x \ y) = y.  [assumption].
+kept:      15 (x * y) / y = x.  [assumption].
+kept:      16 (x / y) * y = x.  [assumption].
+kept:      17 x * y != z | x * u != z | u = y.  [clausify(1)].
+kept:      18 x * y != z | u * y != z | u = x.  [clausify(2)].
+kept:      19 x * y != x * z | y = z.  [clausify(3)].
+kept:      20 x * y != z * y | x = z.  [clausify(4)].
+kept:      21 x != y | z * x = z * y.  [assumption].
+kept:      22 x != y | x * z = y * z.  [assumption].
+           23 (x * (y * z)) \ ((x * y) * z) = a(x,y,z) # label("associator").  [assumption].
+kept:      24 a(x,y,z) = (x * (y * z)) \ ((x * y) * z).  [copy(23),flip(a)].
+           25 (x * y) \ (y * x) = K(y,x) # label("commutator").  [assumption].
+kept:      26 K(x,y) = (y * x) \ (x * y).  [copy(25),flip(a)].
+           27 (x * y) \ (x * (y * z)) = L(z,y,x).  [assumption].
+kept:      28 L(x,y,z) = (z * y) \ (z * (y * x)).  [copy(27),flip(a)].
+           29 ((x * y) * z) / (y * z) = R(x,y,z).  [assumption].
+kept:      30 R(x,y,z) = ((x * y) * z) / (y * z).  [copy(29),flip(a)].
+           31 x \ (y * x) = T(y,x).  [assumption].
+kept:      32 T(x,y) = y \ (x * y).  [copy(31),flip(a)].
+kept:      33 a(x,y,z) != 1 | L(z,y,x) = z.  [clausify(5)].
+kept:      34 L(x,y,z) != x | a(z,y,x) = 1.  [clausify(6)].
+kept:      35 T(x,y) != x | T(y,x) = y.  [clausify(7)].
+kept:      36 T(x,y) != x | K(x,y) = 1.  [clausify(8)].
+kept:      37 K(x,y) != 1 | T(x,y) = x.  [clausify(9)].
+kept:      38 T(T(x,y),z) = T(T(x,z),y).  [assumption].
+           39 T(L(x,y,z),u) = L(T(x,u),y,z).  [assumption].
+kept:      40 L(T(x,y),z,u) = T(L(x,z,u),y).  [copy(39),flip(a)].
+           41 T(R(x,y,z),u) = R(T(x,u),y,z).  [assumption].
+kept:      42 R(T(x,y),z,u) = T(R(x,z,u),y).  [copy(41),flip(a)].
+kept:      43 L(R(x,y,z),u,w) = R(L(x,u,w),y,z).  [assumption].
+kept:      44 L(L(x,y,z),u,w) = L(L(x,u,w),y,z).  [assumption].
+kept:      45 R(R(x,y,z),u,w) = R(R(x,u,w),y,z).  [assumption].
+kept:      46 R(x,y,z) * R(u,y,z) = R(x * u,y,z) # label("R1dist").  [assumption].
+kept:      47 a(K(c1,c2),c3,c4) != 1 # label("aK1") # answer("aK1").  [deny(10)].
+
+============================== end of process initial clauses ========
+
+============================== CLAUSES FOR SEARCH ====================
+
+% Clauses after input processing:
+
+formulas(usable).
+47 a(K(c1,c2),c3,c4) != 1 # label("aK1") # answer("aK1").  [deny(10)].
+end_of_list.
+
+formulas(sos).
+11 1 * x = x.  [assumption].
+12 x * 1 = x.  [assumption].
+13 x \ (x * y) = y.  [assumption].
+14 x * (x \ y) = y.  [assumption].
+15 (x * y) / y = x.  [assumption].
+16 (x / y) * y = x.  [assumption].
+17 x * y != z | x * u != z | u = y.  [clausify(1)].
+18 x * y != z | u * y != z | u = x.  [clausify(2)].
+19 x * y != x * z | y = z.  [clausify(3)].
+20 x * y != z * y | x = z.  [clausify(4)].
+21 x != y | z * x = z * y.  [assumption].
+22 x != y | x * z = y * z.  [assumption].
+24 a(x,y,z) = (x * (y * z)) \ ((x * y) * z).  [copy(23),flip(a)].
+26 K(x,y) = (y * x) \ (x * y).  [copy(25),flip(a)].
+28 L(x,y,z) = (z * y) \ (z * (y * x)).  [copy(27),flip(a)].
+30 R(x,y,z) = ((x * y) * z) / (y * z).  [copy(29),flip(a)].
+32 T(x,y) = y \ (x * y).  [copy(31),flip(a)].
+33 a(x,y,z) != 1 | L(z,y,x) = z.  [clausify(5)].
+34 L(x,y,z) != x | a(z,y,x) = 1.  [clausify(6)].
+35 T(x,y) != x | T(y,x) = y.  [clausify(7)].
+36 T(x,y) != x | K(x,y) = 1.  [clausify(8)].
+37 K(x,y) != 1 | T(x,y) = x.  [clausify(9)].
+38 T(T(x,y),z) = T(T(x,z),y).  [assumption].
+40 L(T(x,y),z,u) = T(L(x,z,u),y).  [copy(39),flip(a)].
+42 R(T(x,y),z,u) = T(R(x,z,u),y).  [copy(41),flip(a)].
+43 L(R(x,y,z),u,w) = R(L(x,u,w),y,z).  [assumption].
+44 L(L(x,y,z),u,w) = L(L(x,u,w),y,z).  [assumption].
+45 R(R(x,y,z),u,w) = R(R(x,u,w),y,z).  [assumption].
+46 R(x,y,z) * R(u,y,z) = R(x * u,y,z) # label("R1dist").  [assumption].
+end_of_list.
+
+formulas(demodulators).
+end_of_list.
+
+% 253 hints (347 processed, 94 redundant).
+
+============================== end of clauses for search =============
+
+============================== SEARCH ================================
+
+% Starting search at 0.01 seconds.
+
+given #1 (I,wt=5): 11 1 * x = x.  [assumption].
+
+given #2 (I,wt=5): 12 x * 1 = x.  [assumption].
+
+given #3 (I,wt=7): 13 x \ (x * y) = y.  [assumption].
+
+given #4 (I,wt=7): 14 x * (x \ y) = y.  [assumption].
+
+given #5 (I,wt=7): 15 (x * y) / y = x.  [assumption].
+
+given #6 (I,wt=7): 16 (x / y) * y = x.  [assumption].
+
+given #7 (I,wt=13): 17 x * y != z | x * u != z | u = y.  [clausify(1)].
+
+given #8 (I,wt=13): 18 x * y != z | u * y != z | u = x.  [clausify(2)].
+
+given #9 (I,wt=10): 19 x * y != x * z | y = z.  [clausify(3)].
+
+given #10 (I,wt=10): 20 x * y != z * y | x = z.  [clausify(4)].
+
+given #11 (I,wt=10): 21 x != y | z * x = z * y.  [assumption].
+
+given #12 (I,wt=10): 22 x != y | x * z = y * z.  [assumption].
+
+given #13 (I,wt=16): 24 a(x,y,z) = (x * (y * z)) \ ((x * y) * z).  [copy(23),flip(a)].
+
+given #14 (I,wt=11): 26 K(x,y) = (y * x) \ (x * y).  [copy(25),flip(a)].
+
+given #15 (I,wt=14): 28 L(x,y,z) = (z * y) \ (z * (y * x)).  [copy(27),flip(a)].
+
+given #16 (I,wt=14): 30 R(x,y,z) = ((x * y) * z) / (y * z).  [copy(29),flip(a)].
+
+given #17 (I,wt=9): 32 T(x,y) = y \ (x * y).  [copy(31),flip(a)].
+
+given #18 (I,wt=12): 33 a(x,y,z) != 1 | L(z,y,x) = z.  [clausify(5)].
+
+given #19 (I,wt=12): 34 L(x,y,z) != x | a(z,y,x) = 1.  [clausify(6)].
+
+given #20 (I,wt=10): 35 T(x,y) != x | T(y,x) = y.  [clausify(7)].
+
+given #21 (I,wt=10): 36 T(x,y) != x | K(x,y) = 1.  [clausify(8)].
+
+given #22 (I,wt=10): 37 K(x,y) != 1 | T(x,y) = x.  [clausify(9)].
+
+given #23 (I,wt=11): 38 T(T(x,y),z) = T(T(x,z),y).  [assumption].
+
+given #24 (I,wt=13): 40 L(T(x,y),z,u) = T(L(x,z,u),y).  [copy(39),flip(a)].
+
+given #25 (I,wt=13): 42 R(T(x,y),z,u) = T(R(x,z,u),y).  [copy(41),flip(a)].
+
+given #26 (I,wt=15): 43 L(R(x,y,z),u,w) = R(L(x,u,w),y,z).  [assumption].
+
+given #27 (I,wt=15): 44 L(L(x,y,z),u,w) = L(L(x,u,w),y,z).  [assumption].
+
+given #28 (I,wt=15): 45 R(R(x,y,z),u,w) = R(R(x,u,w),y,z).  [assumption].
+
+given #29 (I,wt=16): 46 R(x,y,z) * R(u,y,z) = R(x * u,y,z) # label("R1dist").  [assumption].
+
+given #30 (H,wt=5): 48 1 \ x = x.  [para(11(a,1),13(a,1,2))].
+
+given #31 (H,wt=5): 49 x \ x = 1.  [para(12(a,1),13(a,1,2))].
+
+given #32 (H,wt=5): 50 x / x = 1.  [para(11(a,1),15(a,1,1))].
+
+given #33 (H,wt=5): 51 x / 1 = x.  [para(12(a,1),15(a,1,1))].
+
+given #34 (H,wt=7): 52 x / (y \ x) = y.  [para(14(a,1),15(a,1,1))].
+
+given #35 (H,wt=7): 53 (x / y) \ x = y.  [para(16(a,1),13(a,1,2))].
+
+given #36 (H,wt=8): 55 x * 1 != y | x = y.  [para(12(a,1),20(a,2))].
+
+given #37 (H,wt=9): 69 x * T(y,x) = y * x.  [para(32(a,2),14(a,1,2))].
+
+given #38 (H,wt=9): 70 T(x / y,y) = y \ x.  [para(16(a,1),32(a,2,2))].
+
+given #39 (H,wt=9): 74 (x * y) / T(x,y) = y.  [para(32(a,2),52(a,1,2))].
+
+given #40 (H,wt=10): 54 x * y != z | x \ z = y.  [para(14(a,1),19(a,1)),flip(a)].
+
+given #41 (H,wt=10): 56 x * y != z | z / y = x.  [para(16(a,1),20(a,1)),flip(a)].
+
+given #42 (H,wt=12): 61 (x * y) / (x * y) = R(1,x,y).  [para(11(a,1),30(a,2,1,1)),flip(a)].
+
+given #43 (H,wt=6): 80 R(1,x,y) = 1.  [para(61(a,1),50(a,1))].
+
+given #44 (H,wt=12): 62 (x * y) / (y * 1) = R(x,y,1).  [para(12(a,1),30(a,2,1)),flip(a)].
+
+given #45 (H,wt=10): 82 (x * y) / y = R(x,y,1).  [para(12(a,1),62(a,1,2))].
+
+given #46 (H,wt=6): 83 R(x,y,1) = x.  [para(82(a,1),15(a,1))].
+
+given #47 (H,wt=13): 77 T(x,y) \ (x * y) = T(y,T(x,y)).  [para(69(a,1),32(a,2,2)),flip(a)].
+
+given #48 (H,wt=13): 78 x * T(T(y,x),z) = T(y,z) * x.  [para(38(a,1),69(a,1,2))].
+
+given #49 (H,wt=14): 58 (x * y) * L(z,y,x) = x * (y * z).  [para(28(a,2),14(a,1,2))].
+
+given #50 (H,wt=14): 59 L(x \ y,x,z) = (z * x) \ (z * y).  [para(14(a,1),28(a,2,2,2))].
+
+given #51 (H,wt=14): 65 R(x,y,z) * (y * z) = (x * y) * z.  [para(30(a,2),16(a,1,1))].
+
+given #52 (H,wt=14): 66 R(x / y,y,z) = (x * z) / (y * z).  [para(16(a,1),30(a,2,1,1))].
+
+given #53 (H,wt=12): 90 R(1 / x,x,y) = y / (x * y).  [para(11(a,1),66(a,2,1))].
+
+given #54 (H,wt=12): 96 R(1 / x,x,y) \ y = x * y.  [para(90(a,2),53(a,1,1))].
+
+given #55 (H,wt=14): 75 R(x,y,z) \ ((x * y) * z) = y * z.  [para(30(a,2),53(a,1,1))].
+
+given #56 (H,wt=14): 86 L(x \ (y * x),x,y) = T(y,y * x).  [para(59(a,2),32(a,2)),flip(a)].
+
+given #57 (H,wt=12): 98 L(T(x,y),y,x) = T(x,x * y).  [para(32(a,2),86(a,1,1))].
+
+given #58 (H,wt=14): 92 R((x / y) / z,z,y) = x / (z * y).  [para(16(a,1),66(a,2,1))].
+
+given #59 (H,wt=14): 94 R(1 / x,x,x \ y) = (x \ y) / y.  [para(14(a,1),90(a,2,2))].
+
+given #60 (H,wt=12): 103 R(1 / x,x,x \ 1) = x \ 1.  [para(94(a,2),51(a,1))].
+
+given #61 (H,wt=14): 97 R(x,x \ 1,y) \ y = (x \ 1) * y.  [para(52(a,1),96(a,1,1,1))].
+
+given #62 (H,wt=15): 79 x * R(T(y,x),z,u) = R(y,z,u) * x.  [para(42(a,2),69(a,1,2))].
+
+given #63 (H,wt=15): 84 T(x / y,z) * y = y * T(y \ x,z).  [para(70(a,1),78(a,1,2,1)),flip(a)].
+
+given #64 (H,wt=15): 106 (x * T(x \ y,z)) / x = T(y / x,z).  [hyper(56,a,84,a)].
+
+given #65 (H,wt=15): 107 (x * T(y,z)) / x = T((x * y) / x,z).  [para(13(a,1),106(a,1,1,2,1))].
+
+given #66 (H,wt=16): 57 (x * (y * z)) * a(x,y,z) = (x * y) * z.  [para(24(a,2),14(a,1,2))].
+
+given #67 (H,wt=16): 60 x \ ((x / y) * (y * z)) = L(z,y,x / y).  [para(16(a,1),28(a,2,1)),flip(a)].
+
+given #68 (H,wt=14): 109 (1 / x) * (x * y) = L(y,x,1 / x).  [para(60(a,1),48(a,1)),flip(a)].
+
+given #69 (H,wt=16): 63 R(x,x \ y,z) = (y * z) / ((x \ y) * z).  [para(14(a,1),30(a,2,1,1))].
+
+given #70 (H,wt=16): 64 ((x * y) * (y \ z)) / z = R(x,y,y \ z).  [para(14(a,1),30(a,2,2)),flip(a)].
+
+given #71 (H,wt=14): 112 (x * y) * (y \ 1) = R(x,y,y \ 1).  [para(64(a,1),51(a,1)),flip(a)].
+
+given #72 (H,wt=14): 113 R(x,y,y \ 1) / (y \ 1) = x * y.  [hyper(56,a,112,a)].
+
+given #73 (H,wt=16): 67 ((x * (y / z)) * z) / y = R(x,y / z,z).  [para(16(a,1),30(a,2,2)),flip(a)].
+
+given #74 (H,wt=14): 115 (x * (1 / y)) * y = R(x,1 / y,y).  [para(67(a,1),51(a,1)),flip(a)].
+
+given #75 (H,wt=14): 116 R(x,1 / y,y) / y = x * (1 / y).  [hyper(56,a,115,a)].
+
+given #76 (H,wt=16): 71 R(x * y,z,u) / R(y,z,u) = R(x,z,u).  [hyper(18,a,16,a,b,46,a),flip(a)].
+
+given #77 (H,wt=16): 72 R(x,y,z) \ R(x * u,y,z) = R(u,y,z).  [hyper(17,a,14,a,b,46,a),flip(a)].
+
+given #78 (H,wt=16): 88 R(x,y / z,z) * y = (x * (y / z)) * z.  [para(16(a,1),65(a,1,2))].
+
+given #79 (H,wt=16): 91 R(x / y,y,y \ z) = (x * (y \ z)) / z.  [para(14(a,1),66(a,2,2))].
+
+given #80 (H,wt=16): 95 T(x / (y * x),z) = R(T(1 / y,z),y,x).  [para(90(a,1),42(a,2,1)),flip(a)].
+
+given #81 (H,wt=16): 99 L(T(T(x,y),z),y,x) = T(T(x,x * y),z).  [para(98(a,1),40(a,2,1))].
+
+given #82 (H,wt=16): 110 L(T(x,y),y,1 / y) = (1 / y) * (x * y).  [para(69(a,1),109(a,1,2)),flip(a)].
+
+given #83 (H,wt=16): 117 R(x,y,z) / R(u,y,z) = R(x / u,y,z).  [para(16(a,1),71(a,1,1,1))].
+
+given #84 (H,wt=13): 123 R(1 / x,y,z) = 1 / R(x,y,z).  [para(80(a,1),117(a,1,1)),flip(a)].
+
+given #85 (H,wt=13): 124 R(1 / x,y,z) \ 1 = R(x,y,z).  [para(123(a,2),53(a,1,1))].
+
+given #86 (H,wt=12): 125 R(x,x,x \ 1) = (x \ 1) \ 1.  [para(103(a,1),124(a,1,1)),flip(a)].
+
+given #87 (H,wt=16): 118 R(x,y,z) \ R(u,y,z) = R(x \ u,y,z).  [para(14(a,1),72(a,1,2,1))].
+
+given #88 (H,wt=17): 85 (x * y) * z != x * (y * u) | L(u,y,x) = z.  [para(58(a,1),19(a,1)),flip(a)].
+
+given #89 (H,wt=17): 105 R(x / y,z,u) * y = y * R(y \ x,z,u).  [para(70(a,1),79(a,1,2,1)),flip(a)].
+
+given #90 (H,wt=17): 114 R(x,y,y \ 1) != z * (y \ 1) | x * y = z.  [para(112(a,1),20(a,1))].
+
+given #91 (H,wt=17): 126 (x * R(x \ y,z,u)) / x = R(y / x,z,u).  [hyper(56,a,105,a)].
+
+given #92 (H,wt=17): 127 R((x * y) / x,z,u) = (x * R(y,z,u)) / x.  [para(13(a,1),126(a,1,1,2,1)),flip(a)].
+
+given #93 (H,wt=18): 76 ((x * y) * T(z,y)) / (z * y) = R(x,y,T(z,y)).  [para(69(a,1),30(a,2,2)),flip(a)].
+
+given #94 (H,wt=18): 87 L(T(x,y) \ z,T(x,y),y) = (x * y) \ (y * z).  [para(69(a,1),59(a,2,1))].
+
+given #95 (H,wt=18): 93 T((x * y) / (z * y),u) = R(T(x / z,u),z,y).  [para(66(a,1),42(a,2,1)),flip(a)].
+
+given #96 (H,wt=16): 131 T((x * y) / (z * y),z) = R(z \ x,z,y).  [para(70(a,1),93(a,2,1))].
+
+given #97 (H,wt=16): 132 R(x \ (y / z),x,z) = T(y / (x * z),x).  [para(16(a,1),131(a,1,1,1)),flip(a)].
+
+given #98 (H,wt=18): 100 R(T((x / y) / z,u),z,y) = T(x / (z * y),u).  [para(92(a,1),42(a,2,1))].
+
+given #99 (H,wt=18): 102 R(x,x \ (y / z),z) = y / ((x \ (y / z)) * z).  [para(52(a,1),92(a,1,1))].
+
+given #100 (H,wt=18): 119 T(R(x / y,y,y \ z),z) = z \ (x * (y \ z)).  [para(91(a,2),70(a,1,1))].
+
+given #101 (H,wt=18): 129 T(((x * y) * x) / (x * y),y) = R(x,y,T(x,y)).  [para(76(a,1),107(a,1)),flip(a)].
+
+given #102 (H,wt=18): 133 R(T(x / y,z),y,y \ z) = z \ (x * (y \ z)).  [para(119(a,1),42(a,2))].
+
+given #103 (H,wt=14): 134 R(T(x / y,x),y,y \ x) = y \ x.  [para(133(a,2),13(a,1))].
+
+given #104 (H,wt=18): 135 R(T(x / (x / y),x),x / y,(x / y) \ x) = y.  [para(134(a,2),53(a,1))].
+
+given #105 (H,wt=14): 136 R(T(x / (x / y),x),x / y,y) = y.  [para(53(a,1),135(a,1,3))].
+
+given #106 (H,wt=17): 137 (T(x / (x / y),x) * (x / y)) * y = y * x.  [para(136(a,1),88(a,1,1)),flip(a)].
+
+given #107 (H,wt=17): 138 ((x / y) * T((x / y) \ x,x)) * y = y * x.  [para(84(a,1),137(a,1,1))].
+
+given #108 (H,wt=13): 139 ((x / y) * T(y,x)) * y = y * x.  [para(53(a,1),138(a,1,1,2,1))].
+
+given #109 (H,wt=13): 140 (x / y) * T(y,x) = (y * x) / y.  [hyper(56,a,139,a),flip(a)].
+
+given #110 (H,wt=13): 141 ((x * y) / x) / T(x,y) = y / x.  [hyper(56,a,140,a)].
+
+given #111 (H,wt=13): 142 T(x,y) = (y / x) \ ((x * y) / x).  [hyper(54,a,140,a),flip(a)].
+
+given #112 (H,wt=15): 145 x \ ((y * (x * y)) / y) = T(y,x * y).  [para(15(a,1),142(a,2,1)),flip(a)].
+
+given #113 (H,wt=17): 143 T(x,y) \ ((x * y) / x) = T(y / x,T(x,y)).  [para(140(a,1),32(a,2,2)),flip(a)].
+
+given #114 (H,wt=17): 144 ((x * y) / y) / T(y,T(x,y)) = T(x,y) / y.  [para(69(a,1),141(a,1,1,1))].
+
+given #115 (H,wt=13): 147 x / T(y,T(x,y)) = T(x,y) / y.  [para(15(a,1),144(a,1,1))].
+
+given #116 (H,wt=20): 128 R((x * y) / x,y,y \ 1) = (x * ((y \ 1) \ 1)) / x.  [para(125(a,1),127(a,2,1,2))].
+
+given #117 (H,wt=20): 146 T((x * (y * x)) / (y * x),y) = R(T(x,y * x),y,x).  [para(145(a,1),132(a,1,1)),flip(a)].
+
+given #118 (H,wt=12): 148 R(T(x,y * x),y,x) = T(x,y).  [para(15(a,1),146(a,1,1)),flip(a)].
+
+given #119 (H,wt=21): 101 R(((x / y) / z) * u,z,y) = (x / (z * y)) * R(u,z,y).  [para(92(a,1),46(a,1,1)),flip(a)].
+
+given #120 (H,wt=21): 104 R(x * (1 / y),y,y \ 1) = R(x,y,y \ 1) * (y \ 1).  [para(103(a,1),46(a,1,2)),flip(a)].
+
+given #121 (H,wt=14): 150 (x * (1 / y)) * y = R(x,y,y \ 1).  [hyper(114,a,104,a)].
+
+given #122 (H,wt=13): 151 R(x,1 / y,y) = R(x,y,y \ 1).  [para(150(a,1),115(a,1)),flip(a)].
+
+given #123 (H,wt=17): 152 R(x,y \ 1,(y \ 1) \ 1) = R(x,y,y \ 1).  [para(52(a,1),151(a,1,2)),flip(a)].
+
+given #124 (H,wt=21): 121 (x * y) * T(T(x,x * y),z) = x * (y * T(T(x,y),z)).  [para(99(a,1),58(a,1,2))].
+
+given #125 (H,wt=17): 153 x * (y * T(T(x,y),z)) = T(x,z) * (x * y).  [para(121(a,1),78(a,1))].
+
+given #126 (H,wt=15): 154 T(x,y) * (x * z) = x * (T(x,y) * z).  [para(78(a,1),153(a,1,2)),flip(a)].
+
+given #127 (H,wt=15): 155 T(x,y) \ (x * (T(x,y) * z)) = x * z.  [hyper(54,a,154,a)].
+
+given #128 (H,wt=15): 156 x * (T(x,y) * (x \ z)) = T(x,y) * z.  [para(14(a,1),154(a,1,2)),flip(a)].
+
+given #129 (H,wt=15): 157 T(x,y) \ (x * z) = x * (T(x,y) \ z).  [para(14(a,1),155(a,1,2,2))].
+
+given #130 (H,wt=13): 159 x * (T(x,y) \ 1) = T(x,y) \ x.  [para(12(a,1),157(a,1,2)),flip(a)].
+
+given #131 (H,wt=13): 160 x * (T(x,y) \ y) = T(y,T(x,y)).  [para(157(a,1),77(a,1))].
+
+given #132 (H,wt=15): 158 x \ (T(x,y) * z) = T(x,y) * (x \ z).  [hyper(54,a,156,a)].
+
+given #133 (H,wt=13): 162 T(x,y) * (x \ 1) = x \ T(x,y).  [para(12(a,1),158(a,1,2)),flip(a)].
+
+given #134 (H,wt=17): 161 (x / y) * ((y \ x) \ y) = T(y,T(x / y,y)).  [para(70(a,1),160(a,1,2,1))].
+
+given #135 (H,wt=15): 163 (x / y) * ((y \ x) \ y) = T(y,y \ x).  [para(70(a,1),161(a,2,2))].
+
+given #136 (H,wt=17): 164 ((x * y) / x) * (y \ x) = T(x,x \ (x * y)).  [para(13(a,1),163(a,1,2,1))].
+
+given #137 (H,wt=13): 165 T(x,y) = ((x * y) / x) * (y \ x).  [para(13(a,1),164(a,2,2)),flip(a)].
+
+given #138 (H,wt=13): 166 T(x,y) / (y \ x) = (x * y) / x.  [hyper(56,a,165,a(flip))].
+
+given #139 (H,wt=15): 169 T(x,x / y) / y = (x * (x / y)) / x.  [para(53(a,1),166(a,1,2))].
+
+given #140 (H,wt=17): 168 ((x * y) * x) / (x * y) = T(x * y,x) / y.  [para(13(a,1),166(a,1,2)),flip(a)].
+
+given #141 (H,wt=16): 171 T(T(x * y,x) / y,y) = R(x,y,T(x,y)).  [para(168(a,1),129(a,1,1))].
+
+given #142 (H,wt=14): 172 x \ T(y * x,y) = R(y,x,T(y,x)).  [para(171(a,1),70(a,1)),flip(a)].
+
+given #143 (H,wt=17): 170 T(T(x,x / y) / y,x) = x \ (x * (x / y)).  [para(169(a,2),70(a,1,1))].
+
+given #144 (H,wt=13): 174 T(T(x,x / y) / y,x) = x / y.  [para(170(a,2),13(a,1))].
+
+given #145 (H,wt=18): 173 R(x / y,y,T(x / y,y)) = y \ T(x,x / y).  [para(16(a,1),172(a,1,2,1)),flip(a)].
+
+given #146 (H,wt=16): 176 R(x / y,y,y \ x) = y \ T(x,x / y).  [para(70(a,1),173(a,1,3))].
+
+given #147 (H,wt=15): 177 x \ T(y,y / x) = (y * (x \ y)) / y.  [para(176(a,1),91(a,1))].
+
+given #148 (H,wt=17): 178 (x / y) \ T(x,x / (x / y)) = (x * y) / x.  [para(53(a,1),177(a,2,1,2))].
+
+given #149 (H,wt=22): 89 ((x * y) * z) \ ((R(x,y,z) * y) * z) = a(R(x,y,z),y,z).  [para(65(a,1),24(a,2,1)),flip(a)].
+
+given #150 (H,wt=22): 111 L(R(T(x,y),z,u),y,1 / y) = (1 / y) * (R(x,z,u) * y).  [para(79(a,1),109(a,1,2)),flip(a)].
+
+given #151 (H,wt=22): 122 L(R(T(x,y),z,u),y,1 / y) = R((1 / y) * (x * y),z,u).  [para(110(a,1),43(a,2,1))].
+
+given #152 (H,wt=21): 179 R((1 / x) * (y * x),z,u) = (1 / x) * (R(y,z,u) * x).  [para(122(a,1),111(a,1))].
+
+given #153 (H,wt=23): 120 T(x / ((1 / x) * x),y) / x = T(1 / (1 / x),y) * (1 / x).  [para(95(a,2),116(a,1,1))].
+
+given #154 (H,wt=19): 180 T(1 / (1 / x),y) * (1 / x) = T(x / 1,y) / x.  [para(16(a,1),120(a,1,1,1,2)),flip(a)].
+ => 181 back subsumes hint matchers not on Sos.  Reset weight to 523.000.
+
+given #155 (H,wt=17): 182 T(1 / (1 / x),y) * (1 / x) = T(x,y) / x.  [para(51(a,1),180(a,2,1,1))].
+
+given #156 (H,wt=17): 183 (1 / x) * T((1 / x) \ 1,y) = T(x,y) / x.  [para(182(a,1),84(a,1)),flip(a)].
+
+given #157 (H,wt=13): 184 (1 / x) * T(x,y) = T(x,y) / x.  [para(53(a,1),183(a,1,2,1))].
+
+given #158 (H,wt=24): 108 R(x,y * z,a(x,y,z)) \ ((x * y) * z) = (y * z) * a(x,y,z).  [para(57(a,1),75(a,1,2))].
+
+given #159 (H,wt=24): 130 L(R(T(x,y) \ z,u,w),T(x,y),y) = R((x * y) \ (y * z),u,w).  [para(87(a,1),43(a,2,1))].
+
+given #160 (H,wt=25): 167 ((x * R(y,y \ 1,x)) / x) * ((y \ 1) * x) = T(x,R(y,y \ 1,x)).  [para(97(a,1),165(a,2,2)),flip(a)].
+
+given #161 (H,wt=25): 185 R((x * y) / x,y \ 1,x) * ((y \ 1) * x) = T(x,R(y,y \ 1,x)).  [para(127(a,2),167(a,1,1))].
+
+given #162 (H,wt=20): 186 (((x * y) / x) * (y \ 1)) * x = T(x,R(y,y \ 1,x)).  [para(185(a,1),65(a,1)),flip(a)].
+
+given #163 (H,wt=26): 149 R(x,y,z) \ R(((u / z) / y) * x,y,z) = T(u / (y * z),R(x,y,z)).  [para(101(a,2),32(a,2,2)),flip(a)].
+
+given #164 (H,wt=23): 187 R(x \ (((y / z) / u) * x),u,z) = T(y / (u * z),R(x,u,z)).  [para(149(a,1),118(a,1)),flip(a)].
+
+given #165 (H,wt=21): 188 R(T((x / y) / z,u),z,y) = T(x / (z * y),R(u,z,y)).  [para(32(a,2),187(a,1,1))].
+
+given #166 (H,wt=18): 189 T(x / (y * z),R(u,y,z)) = T(x / (y * z),u).  [para(188(a,1),100(a,1))].
+
+given #167 (H,wt=18): 190 T((x * (y * z)) / (y * z),u) = T(x,R(u,y,z)).  [para(15(a,1),189(a,1,1)),flip(a)].
+
+given #168 (H,wt=10): 191 T(x,R(y,z,u)) = T(x,y).  [para(15(a,1),190(a,1,1)),flip(a)].
+
+given #169 (H,wt=11): 192 T(x,(y \ 1) \ 1) = T(x,y).  [para(125(a,1),191(a,1,2))].
+
+given #170 (H,wt=13): 194 T(x,T(y / z,y)) = T(x,z \ y).  [para(134(a,1),191(a,1,2)),flip(a)].
+
+given #171 (H,wt=13): 195 T(x,T(y,z * y)) = T(x,T(y,z)).  [para(148(a,1),191(a,1,2)),flip(a)].
+
+given #172 (H,wt=32): 175 T(T(R(x,y,y \ 1),R(x,y,y \ 1) / (y \ 1)) / (y \ 1),R(x,y,y \ 1)) = x * y.  [para(174(a,2),113(a,1))].
+
+given #173 (H,wt=25): 196 T(T(R(x,y,y \ 1),x * y) / (y \ 1),R(x,y,y \ 1)) = x * y.  [para(113(a,1),175(a,1,1,1,2))].
+
+given #174 (H,wt=25): 197 T(R(T(x,x * y),y,y \ 1) / (y \ 1),R(x,y,y \ 1)) = x * y.  [para(42(a,2),196(a,1,1,1))].
+
+given #175 (H,wt=18): 198 T(T(x,x * y) * y,R(x,y,y \ 1)) = x * y.  [para(113(a,1),197(a,1,1))].
+
+given #176 (H,wt=13): 199 T(T(x,x * y) * y,x) = x * y.  [para(198(a,1),191(a,1)),flip(a)].
+ => 201 back subsumes hint matchers not on Sos.  Reset weight to 516.000.
+
+given #177 (H,wt=15): 200 T(T(x,x * (x \ y)) * (x \ y),x) = y.  [para(199(a,2),14(a,1))].
+
+given #178 (H,wt=11): 202 T(T(x,y) * (x \ y),x) = y.  [para(14(a,1),200(a,1,1,1,2))].
+
+given #179 (H,wt=13): 203 (T(x,y) * (x \ y)) * x = x * y.  [para(202(a,1),69(a,1,2)),flip(a)].
+
+given #180 (H,wt=13): 206 T(x,y) * (x \ y) = (x * y) / x.  [hyper(56,a,203,a),flip(a)].
+
+given #181 (H,wt=13): 207 T(x,y) \ ((x * y) / x) = x \ y.  [hyper(54,a,206,a)].
+
+given #182 (H,wt=11): 208 T(x / y,T(y,x)) = y \ x.  [para(207(a,1),143(a,1)),flip(a)].
+
+given #183 (H,wt=13): 209 T(x,T(y,x * y)) = y \ (x * y).  [para(15(a,1),208(a,1,1))].
+
+given #184 (H,wt=11): 210 T(x,T(y,x * y)) = T(x,y).  [para(209(a,2),32(a,2)),flip(a)].
+
+given #185 (H,wt=9): 211 T(x,T(y,x)) = T(x,y).  [para(210(a,1),195(a,1)),flip(a)].
+
+given #186 (H,wt=11): 212 T(x,y) / y = x / T(y,x).  [para(211(a,1),147(a,1,2)),flip(a)].
+
+given #187 (H,wt=11): 213 x * (T(x,y) \ y) = T(y,x).  [para(211(a,1),160(a,2))].
+
+given #188 (H,wt=11): 214 T(x,x / y) = T(x,y \ x).  [para(211(a,1),194(a,1))].
+
+given #189 (H,wt=11): 215 (x / T(y,x)) \ T(x,y) = y.  [para(212(a,1),53(a,1,1))].
+
+given #190 (H,wt=11): 216 T(x,x / (x / y)) = T(x,y).  [para(53(a,1),214(a,2,2))].
+
+given #191 (H,wt=13): 217 (x / y) \ T(x,y) = (x * y) / x.  [para(216(a,1),178(a,1,2))].
+
+given #192 (H,wt=23): 204 T(T(R(x,x \ 1,y),y) * ((x \ 1) * y),R(x,x \ 1,y)) = y.  [para(97(a,1),202(a,1,1,2))].
+
+given #193 (H,wt=23): 218 T(R(T(x,y),x \ 1,y) * ((x \ 1) * y),R(x,x \ 1,y)) = y.  [para(42(a,2),204(a,1,1,1))].
+
+given #194 (H,wt=18): 219 T((T(x,y) * (x \ 1)) * y,R(x,x \ 1,y)) = y.  [para(65(a,1),218(a,1,1))].
+
+given #195 (H,wt=16): 220 T((x \ T(x,y)) * y,R(x,x \ 1,y)) = y.  [para(162(a,1),219(a,1,1,1))].
+
+given #196 (H,wt=11): 221 T((x \ T(x,y)) * y,x) = y.  [para(220(a,1),191(a,1)),flip(a)].
+ => 222 back subsumes hint matchers not on Sos.  Reset weight to 514.000.
+
+given #197 (H,wt=13): 223 T(x,(x \ T(x,y)) * y) = T(x,y).  [para(221(a,1),211(a,1,2)),flip(a)].
+
+given #198 (H,wt=21): 224 (x / y) \ T(x,(x \ T(x,y)) * y) = (x \ T(x,y)) * y.  [para(221(a,1),215(a,1,1,2))].
+
+given #199 (H,wt=15): 225 (x / y) \ T(x,y) = (x \ T(x,y)) * y.  [para(223(a,1),224(a,1,2))].
+
+given #200 (H,wt=13): 226 (x \ T(x,y)) * y = (x * y) / x.  [para(225(a,1),217(a,1))].
+
+given #201 (H,wt=13): 227 ((x * y) / x) / y = x \ T(x,y).  [hyper(56,a,226,a)].
+
+given #202 (H,wt=29): 205 T(T(x,y) * (x \ y),x) \ (T(x,y) * (x \ y)) = (T(x,y) * (x \ y)) * (y \ 1).  [para(202(a,1),159(a,1,2,1)),flip(a)].
+
+given #203 (H,wt=21): 228 (T(x,y) * (x \ y)) * (y \ 1) = y \ (T(x,y) * (x \ y)).  [para(202(a,1),205(a,1,1)),flip(a)].
+
+given #204 (H,wt=19): 229 x \ (T(y,x) * (y \ x)) = ((y * x) / y) * (x \ 1).  [para(206(a,1),228(a,1,1)),flip(a)].
+
+given #205 (H,wt=17): 230 ((x * y) / x) * (y \ 1) = y \ ((x * y) / x).  [para(206(a,1),229(a,1,2)),flip(a)].
+
+given #206 (H,wt=18): 232 (x \ ((y * x) / y)) * y = T(y,R(x,x \ 1,y)).  [para(230(a,1),186(a,1,1))].
+
+given #207 (H,wt=23): 233 (x * y) / T(x,R(y,y \ 1,x)) = R(y,y \ ((x * y) / x),x).  [para(232(a,1),102(a,2,2)),flip(a)].
+
+given #208 (H,wt=18): 234 R(x,x \ ((y * x) / y),y) = (y * x) / T(y,x).  [para(191(a,1),233(a,1,2)),flip(a)].
+
+given #209 (H,wt=12): 235 R(x,x \ ((y * x) / y),y) = x.  [para(234(a,2),74(a,1))].
+
+given #210 (H,wt=28): 231 R((x * y) / x,y \ 1,(y \ 1) \ 1) / ((y \ 1) \ 1) = y \ ((x * y) / x).  [para(230(a,1),113(a,2))].
+
+given #211 (H,wt=24): 238 R((x * y) / x,y,y \ 1) / ((y \ 1) \ 1) = y \ ((x * y) / x).  [para(152(a,1),231(a,1,1))].
+
+given #212 (H,wt=23): 239 ((x * ((y \ 1) \ 1)) / x) / ((y \ 1) \ 1) = y \ ((x * y) / x).  [para(128(a,1),238(a,1,1))].
+
+given #213 (H,wt=17): 240 x \ T(x,(y \ 1) \ 1) = y \ ((x * y) / x).  [para(239(a,1),227(a,1)),flip(a)].
+
+given #214 (H,wt=13): 241 x \ ((y * x) / y) = y \ T(y,x).  [para(192(a,1),240(a,1,2)),flip(a)].
+
+given #215 (H,wt=13): 242 x * (y \ T(y,x)) = (y * x) / y.  [para(241(a,1),14(a,1,2))].
+
+given #216 (H,wt=16): 243 (x * y) / x != y * z | x \ T(x,y) = z.  [para(242(a,1),19(a,1))].
+
+given #217 (H,wt=43): 237 ((x * (x \ ((y * x) / y))) * y) \ ((x * (x \ ((y * x) / y))) * y) = a(R(x,x \ ((y * x) / y),y),x \ ((y * x) / y),y).  [para(235(a,1),89(a,1,2,1,1))].
+
+given #218 (H,wt=21): 244 a(R(x,x \ ((y * x) / y),y),x \ ((y * x) / y),y) = 1.  [para(237(a,1),49(a,1))].
+
+given #219 (H,wt=12): 246 a(x,x \ ((y * x) / y),y) = 1.  [para(235(a,1),244(a,1,1))].
+
+given #220 (H,wt=16): 247 a(T(x,y),T(x,y) \ ((x * y) / y),y) = 1.  [para(69(a,1),246(a,1,2,2,1))].
+
+given #221 (H,wt=12): 248 a(T(x,y),T(x,y) \ x,y) = 1.  [para(15(a,1),247(a,1,2,2))].
+
+given #222 (H,wt=43): 249 R(T(x,y),(T(x,y) \ x) * y,1) \ ((T(x,y) * (T(x,y) \ x)) * y) = ((T(x,y) \ x) * y) * a(T(x,y),T(x,y) \ x,y).  [para(248(a,1),108(a,1,1,3))].
+
+given #223 (H,wt=34): 250 ((T(x,y) \ x) * y) * a(T(x,y),T(x,y) \ x,y) = T(x,y) \ ((T(x,y) * (T(x,y) \ x)) * y).  [para(83(a,1),249(a,1,1)),flip(a)].
+ => 252 back subsumes hint matchers not on Sos.  Reset weight to 537.000.
+
+given #224 (H,wt=26): 251 ((T(x,y) \ x) * y) * a(T(x,y),T(x,y) \ x,y) = T(x,y) \ (x * y).  [para(14(a,1),250(a,2,2,1))].
+
+given #225 (H,wt=26): 253 ((T(x,y) \ x) * y) * a(T(x,y),T(x,y) \ x,y) = x * (T(x,y) \ y).  [para(251(a,2),157(a,1))].
+
+given #226 (H,wt=22): 254 ((T(x,y) \ x) * y) * a(T(x,y),T(x,y) \ x,y) = T(y,x).  [para(253(a,2),213(a,1))].
+
+given #227 (H,wt=13): 255 ((T(x,y) \ x) * y) * 1 = T(y,x).  [para(248(a,1),254(a,1,2))].
+ => 257 back subsumes hint matchers not on Sos.  Reset weight to 522.000.
+
+given #228 (H,wt=11): 256 (T(x,y) \ x) * y = T(y,x).  [hyper(55,a,255,a)].
+
+given #229 (H,wt=11): 258 T(x,y) \ x = T(y,x) / y.  [hyper(56,a,256,a),flip(a)].
+
+given #230 (H,wt=14): 259 T(x,y) != z * x | T(y,x) \ y = z.  [para(256(a,1),20(a,1))].
+
+given #231 (H,wt=18): 261 R(T(x,y) \ x,y,z) \ (T(y,x) * z) = y * z.  [para(256(a,1),75(a,1,2,1))].
+
+given #232 (H,wt=20): 260 (R(T(x,y),z,u) \ R(x,z,u)) * y = T(y,R(x,z,u)).  [para(42(a,2),256(a,1,1,1))].
+
+given #233 (H,wt=17): 263 R(T(x,y) \ x,z,u) * y = T(y,R(x,z,u)).  [para(118(a,1),260(a,1,1))].
+
+given #234 (H,wt=14): 264 R(T(x,y) \ x,z,u) * y = T(y,x).  [para(263(a,2),191(a,1))].
+
+given #235 (H,wt=14): 265 R(T(x,y) \ x,z,u) = T(x,y) \ x.  [hyper(18,a,256,a,b,264,a)].
+
+given #236 (H,wt=15): 268 (T(x,y) \ x) \ (T(y,x) * z) = y * z.  [para(265(a,1),261(a,1,1))].
+ => 270 back subsumes hint matchers not on Sos.  Reset weight to 518.000.
+
+given #237 (H,wt=15): 269 (T(x,y) \ x) \ z = y * (T(y,x) \ z).  [para(14(a,1),268(a,1,2))].
+
+given #238 (H,wt=11): 271 (T(x,y) \ x) \ x = T(x,y).  [para(269(a,2),213(a,1))].
+
+given #239 (H,wt=19): 267 (x * y) / (((T(z,u) \ z) \ x) * y) = T(z,u) \ z.  [para(265(a,1),63(a,1)),flip(a)].
+
+given #240 (H,wt=15): 272 (x * y) / (T(x,z) * y) = T(x,z) \ x.  [para(271(a,1),267(a,1,2,1))].
+
+given #241 (H,wt=15): 273 x / (T(y,z) * (y \ x)) = T(y,z) \ y.  [para(14(a,1),272(a,1,1))].
+
+given #242 (H,wt=15): 274 (T(x,y) \ x) \ z = T(x,y) * (x \ z).  [para(273(a,1),53(a,1,1))].
+
+given #243 (H,wt=15): 275 T(x,y) * (x \ z) = y * (T(y,x) \ z).  [para(274(a,1),269(a,1))].
+
+given #244 (H,wt=13): 276 (x * y) / x = y * (T(y,x) \ y).  [para(275(a,1),206(a,1)),flip(a)].
+
+given #245 (H,wt=11): 277 T(x,y) \ x = y \ T(y,x).  [hyper(243,a,276,a),flip(a)].
+
+given #246 (H,wt=11): 280 T(x,y) / x = x \ T(x,y).  [para(277(a,1),258(a,1)),flip(a)].
+
+given #247 (H,wt=13): 281 (1 / x) * T(x,y) = x \ T(x,y).  [para(280(a,1),184(a,2))].
+
+given #248 (H,wt=18): 278 L(x \ T(x,y),T(y,x),x) = (y * x) \ (x * y).  [para(277(a,1),87(a,1,1))].
+
+given #249 (H,wt=14): 282 K(x,y) = L(x \ T(x,y),T(y,x),x).  [para(278(a,2),26(a,2))].
+
+given #250 (H,wt=24): 279 L(R(x \ T(x,y),z,u),T(y,x),x) = R((y * x) \ (x * y),z,u).  [para(277(a,1),130(a,1,1,1))].
+
+given #251 (H,wt=25): 262 (1 / x) * (R(T(y,x) \ y,z,u) * x) = R((1 / x) * T(x,y),z,u).  [para(256(a,1),179(a,1,1,2)),flip(a)].
+
+given #252 (H,wt=18): 283 R((1 / x) * T(x,y),z,u) = (1 / x) * T(x,y).  [para(264(a,1),262(a,1,2)),flip(a)].
+
+given #253 (H,wt=16): 285 R((1 / x) * T(x,y),z,u) = x \ T(x,y).  [para(283(a,2),281(a,1))].
+
+given #254 (H,wt=14): 286 R(x \ T(x,y),z,u) = x \ T(x,y).  [para(281(a,1),285(a,1,1))].
+
+given #255 (H,wt=21): 287 R((x * y) \ (y * x),z,u) = L(y \ T(y,x),T(x,y),y).  [para(286(a,1),279(a,1,1)),flip(a)].
+
+given #256 (H,wt=14): 288 R((x * y) \ (y * x),z,u) = K(y,x).  [para(287(a,2),282(a,2)),flip(a)].
+
+given #257 (H,wt=10): 290 R(K(x,y),z,u) = K(x,y).  [para(26(a,2),288(a,1,1))].
+
+given #258 (H,wt=15): 291 (K(x,y) * z) * u = K(x,y) * (z * u).  [para(290(a,1),65(a,1,1)),flip(a)].
+
+given #259 (H,wt=8): 292 L(x,y,K(z,u)) = x.  [hyper(85,a,291,a)].
+
+============================== PROOF =================================
+
+% Proof 1 at 0.18 (+ 0.01) seconds: "aK1".
+% Length of proof: 266 (0 new hints)
+% Level of proof: 70
+% Maximum clause weight: 43.000
+% Given clauses in run: 259
+% Given clauses in proof: 250 (0 new hints)
+
+1 x * y = u & x * z = u -> y = z # label(non_clause).  [assumption].
+2 y * x = u & z * x = u -> y = z # label(non_clause).  [assumption].
+3 x * y = x * z -> y = z # label(non_clause).  [assumption].
+4 y * x = z * x -> y = z # label(non_clause).  [assumption].
+6 L(x,y,z) = x -> a(z,y,x) = 1 # label(non_clause).  [assumption].
+10 a(K(x,y),z,u) = 1 # label("aK1") # label(non_clause) # label(goal).  [goal].
+11 1 * x = x.  [assumption].
+12 x * 1 = x.  [assumption].
+13 x \ (x * y) = y.  [assumption].
+14 x * (x \ y) = y.  [assumption].
+15 (x * y) / y = x.  [assumption].
+16 (x / y) * y = x.  [assumption].
+17 x * y != z | x * u != z | u = y.  [clausify(1)].
+18 x * y != z | u * y != z | u = x.  [clausify(2)].
+19 x * y != x * z | y = z.  [clausify(3)].
+20 x * y != z * y | x = z.  [clausify(4)].
+23 (x * (y * z)) \ ((x * y) * z) = a(x,y,z) # label("associator").  [assumption].
+24 a(x,y,z) = (x * (y * z)) \ ((x * y) * z).  [copy(23),flip(a)].
+25 (x * y) \ (y * x) = K(y,x) # label("commutator").  [assumption].
+26 K(x,y) = (y * x) \ (x * y).  [copy(25),flip(a)].
+27 (x * y) \ (x * (y * z)) = L(z,y,x).  [assumption].
+28 L(x,y,z) = (z * y) \ (z * (y * x)).  [copy(27),flip(a)].
+29 ((x * y) * z) / (y * z) = R(x,y,z).  [assumption].
+30 R(x,y,z) = ((x * y) * z) / (y * z).  [copy(29),flip(a)].
+31 x \ (y * x) = T(y,x).  [assumption].
+32 T(x,y) = y \ (x * y).  [copy(31),flip(a)].
+34 L(x,y,z) != x | a(z,y,x) = 1.  [clausify(6)].
+38 T(T(x,y),z) = T(T(x,z),y).  [assumption].
+39 T(L(x,y,z),u) = L(T(x,u),y,z).  [assumption].
+40 L(T(x,y),z,u) = T(L(x,z,u),y).  [copy(39),flip(a)].
+41 T(R(x,y,z),u) = R(T(x,u),y,z).  [assumption].
+42 R(T(x,y),z,u) = T(R(x,z,u),y).  [copy(41),flip(a)].
+43 L(R(x,y,z),u,w) = R(L(x,u,w),y,z).  [assumption].
+46 R(x,y,z) * R(u,y,z) = R(x * u,y,z) # label("R1dist").  [assumption].
+47 a(K(c1,c2),c3,c4) != 1 # label("aK1") # answer("aK1").  [deny(10)].
+48 1 \ x = x.  [para(11(a,1),13(a,1,2))].
+49 x \ x = 1.  [para(12(a,1),13(a,1,2))].
+50 x / x = 1.  [para(11(a,1),15(a,1,1))].
+51 x / 1 = x.  [para(12(a,1),15(a,1,1))].
+52 x / (y \ x) = y.  [para(14(a,1),15(a,1,1))].
+53 (x / y) \ x = y.  [para(16(a,1),13(a,1,2))].
+54 x * y != z | x \ z = y.  [para(14(a,1),19(a,1)),flip(a)].
+55 x * 1 != y | x = y.  [para(12(a,1),20(a,2))].
+56 x * y != z | z / y = x.  [para(16(a,1),20(a,1)),flip(a)].
+57 (x * (y * z)) * a(x,y,z) = (x * y) * z.  [para(24(a,2),14(a,1,2))].
+58 (x * y) * L(z,y,x) = x * (y * z).  [para(28(a,2),14(a,1,2))].
+59 L(x \ y,x,z) = (z * x) \ (z * y).  [para(14(a,1),28(a,2,2,2))].
+60 x \ ((x / y) * (y * z)) = L(z,y,x / y).  [para(16(a,1),28(a,2,1)),flip(a)].
+61 (x * y) / (x * y) = R(1,x,y).  [para(11(a,1),30(a,2,1,1)),flip(a)].
+62 (x * y) / (y * 1) = R(x,y,1).  [para(12(a,1),30(a,2,1)),flip(a)].
+63 R(x,x \ y,z) = (y * z) / ((x \ y) * z).  [para(14(a,1),30(a,2,1,1))].
+64 ((x * y) * (y \ z)) / z = R(x,y,y \ z).  [para(14(a,1),30(a,2,2)),flip(a)].
+65 R(x,y,z) * (y * z) = (x * y) * z.  [para(30(a,2),16(a,1,1))].
+66 R(x / y,y,z) = (x * z) / (y * z).  [para(16(a,1),30(a,2,1,1))].
+67 ((x * (y / z)) * z) / y = R(x,y / z,z).  [para(16(a,1),30(a,2,2)),flip(a)].
+69 x * T(y,x) = y * x.  [para(32(a,2),14(a,1,2))].
+70 T(x / y,y) = y \ x.  [para(16(a,1),32(a,2,2))].
+71 R(x * y,z,u) / R(y,z,u) = R(x,z,u).  [hyper(18,a,16,a,b,46,a),flip(a)].
+72 R(x,y,z) \ R(x * u,y,z) = R(u,y,z).  [hyper(17,a,14,a,b,46,a),flip(a)].
+74 (x * y) / T(x,y) = y.  [para(32(a,2),52(a,1,2))].
+75 R(x,y,z) \ ((x * y) * z) = y * z.  [para(30(a,2),53(a,1,1))].
+76 ((x * y) * T(z,y)) / (z * y) = R(x,y,T(z,y)).  [para(69(a,1),30(a,2,2)),flip(a)].
+77 T(x,y) \ (x * y) = T(y,T(x,y)).  [para(69(a,1),32(a,2,2)),flip(a)].
+78 x * T(T(y,x),z) = T(y,z) * x.  [para(38(a,1),69(a,1,2))].
+79 x * R(T(y,x),z,u) = R(y,z,u) * x.  [para(42(a,2),69(a,1,2))].
+80 R(1,x,y) = 1.  [para(61(a,1),50(a,1))].
+82 (x * y) / y = R(x,y,1).  [para(12(a,1),62(a,1,2))].
+83 R(x,y,1) = x.  [para(82(a,1),15(a,1))].
+84 T(x / y,z) * y = y * T(y \ x,z).  [para(70(a,1),78(a,1,2,1)),flip(a)].
+85 (x * y) * z != x * (y * u) | L(u,y,x) = z.  [para(58(a,1),19(a,1)),flip(a)].
+86 L(x \ (y * x),x,y) = T(y,y * x).  [para(59(a,2),32(a,2)),flip(a)].
+87 L(T(x,y) \ z,T(x,y),y) = (x * y) \ (y * z).  [para(69(a,1),59(a,2,1))].
+88 R(x,y / z,z) * y = (x * (y / z)) * z.  [para(16(a,1),65(a,1,2))].
+89 ((x * y) * z) \ ((R(x,y,z) * y) * z) = a(R(x,y,z),y,z).  [para(65(a,1),24(a,2,1)),flip(a)].
+90 R(1 / x,x,y) = y / (x * y).  [para(11(a,1),66(a,2,1))].
+91 R(x / y,y,y \ z) = (x * (y \ z)) / z.  [para(14(a,1),66(a,2,2))].
+92 R((x / y) / z,z,y) = x / (z * y).  [para(16(a,1),66(a,2,1))].
+93 T((x * y) / (z * y),u) = R(T(x / z,u),z,y).  [para(66(a,1),42(a,2,1)),flip(a)].
+94 R(1 / x,x,x \ y) = (x \ y) / y.  [para(14(a,1),90(a,2,2))].
+95 T(x / (y * x),z) = R(T(1 / y,z),y,x).  [para(90(a,1),42(a,2,1)),flip(a)].
+96 R(1 / x,x,y) \ y = x * y.  [para(90(a,2),53(a,1,1))].
+97 R(x,x \ 1,y) \ y = (x \ 1) * y.  [para(52(a,1),96(a,1,1,1))].
+98 L(T(x,y),y,x) = T(x,x * y).  [para(32(a,2),86(a,1,1))].
+99 L(T(T(x,y),z),y,x) = T(T(x,x * y),z).  [para(98(a,1),40(a,2,1))].
+100 R(T((x / y) / z,u),z,y) = T(x / (z * y),u).  [para(92(a,1),42(a,2,1))].
+101 R(((x / y) / z) * u,z,y) = (x / (z * y)) * R(u,z,y).  [para(92(a,1),46(a,1,1)),flip(a)].
+102 R(x,x \ (y / z),z) = y / ((x \ (y / z)) * z).  [para(52(a,1),92(a,1,1))].
+103 R(1 / x,x,x \ 1) = x \ 1.  [para(94(a,2),51(a,1))].
+104 R(x * (1 / y),y,y \ 1) = R(x,y,y \ 1) * (y \ 1).  [para(103(a,1),46(a,1,2)),flip(a)].
+105 R(x / y,z,u) * y = y * R(y \ x,z,u).  [para(70(a,1),79(a,1,2,1)),flip(a)].
+106 (x * T(x \ y,z)) / x = T(y / x,z).  [hyper(56,a,84,a)].
+107 (x * T(y,z)) / x = T((x * y) / x,z).  [para(13(a,1),106(a,1,1,2,1))].
+108 R(x,y * z,a(x,y,z)) \ ((x * y) * z) = (y * z) * a(x,y,z).  [para(57(a,1),75(a,1,2))].
+109 (1 / x) * (x * y) = L(y,x,1 / x).  [para(60(a,1),48(a,1)),flip(a)].
+110 L(T(x,y),y,1 / y) = (1 / y) * (x * y).  [para(69(a,1),109(a,1,2)),flip(a)].
+111 L(R(T(x,y),z,u),y,1 / y) = (1 / y) * (R(x,z,u) * y).  [para(79(a,1),109(a,1,2)),flip(a)].
+112 (x * y) * (y \ 1) = R(x,y,y \ 1).  [para(64(a,1),51(a,1)),flip(a)].
+113 R(x,y,y \ 1) / (y \ 1) = x * y.  [hyper(56,a,112,a)].
+114 R(x,y,y \ 1) != z * (y \ 1) | x * y = z.  [para(112(a,1),20(a,1))].
+115 (x * (1 / y)) * y = R(x,1 / y,y).  [para(67(a,1),51(a,1)),flip(a)].
+116 R(x,1 / y,y) / y = x * (1 / y).  [hyper(56,a,115,a)].
+117 R(x,y,z) / R(u,y,z) = R(x / u,y,z).  [para(16(a,1),71(a,1,1,1))].
+118 R(x,y,z) \ R(u,y,z) = R(x \ u,y,z).  [para(14(a,1),72(a,1,2,1))].
+119 T(R(x / y,y,y \ z),z) = z \ (x * (y \ z)).  [para(91(a,2),70(a,1,1))].
+120 T(x / ((1 / x) * x),y) / x = T(1 / (1 / x),y) * (1 / x).  [para(95(a,2),116(a,1,1))].
+121 (x * y) * T(T(x,x * y),z) = x * (y * T(T(x,y),z)).  [para(99(a,1),58(a,1,2))].
+122 L(R(T(x,y),z,u),y,1 / y) = R((1 / y) * (x * y),z,u).  [para(110(a,1),43(a,2,1))].
+123 R(1 / x,y,z) = 1 / R(x,y,z).  [para(80(a,1),117(a,1,1)),flip(a)].
+124 R(1 / x,y,z) \ 1 = R(x,y,z).  [para(123(a,2),53(a,1,1))].
+125 R(x,x,x \ 1) = (x \ 1) \ 1.  [para(103(a,1),124(a,1,1)),flip(a)].
+126 (x * R(x \ y,z,u)) / x = R(y / x,z,u).  [hyper(56,a,105,a)].
+127 R((x * y) / x,z,u) = (x * R(y,z,u)) / x.  [para(13(a,1),126(a,1,1,2,1)),flip(a)].
+128 R((x * y) / x,y,y \ 1) = (x * ((y \ 1) \ 1)) / x.  [para(125(a,1),127(a,2,1,2))].
+129 T(((x * y) * x) / (x * y),y) = R(x,y,T(x,y)).  [para(76(a,1),107(a,1)),flip(a)].
+130 L(R(T(x,y) \ z,u,w),T(x,y),y) = R((x * y) \ (y * z),u,w).  [para(87(a,1),43(a,2,1))].
+131 T((x * y) / (z * y),z) = R(z \ x,z,y).  [para(70(a,1),93(a,2,1))].
+132 R(x \ (y / z),x,z) = T(y / (x * z),x).  [para(16(a,1),131(a,1,1,1)),flip(a)].
+133 R(T(x / y,z),y,y \ z) = z \ (x * (y \ z)).  [para(119(a,1),42(a,2))].
+134 R(T(x / y,x),y,y \ x) = y \ x.  [para(133(a,2),13(a,1))].
+135 R(T(x / (x / y),x),x / y,(x / y) \ x) = y.  [para(134(a,2),53(a,1))].
+136 R(T(x / (x / y),x),x / y,y) = y.  [para(53(a,1),135(a,1,3))].
+137 (T(x / (x / y),x) * (x / y)) * y = y * x.  [para(136(a,1),88(a,1,1)),flip(a)].
+138 ((x / y) * T((x / y) \ x,x)) * y = y * x.  [para(84(a,1),137(a,1,1))].
+139 ((x / y) * T(y,x)) * y = y * x.  [para(53(a,1),138(a,1,1,2,1))].
+140 (x / y) * T(y,x) = (y * x) / y.  [hyper(56,a,139,a),flip(a)].
+141 ((x * y) / x) / T(x,y) = y / x.  [hyper(56,a,140,a)].
+142 T(x,y) = (y / x) \ ((x * y) / x).  [hyper(54,a,140,a),flip(a)].
+143 T(x,y) \ ((x * y) / x) = T(y / x,T(x,y)).  [para(140(a,1),32(a,2,2)),flip(a)].
+144 ((x * y) / y) / T(y,T(x,y)) = T(x,y) / y.  [para(69(a,1),141(a,1,1,1))].
+145 x \ ((y * (x * y)) / y) = T(y,x * y).  [para(15(a,1),142(a,2,1)),flip(a)].
+146 T((x * (y * x)) / (y * x),y) = R(T(x,y * x),y,x).  [para(145(a,1),132(a,1,1)),flip(a)].
+147 x / T(y,T(x,y)) = T(x,y) / y.  [para(15(a,1),144(a,1,1))].
+148 R(T(x,y * x),y,x) = T(x,y).  [para(15(a,1),146(a,1,1)),flip(a)].
+149 R(x,y,z) \ R(((u / z) / y) * x,y,z) = T(u / (y * z),R(x,y,z)).  [para(101(a,2),32(a,2,2)),flip(a)].
+150 (x * (1 / y)) * y = R(x,y,y \ 1).  [hyper(114,a,104,a)].
+151 R(x,1 / y,y) = R(x,y,y \ 1).  [para(150(a,1),115(a,1)),flip(a)].
+152 R(x,y \ 1,(y \ 1) \ 1) = R(x,y,y \ 1).  [para(52(a,1),151(a,1,2)),flip(a)].
+153 x * (y * T(T(x,y),z)) = T(x,z) * (x * y).  [para(121(a,1),78(a,1))].
+154 T(x,y) * (x * z) = x * (T(x,y) * z).  [para(78(a,1),153(a,1,2)),flip(a)].
+155 T(x,y) \ (x * (T(x,y) * z)) = x * z.  [hyper(54,a,154,a)].
+156 x * (T(x,y) * (x \ z)) = T(x,y) * z.  [para(14(a,1),154(a,1,2)),flip(a)].
+157 T(x,y) \ (x * z) = x * (T(x,y) \ z).  [para(14(a,1),155(a,1,2,2))].
+158 x \ (T(x,y) * z) = T(x,y) * (x \ z).  [hyper(54,a,156,a)].
+159 x * (T(x,y) \ 1) = T(x,y) \ x.  [para(12(a,1),157(a,1,2)),flip(a)].
+160 x * (T(x,y) \ y) = T(y,T(x,y)).  [para(157(a,1),77(a,1))].
+161 (x / y) * ((y \ x) \ y) = T(y,T(x / y,y)).  [para(70(a,1),160(a,1,2,1))].
+162 T(x,y) * (x \ 1) = x \ T(x,y).  [para(12(a,1),158(a,1,2)),flip(a)].
+163 (x / y) * ((y \ x) \ y) = T(y,y \ x).  [para(70(a,1),161(a,2,2))].
+164 ((x * y) / x) * (y \ x) = T(x,x \ (x * y)).  [para(13(a,1),163(a,1,2,1))].
+165 T(x,y) = ((x * y) / x) * (y \ x).  [para(13(a,1),164(a,2,2)),flip(a)].
+166 T(x,y) / (y \ x) = (x * y) / x.  [hyper(56,a,165,a(flip))].
+167 ((x * R(y,y \ 1,x)) / x) * ((y \ 1) * x) = T(x,R(y,y \ 1,x)).  [para(97(a,1),165(a,2,2)),flip(a)].
+168 ((x * y) * x) / (x * y) = T(x * y,x) / y.  [para(13(a,1),166(a,1,2)),flip(a)].
+169 T(x,x / y) / y = (x * (x / y)) / x.  [para(53(a,1),166(a,1,2))].
+170 T(T(x,x / y) / y,x) = x \ (x * (x / y)).  [para(169(a,2),70(a,1,1))].
+171 T(T(x * y,x) / y,y) = R(x,y,T(x,y)).  [para(168(a,1),129(a,1,1))].
+172 x \ T(y * x,y) = R(y,x,T(y,x)).  [para(171(a,1),70(a,1)),flip(a)].
+173 R(x / y,y,T(x / y,y)) = y \ T(x,x / y).  [para(16(a,1),172(a,1,2,1)),flip(a)].
+174 T(T(x,x / y) / y,x) = x / y.  [para(170(a,2),13(a,1))].
+175 T(T(R(x,y,y \ 1),R(x,y,y \ 1) / (y \ 1)) / (y \ 1),R(x,y,y \ 1)) = x * y.  [para(174(a,2),113(a,1))].
+176 R(x / y,y,y \ x) = y \ T(x,x / y).  [para(70(a,1),173(a,1,3))].
+177 x \ T(y,y / x) = (y * (x \ y)) / y.  [para(176(a,1),91(a,1))].
+178 (x / y) \ T(x,x / (x / y)) = (x * y) / x.  [para(53(a,1),177(a,2,1,2))].
+179 R((1 / x) * (y * x),z,u) = (1 / x) * (R(y,z,u) * x).  [para(122(a,1),111(a,1))].
+180 T(1 / (1 / x),y) * (1 / x) = T(x / 1,y) / x.  [para(16(a,1),120(a,1,1,1,2)),flip(a)].
+182 T(1 / (1 / x),y) * (1 / x) = T(x,y) / x.  [para(51(a,1),180(a,2,1,1))].
+183 (1 / x) * T((1 / x) \ 1,y) = T(x,y) / x.  [para(182(a,1),84(a,1)),flip(a)].
+184 (1 / x) * T(x,y) = T(x,y) / x.  [para(53(a,1),183(a,1,2,1))].
+185 R((x * y) / x,y \ 1,x) * ((y \ 1) * x) = T(x,R(y,y \ 1,x)).  [para(127(a,2),167(a,1,1))].
+186 (((x * y) / x) * (y \ 1)) * x = T(x,R(y,y \ 1,x)).  [para(185(a,1),65(a,1)),flip(a)].
+187 R(x \ (((y / z) / u) * x),u,z) = T(y / (u * z),R(x,u,z)).  [para(149(a,1),118(a,1)),flip(a)].
+188 R(T((x / y) / z,u),z,y) = T(x / (z * y),R(u,z,y)).  [para(32(a,2),187(a,1,1))].
+189 T(x / (y * z),R(u,y,z)) = T(x / (y * z),u).  [para(188(a,1),100(a,1))].
+190 T((x * (y * z)) / (y * z),u) = T(x,R(u,y,z)).  [para(15(a,1),189(a,1,1)),flip(a)].
+191 T(x,R(y,z,u)) = T(x,y).  [para(15(a,1),190(a,1,1)),flip(a)].
+192 T(x,(y \ 1) \ 1) = T(x,y).  [para(125(a,1),191(a,1,2))].
+194 T(x,T(y / z,y)) = T(x,z \ y).  [para(134(a,1),191(a,1,2)),flip(a)].
+195 T(x,T(y,z * y)) = T(x,T(y,z)).  [para(148(a,1),191(a,1,2)),flip(a)].
+196 T(T(R(x,y,y \ 1),x * y) / (y \ 1),R(x,y,y \ 1)) = x * y.  [para(113(a,1),175(a,1,1,1,2))].
+197 T(R(T(x,x * y),y,y \ 1) / (y \ 1),R(x,y,y \ 1)) = x * y.  [para(42(a,2),196(a,1,1,1))].
+198 T(T(x,x * y) * y,R(x,y,y \ 1)) = x * y.  [para(113(a,1),197(a,1,1))].
+199 T(T(x,x * y) * y,x) = x * y.  [para(198(a,1),191(a,1)),flip(a)].
+200 T(T(x,x * (x \ y)) * (x \ y),x) = y.  [para(199(a,2),14(a,1))].
+202 T(T(x,y) * (x \ y),x) = y.  [para(14(a,1),200(a,1,1,1,2))].
+203 (T(x,y) * (x \ y)) * x = x * y.  [para(202(a,1),69(a,1,2)),flip(a)].
+204 T(T(R(x,x \ 1,y),y) * ((x \ 1) * y),R(x,x \ 1,y)) = y.  [para(97(a,1),202(a,1,1,2))].
+205 T(T(x,y) * (x \ y),x) \ (T(x,y) * (x \ y)) = (T(x,y) * (x \ y)) * (y \ 1).  [para(202(a,1),159(a,1,2,1)),flip(a)].
+206 T(x,y) * (x \ y) = (x * y) / x.  [hyper(56,a,203,a),flip(a)].
+207 T(x,y) \ ((x * y) / x) = x \ y.  [hyper(54,a,206,a)].
+208 T(x / y,T(y,x)) = y \ x.  [para(207(a,1),143(a,1)),flip(a)].
+209 T(x,T(y,x * y)) = y \ (x * y).  [para(15(a,1),208(a,1,1))].
+210 T(x,T(y,x * y)) = T(x,y).  [para(209(a,2),32(a,2)),flip(a)].
+211 T(x,T(y,x)) = T(x,y).  [para(210(a,1),195(a,1)),flip(a)].
+212 T(x,y) / y = x / T(y,x).  [para(211(a,1),147(a,1,2)),flip(a)].
+213 x * (T(x,y) \ y) = T(y,x).  [para(211(a,1),160(a,2))].
+214 T(x,x / y) = T(x,y \ x).  [para(211(a,1),194(a,1))].
+215 (x / T(y,x)) \ T(x,y) = y.  [para(212(a,1),53(a,1,1))].
+216 T(x,x / (x / y)) = T(x,y).  [para(53(a,1),214(a,2,2))].
+217 (x / y) \ T(x,y) = (x * y) / x.  [para(216(a,1),178(a,1,2))].
+218 T(R(T(x,y),x \ 1,y) * ((x \ 1) * y),R(x,x \ 1,y)) = y.  [para(42(a,2),204(a,1,1,1))].
+219 T((T(x,y) * (x \ 1)) * y,R(x,x \ 1,y)) = y.  [para(65(a,1),218(a,1,1))].
+220 T((x \ T(x,y)) * y,R(x,x \ 1,y)) = y.  [para(162(a,1),219(a,1,1,1))].
+221 T((x \ T(x,y)) * y,x) = y.  [para(220(a,1),191(a,1)),flip(a)].
+223 T(x,(x \ T(x,y)) * y) = T(x,y).  [para(221(a,1),211(a,1,2)),flip(a)].
+224 (x / y) \ T(x,(x \ T(x,y)) * y) = (x \ T(x,y)) * y.  [para(221(a,1),215(a,1,1,2))].
+225 (x / y) \ T(x,y) = (x \ T(x,y)) * y.  [para(223(a,1),224(a,1,2))].
+226 (x \ T(x,y)) * y = (x * y) / x.  [para(225(a,1),217(a,1))].
+227 ((x * y) / x) / y = x \ T(x,y).  [hyper(56,a,226,a)].
+228 (T(x,y) * (x \ y)) * (y \ 1) = y \ (T(x,y) * (x \ y)).  [para(202(a,1),205(a,1,1)),flip(a)].
+229 x \ (T(y,x) * (y \ x)) = ((y * x) / y) * (x \ 1).  [para(206(a,1),228(a,1,1)),flip(a)].
+230 ((x * y) / x) * (y \ 1) = y \ ((x * y) / x).  [para(206(a,1),229(a,1,2)),flip(a)].
+231 R((x * y) / x,y \ 1,(y \ 1) \ 1) / ((y \ 1) \ 1) = y \ ((x * y) / x).  [para(230(a,1),113(a,2))].
+232 (x \ ((y * x) / y)) * y = T(y,R(x,x \ 1,y)).  [para(230(a,1),186(a,1,1))].
+233 (x * y) / T(x,R(y,y \ 1,x)) = R(y,y \ ((x * y) / x),x).  [para(232(a,1),102(a,2,2)),flip(a)].
+234 R(x,x \ ((y * x) / y),y) = (y * x) / T(y,x).  [para(191(a,1),233(a,1,2)),flip(a)].
+235 R(x,x \ ((y * x) / y),y) = x.  [para(234(a,2),74(a,1))].
+237 ((x * (x \ ((y * x) / y))) * y) \ ((x * (x \ ((y * x) / y))) * y) = a(R(x,x \ ((y * x) / y),y),x \ ((y * x) / y),y).  [para(235(a,1),89(a,1,2,1,1))].
+238 R((x * y) / x,y,y \ 1) / ((y \ 1) \ 1) = y \ ((x * y) / x).  [para(152(a,1),231(a,1,1))].
+239 ((x * ((y \ 1) \ 1)) / x) / ((y \ 1) \ 1) = y \ ((x * y) / x).  [para(128(a,1),238(a,1,1))].
+240 x \ T(x,(y \ 1) \ 1) = y \ ((x * y) / x).  [para(239(a,1),227(a,1)),flip(a)].
+241 x \ ((y * x) / y) = y \ T(y,x).  [para(192(a,1),240(a,1,2)),flip(a)].
+242 x * (y \ T(y,x)) = (y * x) / y.  [para(241(a,1),14(a,1,2))].
+243 (x * y) / x != y * z | x \ T(x,y) = z.  [para(242(a,1),19(a,1))].
+244 a(R(x,x \ ((y * x) / y),y),x \ ((y * x) / y),y) = 1.  [para(237(a,1),49(a,1))].
+246 a(x,x \ ((y * x) / y),y) = 1.  [para(235(a,1),244(a,1,1))].
+247 a(T(x,y),T(x,y) \ ((x * y) / y),y) = 1.  [para(69(a,1),246(a,1,2,2,1))].
+248 a(T(x,y),T(x,y) \ x,y) = 1.  [para(15(a,1),247(a,1,2,2))].
+249 R(T(x,y),(T(x,y) \ x) * y,1) \ ((T(x,y) * (T(x,y) \ x)) * y) = ((T(x,y) \ x) * y) * a(T(x,y),T(x,y) \ x,y).  [para(248(a,1),108(a,1,1,3))].
+250 ((T(x,y) \ x) * y) * a(T(x,y),T(x,y) \ x,y) = T(x,y) \ ((T(x,y) * (T(x,y) \ x)) * y).  [para(83(a,1),249(a,1,1)),flip(a)].
+251 ((T(x,y) \ x) * y) * a(T(x,y),T(x,y) \ x,y) = T(x,y) \ (x * y).  [para(14(a,1),250(a,2,2,1))].
+253 ((T(x,y) \ x) * y) * a(T(x,y),T(x,y) \ x,y) = x * (T(x,y) \ y).  [para(251(a,2),157(a,1))].
+254 ((T(x,y) \ x) * y) * a(T(x,y),T(x,y) \ x,y) = T(y,x).  [para(253(a,2),213(a,1))].
+255 ((T(x,y) \ x) * y) * 1 = T(y,x).  [para(248(a,1),254(a,1,2))].
+256 (T(x,y) \ x) * y = T(y,x).  [hyper(55,a,255,a)].
+258 T(x,y) \ x = T(y,x) / y.  [hyper(56,a,256,a),flip(a)].
+260 (R(T(x,y),z,u) \ R(x,z,u)) * y = T(y,R(x,z,u)).  [para(42(a,2),256(a,1,1,1))].
+261 R(T(x,y) \ x,y,z) \ (T(y,x) * z) = y * z.  [para(256(a,1),75(a,1,2,1))].
+262 (1 / x) * (R(T(y,x) \ y,z,u) * x) = R((1 / x) * T(x,y),z,u).  [para(256(a,1),179(a,1,1,2)),flip(a)].
+263 R(T(x,y) \ x,z,u) * y = T(y,R(x,z,u)).  [para(118(a,1),260(a,1,1))].
+264 R(T(x,y) \ x,z,u) * y = T(y,x).  [para(263(a,2),191(a,1))].
+265 R(T(x,y) \ x,z,u) = T(x,y) \ x.  [hyper(18,a,256,a,b,264,a)].
+267 (x * y) / (((T(z,u) \ z) \ x) * y) = T(z,u) \ z.  [para(265(a,1),63(a,1)),flip(a)].
+268 (T(x,y) \ x) \ (T(y,x) * z) = y * z.  [para(265(a,1),261(a,1,1))].
+269 (T(x,y) \ x) \ z = y * (T(y,x) \ z).  [para(14(a,1),268(a,1,2))].
+271 (T(x,y) \ x) \ x = T(x,y).  [para(269(a,2),213(a,1))].
+272 (x * y) / (T(x,z) * y) = T(x,z) \ x.  [para(271(a,1),267(a,1,2,1))].
+273 x / (T(y,z) * (y \ x)) = T(y,z) \ y.  [para(14(a,1),272(a,1,1))].
+274 (T(x,y) \ x) \ z = T(x,y) * (x \ z).  [para(273(a,1),53(a,1,1))].
+275 T(x,y) * (x \ z) = y * (T(y,x) \ z).  [para(274(a,1),269(a,1))].
+276 (x * y) / x = y * (T(y,x) \ y).  [para(275(a,1),206(a,1)),flip(a)].
+277 T(x,y) \ x = y \ T(y,x).  [hyper(243,a,276,a),flip(a)].
+278 L(x \ T(x,y),T(y,x),x) = (y * x) \ (x * y).  [para(277(a,1),87(a,1,1))].
+279 L(R(x \ T(x,y),z,u),T(y,x),x) = R((y * x) \ (x * y),z,u).  [para(277(a,1),130(a,1,1,1))].
+280 T(x,y) / x = x \ T(x,y).  [para(277(a,1),258(a,1)),flip(a)].
+281 (1 / x) * T(x,y) = x \ T(x,y).  [para(280(a,1),184(a,2))].
+282 K(x,y) = L(x \ T(x,y),T(y,x),x).  [para(278(a,2),26(a,2))].
+283 R((1 / x) * T(x,y),z,u) = (1 / x) * T(x,y).  [para(264(a,1),262(a,1,2)),flip(a)].
+285 R((1 / x) * T(x,y),z,u) = x \ T(x,y).  [para(283(a,2),281(a,1))].
+286 R(x \ T(x,y),z,u) = x \ T(x,y).  [para(281(a,1),285(a,1,1))].
+287 R((x * y) \ (y * x),z,u) = L(y \ T(y,x),T(x,y),y).  [para(286(a,1),279(a,1,1)),flip(a)].
+288 R((x * y) \ (y * x),z,u) = K(y,x).  [para(287(a,2),282(a,2)),flip(a)].
+290 R(K(x,y),z,u) = K(x,y).  [para(26(a,2),288(a,1,1))].
+291 (K(x,y) * z) * u = K(x,y) * (z * u).  [para(290(a,1),65(a,1,1)),flip(a)].
+292 L(x,y,K(z,u)) = x.  [hyper(85,a,291,a)].
+293 a(K(x,y),z,u) = 1.  [hyper(34,a,292,a)].
+294 $F # answer("aK1").  [resolve(293,a,47,a)].
+
+============================== end of proof ==========================
+
+============================== STATISTICS ============================
+
+Given=259. Generated=96323. Kept=276. proofs=1.
+Usable=253. Sos=15. Demods=0. Limbo=0, Disabled=37. Hints=347.
+Kept_by_rule=0, Deleted_by_rule=94633.
+Forward_subsumed=1414. Back_subsumed=7.
+Sos_limit_deleted=0. Sos_displaced=0. Sos_removed=0.
+New_demodulators=0 (0 lex), Back_demodulated=0. Back_unit_deleted=0.
+Demod_attempts=0. Demod_rewrites=0.
+Res_instance_prunes=0. Para_instance_prunes=0. Basic_paramod_prunes=0.
+Nonunit_fsub_feature_tests=25. Nonunit_bsub_feature_tests=31.
+Max_Clause_ID=294.
+Megabytes=1.25.
+User_CPU=0.18, System_CPU=0.01, Wall_clock=0.
+
+============================== end of statistics =====================
+
+============================== end of search =========================
+
+THEOREM PROVED
+
+Exiting with 1 proof.
+
+Process 16160 exit (max_proofs) Thu Jul  9 16:34:44 2026

@@ -1,0 +1,21 @@
+.texpadtmp
+.DS_Store
+# latex
+*~
+*.aux
+*.log
+*.synctex.gz
+*.backup
+*.bbl
+*.blg
+*.bst
+*.vtc
+*.nav
+*.snm
+*.thm 
+*.toc
+*.vrb
+*.glob
+*.vo
+*.vok
+*.vos

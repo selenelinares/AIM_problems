@@ -1,0 +1,715 @@
+% *********************************************************
+% AIM:  LCC => aa1
+% *********************************************************
+
+% *********************************************************
+% S:
+% Case 9: LCC
+% ((x * y) / x) * (x * z) = x * (y * z) # label(LCC).
+% This result was already known when we began the AIM project. 
+% *********************************************************
+
+assign(order,kbo).
+set(lex_order_vars).
+
+set(para_from_small).
+
+clear(back_demod).
+set(restrict_denials).
+
+assign(max_weight,5).
+
+formulas(assumptions).
+
+   % loop axioms
+   1 * x = x.
+   x * 1 = x.
+   x \ (x * y) = y.
+   x * (x \ y) = y.
+   (x * y) / y = x.
+   (x / y) * y = x.
+
+   % cancellation laws
+   x * y = u & x * z = u -> y = z.
+   y * x = u & z * x = u -> y = z.
+
+      % other form
+      x * y = x * z -> y = z.
+      y * x = z * x -> y = z.
+
+   % useful in demodulation free runs
+   x != y | z * x = z * y.
+   x != y | x * z = y * z.
+
+   % associator (right associated * a = left associated)
+   (x * (y * z)) \ ((x * y) * z) = a(x,y,z) # label("associator").
+
+   % commutator ( (x * y) * K(y,x) = y * x )
+   (x * y) \ (y * x) = K(y,x) # label("commutator").
+
+   % inner mappings
+   (y * x) \ (y * (x * u)) = L(u,x,y).
+   ((u * x) * y) / (x * y) = R(u,x,y).
+   x \ (u * x) = T(u,x).
+
+   % obvious compatibility
+   a(x,y,z) = 1 -> L(z,y,x) = z.
+   L(x,y,z) = x -> a(z,y,x) = 1.
+   T(x,y) = x -> T(y,x) = y.
+   T(x,y) = x -> K(x,y) = 1.
+   K(x,y) = 1 -> T(x,y) = x.
+
+   % abelian inner mapping group
+   T(T(u,x),y) = T(T(u,y),x).
+   T(L(u,x,y),z) = L(T(u,z),x,y).
+   T(R(u,x,y),z) = R(T(u,z),x,y).
+   L(R(u,x,y),z,w) = R(L(u,z,w),x,y).
+   L(L(u,x,y),z,w) = L(L(u,z,w),x,y).
+   R(R(u,x,y),z,w) = R(R(u,z,w),x,y).
+
+   % ------------
+   % Special Case
+   % ------------
+
+   ((x * y) / x) * (x * z) = x * (y * z) # label(LCC).
+
+end_of_list.
+
+formulas(goals).
+
+   a(a(x,y,z),u,w) = 1 # label("aa1").
+
+
+end_of_list.
+
+%
+% Hints extracted from previously found proofs.
+%
+
+formulas(hints).
+
+a(a(x,y,z),u,w) = 1.
+1 * x = x.
+x * 1 = x.
+x \ (x * y) = y.
+x * (x \ y) = y.
+(x * y) / y = x.
+(x / y) * y = x.
+x * y != z | x * u != z | u = y.
+x * y != z | u * y != z | u = x.
+x * y != x * z | y = z.
+x * y != z * y | x = z.
+(x * (y * z)) \ ((x * y) * z) = a(x,y,z).
+(x * y) \ (y * x) = K(y,x).
+(x * y) \ (x * (y * z)) = L(z,y,x).
+((x * y) * z) / (y * z) = R(x,y,z).
+x \ (y * x) = T(y,x).
+a(x,y,z) != 1 | L(z,y,x) = z.
+L(x,y,z) != x | a(z,y,x) = 1.
+T(x,y) != x | T(y,x) = y.
+T(x,y) != x | K(x,y) = 1.
+K(x,y) != 1 | T(x,y) = x.
+T(T(x,y),z) = T(T(x,z),y).
+T(L(x,y,z),u) = L(T(x,u),y,z).
+T(R(x,y,z),u) = R(T(x,u),y,z).
+L(R(x,y,z),u,w) = R(L(x,u,w),y,z).
+R(L(x,y,z),u,w) = L(R(x,u,w),y,z).
+((x * y) / x) * (x * z) = x * (y * z).
+a(a(c1,c2,c3),c4,c5) != 1.
+x \ x = 1.
+x / (y \ x) = y.
+(x / y) \ x = y.
+x != y * z | y \ x = z.
+x * y != z | x \ z = y.
+x != y * z | x / z = y.
+x * y != z | z / y = x.
+(x * y) * K(y,x) = y * x.
+(x * y) * L(z,y,x) = x * (y * z).
+x \ (y * ((y \ x) * z)) = L(z,y \ x,y).
+(x * y) \ (x * z) = L(y \ z,y,x).
+L(x \ y,x,z) = (z * x) \ (z * y).
+x \ ((x / y) * (y * z)) = L(z,y,x / y).
+R(x,y,z) * (y * z) = (x * y) * z.
+(x * y) / (z * y) = R(x / z,z,y).
+R(x / y,y,z) = (x * z) / (y * z).
+T(x,x) = x.
+x * T(y,x) = y * x.
+x \ y = T(y / x,x).
+T(x / y,y) = y \ x.
+x * y != z | x = z / y.
+(x * y) / x = (x * (y * z)) / (x * z).
+(x * (y * z)) / (x * z) = (x * y) / x.
+(x / y) * (y * z) = y * ((y \ x) * z).
+((x * y) / x) * z = x * (y * (x \ z)).
+(x * (y * z)) / L(z,y,x) = x * y.
+(x * y) / T(x,y) = y.
+R(x,y,z) \ ((x * y) * z) = y * z.
+L(x,y,(y * x) / y) = T((y * x) / y,y * x).
+T((x * y) / x,x * y) = L(y,x,(x * y) / x).
+T(x,y) = T(T(x,y),x).
+T(T(x,y),x) = T(x,y).
+T(L(x,y,z),x) = L(x,y,z).
+T(R(x,y,z),x) = R(x,y,z).
+(x * y) \ (T(x,y) * y) = K(T(x,y),y).
+(x * y) \ (x * (z * y)) = L(T(z,y),y,x).
+T(x,y) \ (x * y) = T(y,T(x,y)).
+x * T(T(y,x),z) = T(y,z) * x.
+(x * y) * L(z,T(x,y),y) = y * (T(x,y) * z).
+T(x \ y,z) = T(T(y / x,z),x).
+T(T(x / y,z),y) = T(y \ x,z).
+T(L(x / y,z,u),y) = L(y \ x,z,u).
+T(R(x / y,z,u),y) = R(y \ x,z,u).
+(x * y) / (x * z) = (x * (y / z)) / x.
+(x * (y / z)) / x = (x * y) / (x * z).
+x \ (y * ((y \ x) * z)) = L(z,y,x / y).
+x * 1 != y | x = y.
+(x * y) / x = x * (y * (x \ 1)).
+x * (y * (x \ 1)) = (x * y) / x.
+T(x,T(x,y)) = x.
+x * T(x,y) = T(x,y) * x.
+T(x,y) * x = x * T(x,y).
+L(T(x,y),y,x) = T(x,x * y).
+T(L(x,y,z),y) = (z * y) \ (z * (x * y)).
+(x * y) \ (x * (z * y)) = T(L(z,y,x),y).
+K(x,T(x,y)) = 1.
+(x * T(x,y)) / x = T(x,y).
+T(x,y) * z = x * (T(x,y) * (x \ z)).
+x * (T(x,y) * (x \ z)) = T(x,y) * z.
+T((x * y) / (x * z),x) = x \ (x * (y / z)).
+x * y != z | y = x \ z.
+x * (y \ 1) = y \ ((y * x) / y).
+x \ ((x * y) / x) = y * (x \ 1).
+T(x,y) * (x \ z) = x \ (T(x,y) * z).
+x \ (T(x,y) * z) = T(x,y) * (x \ z).
+x \ (y / x) = (x \ y) * (x \ 1).
+(x \ y) * (x \ 1) = x \ (y / x).
+(x \ y) \ (x \ (y / x)) = x \ 1.
+(x \ (y * x)) \ (x \ y) = x \ 1.
+T(x,y) \ (y \ x) = y \ 1.
+T(x,y) * (y \ 1) = y \ x.
+(x \ y) / (x \ 1) = T(y,x).
+x / (y \ 1) = T(y * x,y).
+T(x * y,x) = y / (x \ 1).
+T((x * y) / (x * z),x) = y / z.
+L(x,y,z / y) = L(x,y \ z,y).
+L(x,y \ z,y) = L(x,y,z / y).
+T(L(x,y,x),y) = T(x,x * y).
+L(x,y,z) = L(x,z,(z * y) / z).
+L(x,y,(y * z) / y) = L(x,z,y).
+L(x,T(y,z),z) = L(x,z,(y * z) / z).
+L(x,y,(z * y) / y) = L(x,T(z,y),y).
+L(x,y,z) = L(x,T(z,y),y).
+L(x,T(y,z),z) = L(x,z,y).
+(x * y) * L(z,y,x) = y * (T(x,y) * z).
+T(x / (x * y),x) = 1 / y.
+T(x / (y * z),y) = (y \ x) / z.
+T((x * y) / z,x) = y / (x \ z).
+T(x / y,x) = 1 / (x \ y).
+T(x / y,z) = (z \ x) / (z \ y).
+(x \ y) / (x \ z) = T(y / z,x).
+T(x,y) = x / (y \ T(y,x)).
+x / (y \ T(y,x)) = T(x,y).
+T(x,y) = 1 / (y \ (x \ y)).
+1 / (x \ (y \ x)) = T(y,x).
+T(x / y,x) \ 1 = x \ y.
+T(x,y) \ 1 = y \ (x \ y).
+T(x,x * y) \ 1 = (x * y) \ y.
+(T(x,y) \ z) / (y \ (x \ y)) = T(z,T(x,y)).
+T(x,y) \ x = y \ T(y,x).
+T(x / T(x,y),x) = 1 / (T(y,x) \ y).
+x * (T(y,x) * z) = y * (x * z).
+x \ (y * (x * z)) = T(y,x) * z.
+x * (y * T(y,x)) = y * (x * y).
+x \ (y * z) = T(y,x) * (x \ z).
+T(x,y) * (y \ z) = y \ (x * z).
+T(x,y) \ (x * (y * z)) = T(y,T(x,y)) * z.
+x * y != z * (x * u) | y = T(z,x) * u.
+x * y = T(x,y) * T(y,x).
+T(x,y) * T(y,x) = x * y.
+(x * y) \ (y * (x * y)) = L(T(y,x),y,x).
+x * (T(x,y) \ z) = T(x,y) \ (x * z).
+T(x,y) \ (x * z) = x * (T(x,y) \ z).
+T(x,y) * (T(z,y) \ 1) = y \ (x * (z \ y)).
+T(x,y) \ (x * y) = T(y,x).
+x * y != T(x,z) * u | y = T(x,z) * (x \ u).
+x = T(y,x) * (y \ T(x,y)).
+T(x,y) * (x \ T(y,x)) = y.
+T(x,y) = T(x,T(y,x)).
+T(x,T(y,x)) = T(x,y).
+T(x,y) \ y = x \ T(y,x).
+T(x,L(y,x,y)) * (x \ T(y,y * x)) = L(y,x,y).
+T(x,T(y,y * x)) = T(x,L(y,x,y)).
+T(x,y) \ (x * (y * z)) = T(y,x) * z.
+x * (T(x,y) \ y) = T(y,x).
+x * T(y,T(z,x)) = z * (x * (T(T(z,x),y) \ y)).
+x * (y * (T(T(x,y),z) \ z)) = y * T(z,T(x,y)).
+T(x,y) \ x = x * (T(x,y) \ 1).
+x * (T(x,y) \ 1) = T(x,y) \ x.
+T(x,y) \ (x * z) = T(y,x) * (y \ z).
+T(x,y) \ z = T(y,x) * (y \ (x \ z)).
+T(x,y) * (x \ (y \ z)) = T(y,x) \ z.
+T(x,y) * (x \ z) = y * (T(y,x) \ z).
+x * (T(y,x) \ z) = T(x,y) * (y \ z).
+T(x,y) * (y \ z) = x * (T(y,x) \ z).
+x * (T(y,x) \ z) = y \ (x * z).
+x \ (y \ (x * z)) = T(y,x) \ z.
+x * (T(T(y,x),z) \ u) = T(y,z) \ (x * u).
+T((x \ (y * z)) / u,y) = (T(x,y) \ z) / (y \ u).
+(T(x,y) \ z) / (y \ u) = T((x \ (y * z)) / u,y).
+x * (T(y,T(z,x)) \ y) = z \ (x * T(T(z,x),y)).
+x \ (y * T(T(x,y),z)) = y * (T(z,T(x,y)) \ z).
+x \ (y * (z \ (x * u))) = T(y,x) * (T(z,x) \ u).
+x \ (y \ z) = T(y,x) \ (x \ z).
+T(x,y) \ (y \ z) = y \ (x \ z).
+x \ (y \ (z * x)) = T(y,x) \ T(z,x).
+T(x,y) \ T(z,y) = y \ (x \ (z * y)).
+x * (T(x,y) \ (z * y)) = z * T(y,T(x,z)).
+x * T(y,T(z,x)) = z * (T(z,y) \ (x * y)).
+T((x \ (y * z)) / (x \ y),y) = T(z,T(x,y)).
+x \ (T(x,y) * z) = z * (T(y,T(x,z)) \ y).
+T(T((x * y) / x,z),x) = T(y,T(z,x)).
+T(x,T(y,z)) = T(z \ (z * x),y).
+T(x \ (x * y),z) = T(y,T(z,x)).
+T(x,y) = T(x,T(y,z)).
+T(x,T(y,z)) = T(x,y).
+T(x / T(y,z),y) = T(y,z) \ x.
+T(x,y \ z) = T(x,z / y).
+T(x,y / z) = T(x,z \ y).
+T(x,y) = T(x,L(y,x,y)).
+T(x,L(y,x,y)) = T(x,y).
+T(x,y) * (T(z,x) \ u) = z \ (T(x,y) * u).
+x * T(y,z) = z * (T(z,y) \ (x * y)).
+x * (T(x,y) \ (z * y)) = z * T(y,x).
+x * (T(y,T(z,x)) \ y) = T(z,y) * (z \ x).
+T(x,y) * (x \ z) = z * (T(y,T(x,z)) \ y).
+T(x,y) * (x \ z) = z * (T(y,x) \ y).
+x \ (T(y,z) * (y \ x)) = T(z,y) \ z.
+T(x,y) \ x = z \ (T(y,x) * (y \ z)).
+T(x,y) * (x \ z) = z * (x \ T(x,y)).
+x \ (T(y,z) * (y \ x)) = y \ T(y,z).
+T(x,L(y,x,y)) \ x = z \ (T(y,x) * (y \ z)).
+x \ (y * (T(y,z) \ x)) = z \ T(z,y).
+x \ T(x,y) = z \ (y * (T(y,x) \ z)).
+x \ (T(y,z) * (y \ x)) = y \ T(y,T(z,u)).
+x \ T(x,T(y,z)) = u \ (T(x,y) * (x \ u)).
+x \ T(x,T(y,z)) = u \ (y * (T(y,x) \ u)).
+x \ T(x,L(y,x,y)) = z \ (y * (T(y,x) \ z)).
+x \ T(x,L(y,x,y)) = (z * x) \ (z * T(x,y)).
+(x * y) \ (x * T(y,z)) = y \ T(y,L(z,y,z)).
+(x * y) \ (y * x) = y \ T(y,L(x,y,x)).
+x \ T(x,L(y,x,y)) = (y * x) \ (x * y).
+x \ T(x,L(y,x,y)) = K(x,y).
+x \ T(x,y) = K(x,y).
+K(x,y) = z \ (y * (T(y,x) \ z)).
+x \ (y * (T(y,z) \ x)) = K(z,y).
+x * K(x,y) = T(x,y).
+T(x,y) * K(y,z) = y \ (x * T(y,z)).
+x \ (y * T(x,z)) = T(y,x) * K(x,z).
+T(x,y) * (x \ z) = z * K(x,y).
+T(x,y) \ (x * z) = z * K(y,x).
+(x \ y) * K(z,x) = T(x,z) \ y.
+x * K(y,z) = z * (T(z,y) \ x).
+x * (T(x,y) \ z) = z * K(y,x).
+T(x,y) * (T(z,x) \ (x \ u)) = z \ (u * K(x,y)).
+T(x,y) * (x \ (z \ u)) = z \ (u * K(x,y)).
+x \ (y * K(z,u)) = (x \ y) * K(z,u).
+x * ((x \ y) * K(z,u)) = y * K(z,u).
+T(x,y) * z != u * K(x,y) | z = x \ u.
+(T(x,y) \ z) * K(x,y) = x \ z.
+x * (y * K(z,u)) = (x * y) * K(z,u).
+(x * y) * K(z,u) = x * (y * K(z,u)).
+x \ (y * (z * K(u,w))) = (x \ (y * z)) * K(u,w).
+x * K(y \ x,y) = (y \ x) * y.
+x * K(y,x / y) = y * (x / y).
+x * (y * K(z,u)) != (w * y) * K(z,u) | x = w.
+R(x,y,K(z,u)) = x.
+R(1 / x,x,y) = y / (x * y).
+R((x / y) / z,z,y) = x / (z * y).
+R(x / y,y,T(z,x)) = (z * x) / (y * T(z,x)).
+T(x,L(x,y,z)) = x.
+L(x,y,z) * (x \ u) = x \ (L(x,y,z) * u).
+x \ (L(x,y,z) * u) = L(x,y,z) * (x \ u).
+x * (L(x,y,z) \ u) = L(x,y,z) \ (x * u).
+L(x,y,z) \ (x * u) = x * (L(x,y,z) \ u).
+x * (R(x,y,z) \ u) = R(x,y,z) \ (x * u).
+R(x,y,z) \ (x * u) = x * (R(x,y,z) \ u).
+T((x * y) / (z * y),z) = R(z \ x,z,y).
+K(x / y,y \ x) = 1.
+K((x * y) / x,y) = 1.
+T((x * y) / x,y) = (x * y) / x.
+x \ (((y * x) / y) * x) = (y * x) / y.
+x * y != z * K(u,w) | y = (x \ z) * K(u,w).
+x / y = (y \ x) * K(y,x / y).
+(x \ y) * K(x,y / x) = y / x.
+x \ (y * (x * (y \ x))) = (y * x) / y.
+L(x,y,z) * (x \ 1) = x \ L(x,y,z).
+x * (L(x,y,z) \ 1) = L(x,y,z) \ x.
+T((L(x,y,z) * u) / x,L(x,y,z)) = u / (x * (L(x,y,z) \ 1)).
+x \ (y * (L(x,z,u) \ x)) = T(y,x) * (L(x,z,u) \ 1).
+T(x / (y * x),y) = R(y \ 1,y,x).
+R(x \ y,x,z) = (x \ (y * z)) / z.
+(x * y) / x = T(x,y) * (x \ y).
+T(x,y) * (x \ y) = (x * y) / x.
+(x * (y * z)) / T(L(y,z,x),z) = x * z.
+R(x,y,z) = (y \ ((y * x) * z)) / z.
+(x \ ((x * y) * z)) / z = R(y,x,z).
+R(x,y,z) * z = y \ ((y * x) * z).
+x \ ((x * y) * z) = R(y,x,z) * z.
+T(x * y,x) / x = R(y,x,x).
+T(R(x,y,z),z) = z \ (y \ ((y * x) * z)).
+x \ (y \ ((y * z) * x)) = T(R(z,y,x),x).
+x * (R(y,x,z) * z) = (x * y) * z.
+x * y != (x * z) * L(u,z,x) | y = z * u.
+R(x,y,L(z,x,y)) * L(z,x,y) = x * z.
+R(x,y,L(z,x,y)) \ (x * z) = L(z,x,y).
+((x * y) / x) / (x \ y) = T(x,y).
+(x * y) / x = y * (T(y,x) \ y).
+(x * y) / x = y * K(x,y).
+x * (R(x,y,L(z,x,y)) \ z) = L(z,x,y).
+T(x / T(x,y),x) = y \ T(y,x).
+T(x,(y * z) / y) = T(x,(y * u) \ (y * (z * u))).
+T(x,(y * z) \ (y * (u * z))) = T(x,(y * u) / y).
+T(x,T(L(y,z,u),z)) = T(x,(u * y) / u).
+T(x / T(x,y),x) = K(y,x).
+T(x,L(y,x,y)) \ x = (y * z) \ (T(y,x) * z).
+T(x,L(y,x,y)) \ x = K(T(y,x),x).
+T(x,y) \ x = K(T(y,x),x).
+K(T(x,y),y) = (x * z) \ (T(x,y) * z).
+K(T(x,y),y) = x \ T(x,y).
+T(x / T(x,y),x) = 1 / K(T(x,y),y).
+K(T(x,y),y) = K(x,y).
+x \ T(y,z) = (x \ y) * K(y,z).
+(x \ y) * K(y,z) = x \ T(y,z).
+(x * y) * K(y,z) = x * T(y,z).
+K(x,y) = 1 / K(T(y,x),x).
+1 / K(T(x,y),y) = K(y,x).
+K(x,y) = (x * z) \ (T(x,y) * z).
+(x * y) \ (T(x,z) * y) = K(x,z).
+(T(x,y) * z) / K(x,y) = x * z.
+1 / K(x,y) = K(y,x).
+K(x,y) * K(y,x) = 1.
+K(x,y) \ 1 = K(y,x).
+T(x,y) * (z * K(y,x)) = x * z.
+x / K(y,z) = y * (T(y,z) \ x).
+x * (T(x,y) \ z) = z / K(x,y).
+T(x,y) * (y * x) = x * (x * y).
+x / K(y,z) = x * K(z,y).
+R((x * K(y,z)) / u,u,K(z,y)) = x / (u * K(z,y)).
+T(x,(y * z) / y) = T(x,L(z,u,y)).
+T(x,L(y,z,u)) = T(x,(u * y) / u).
+T(x,L(y,z,u)) = T(x,u \ (u * y)).
+T(x,L(y,z,u)) = T(x,y).
+T(x / L(y,z,u),y) = L(y,z,u) \ x.
+T(x,y) * (L(y,z,u) \ w) = L(y,z,u) \ (x * w).
+x \ T(x,y) = K(x,L(y,z,u)).
+K(x,L(y,z,u)) = x \ T(x,y).
+x \ (y * (L(x,z,u) \ x)) = L(x,z,u) \ (y * 1).
+K(x,L(y,z,u)) = K(x,y).
+1 / K(x,y) = K(L(y,z,u),x).
+K(L(x,y,z),u) = 1 / K(u,x).
+(L(x,y,z) \ u) * K(w,x) = T(L(x,y,z),w) \ u.
+(x * K(y,z)) / u = x / (u * K(z,y)).
+((x \ ((x * y) * z)) * K(u,w)) / (z * K(u,w)) = R(y,x,z * K(u,w)).
+(x \ ((x * y) * z)) / ((z * K(u,w)) * K(w,u)) = R(y,x,z * K(u,w)).
+x \ (y * (L(x,z,u) \ x)) = L(x,z,u) \ y.
+x * (L(x,y,z) \ u) = u * (L(x,y,z) \ x).
+x * (L(y,z,u) \ y) = y * (L(y,z,u) \ x).
+(x \ (y * (L(y,z,u) \ (x * w)))) / (L(y,z,u) \ y) = R(w,x,L(y,z,u) \ y).
+T(x,y) * ((L(x,z,u) \ w) * K(y,x)) = w * (L(x,z,u) \ x).
+(T(x,y) * (T(L(x,z,u),y) \ w)) / (L(x,z,u) \ x) = R(w,y,L(x,z,u) \ x).
+T(x,y) * (T(L(x,z,u),y) \ w) = w * (L(x,z,u) \ x).
+(x \ ((x * y) * z)) / (z * (K(u,w) * K(w,u))) = R(y,x,z * K(u,w)).
+(x \ ((x * y) * z)) / (z * 1) = R(y,x,z * K(u,w)).
+R(x,y,z * K(u,w)) = (y \ ((y * x) * z)) / (z * 1).
+R(x,y,z * K(u,w)) = (y \ ((y * x) * z)) / z.
+R(x,y,z * K(u,w)) = R(x,y,z).
+R(x,y,z / u) = R(x,y,u \ z).
+R(x,y,T(z,u)) = R(x,y,z).
+R(x,y,(z * u) / z) = R(x,y,u).
+R(x,y,(z * u) / z) = R(x,y,(z * w) \ (z * (u * w))).
+R(x,y,(z * u) \ (z * (w * u))) = R(x,y,(z * w) / z).
+R(x,y,(z \ u) / w) = R(x,y,u / (z * w)).
+R(x,y,(z * u) \ (z * (w * u))) = R(x,y,w).
+R(x,y,T(L(z,u,w),u)) = R(x,y,z).
+R(x,y,z) = R(x,y,L(z,u,w)).
+R(x,y,L(z,u,w)) = R(x,y,z).
+R(x,y,z) * L(z,x,y) = x * z.
+x * (R(x,y,z) \ z) = L(z,x,y).
+(x * (L(y,z,u) \ y)) / (L(y,z,u) \ y) = R(x,w,L(y,z,u) \ y).
+R(x,y,L(z,u,w) \ z) = (x * (L(z,u,w) \ z)) / (L(z,u,w) \ z).
+R(x,y,L(z,u,w) \ z) = x.
+x * (x \ (L(y,z,u) \ y)) = L(L(y,z,u) \ y,x,w).
+L(L(x,y,z) \ x,u,w) = u * (u \ (L(x,y,z) \ x)).
+L(L(x,y,z) \ x,u,w) = L(x,y,z) \ x.
+a(x,y,L(z,u,w) \ z) = 1.
+L(x,y,z) \ x = (u * L(x,y,z)) \ (u * x).
+(x * L(y,z,u)) \ (x * y) = L(y,z,u) \ y.
+(x * (y * z)) \ ((x * y) * z) = L(z,y,x) \ z.
+L(x,y,z) \ x = a(z,y,x).
+R(x,y,a(z,u,w)) = x.
+a(x,y,a(z,u,w)) = 1.
+L(a(x,y,z),u,w) = a(x,y,z).
+(x * y) / L(z,y / z,x) = x * (y / z).
+R(x,x \ y,z) \ (y * z) = (x \ y) * z.
+L(x \ y,z,u) \ (x \ w) = x \ (L(y / x,z,u) \ w).
+R(x,x \ 1,y) = y / ((x \ 1) * y).
+(x * y) / (z * T(x,y)) = R(y / z,z,x).
+R(x / y,y,z) = (z * x) / (y * T(z,x)).
+R(x,x \ 1,y) \ y = (x \ 1) * y.
+T(L(x,y,z),u) * ((x \ 1) * K(u,L(x,y,z))) = x \ L(x,y,z).
+R(x \ 1,x,x) = 1 / x.
+T((x * y) / x,x * y) = L(y,y,x).
+T(T(x,y),z * K(x,y)) \ 1 = (T(x,y) * (x \ z)) \ (x \ z).
+x * ((x * y) \ y) = T(x,x * y) \ x.
+T(x,x * y) \ x = x * ((x * y) \ y).
+x / (y * (L(y,z,u) \ 1)) = T((L(y,z,u) * x) / y,y).
+T((L(x,y,z) * u) / x,x) = u / (x * (L(x,y,z) \ 1)).
+(x / (y \ 1)) / y = R(x,y,y).
+L(T(x,y),x,y) = T(x,y * x).
+T(x,y) * (x \ T(y,y * x)) = L(y,x,y).
+x * (L(y,z,u) \ y) = L(y,z,u) \ (y * x).
+L(x,y,z) \ (x * u) = u * (L(x,y,z) \ x).
+(x * y) * K(x * (L(x,z,u) \ y),L(x,z,u)) = (L(x,z,u) \ (x * y)) * L(x,z,u).
+((x * (x * y)) / x) / y = T(x,x * y).
+(x * (T(x,y) \ x)) * y = y * x.
+x * y != z * x | y = T(z,x).
+x = T(x * (T(x,y) \ x),y).
+T(x * (T(x,y) \ x),y) = x.
+T(x * K(y,x),y) = x.
+(x * (x * y)) / (y * x) = T(x,y).
+R(((x * (x * y)) / x) / y,y,x) = T(x,y).
+R(T(x,x * y),y,x) = T(x,y).
+T(L(x,x,y),y) = T(x,y * x).
+T(T(x,y * x),z) = T(T(L(x,x,y),z),y).
+T(T(L(x,x,y),z),y) = T(T(x,y * x),z).
+T(T(L(x,T(x,y),z),y),z) = T(T(x,y),z * T(x,y)).
+T(x,L(y,y,x)) * (x \ T(y,x * y)) = L(y,y,x).
+T(x,y) * (x \ T(y,x * y)) = L(y,y,x).
+T(R(x,y,x),x * y) = T(x,y).
+T(R(x,T(y,x),x),y * x) = T(x,T(y,x)).
+T(x,y) \ (x * y) = R(x,y,x) \ T(x * y,R(x,y,x)).
+R(x,y,x) \ T(x * y,R(x,y,x)) = T(x,y) \ (x * y).
+T(x,T(y,z)) = T(x,R(y,z,y)).
+T(x,R(y,z,y)) = T(x,T(y,z)).
+R(x,y,x) \ T(x,y) = K(R(x,y,x),x * y).
+T(R(x,T(y,x),x),y * x) = T(x,y).
+R(x,y,x) \ T(x * y,R(x,y,x)) = T(y,x).
+T(x,y) \ T(T(x,z),y) = y \ (T(x,z) * (x \ y)).
+x \ (L(y / x,z,u) \ y) = a(u,z,x \ y).
+(x * y) * K(x * (L(x,z,u) \ y),x) = (L(x,z,u) \ (x * y)) * L(x,z,u).
+(L(x,y,z) \ (x * u)) * L(x,y,z) = (x * u) * K(x * (L(x,y,z) \ u),x).
+T(x / (x / y),(x / y) * y) = L(y,y,x / y).
+T(x * K(y,x),y * x) = L(x,x,y).
+T(x / (x / y),x) = L(y,y,x / y).
+T(x,R(y,z,y)) = T(x,y).
+R(x,y,x) * T(z,x) = z * R(x,y,x).
+T(x,y) \ T(T(x,z),y) = x \ T(x,T(z,u)).
+T(T(x,y),z) \ T(x,y) = u \ (x * (T(x,z) \ u)).
+x \ (y * (T(y,T(y,z) * u) \ x)) = T(y,z) * ((T(y,z) * u) \ u).
+(T(x * y,x) * K(x,z)) / T(x,z) = R(y,x,T(x,z)).
+T(x,y) = T(x,y * K(z,y)).
+T(x,y * K(z,y)) = T(x,y).
+T(x / (y * K(z,y)),y) = (y * K(z,y)) \ x.
+(x * K(y,x)) \ z = (x \ z) / K(y,x).
+(x \ y) / K(z,x) = (x * K(z,x)) \ y.
+T(T(x,y),z * K(x,y)) \ 1 = (z * K(x,y)) \ (x \ z).
+T(L(x,y,z),u) * ((x \ 1) * K(u,x)) = x \ L(x,y,z).
+(x * K(y,x)) \ z = (x \ z) * K(x,y).
+T(x,y) \ T(T(x,y),z) = x \ T(x,T(z,u)).
+x \ T(x,T(y,z)) = K(T(x,u),y).
+K(T(x,y),z) = x \ T(x,T(z,u)).
+K(T(x,y),z) = K(x,T(z,u)).
+K(T(x,y),z) = K(x,z).
+K(x \ y,z) = K(y / x,z).
+K(x / y,z) = K(y \ x,z).
+K(T(x,y),z) = K(R(x,y,x),z).
+K(R(x,y,x),z) = K(T(x,y),z).
+K(x,y) = K(x * K(z,x),y).
+K(x * K(y,x),z) = K(x,z).
+K(R(x,y,x),z) = K(x,z).
+R(x,y,x) \ T(x,y) = K(x,x * y).
+(L(x,y,z) \ x) \ 1 = x \ L(x,y,z).
+K(L(x,y,z),u) = K(x,u).
+a(x,y,z) \ 1 = z \ L(z,y,x).
+R(L(x,y,z) \ x,x \ L(x,y,z),u) = u / (((L(x,y,z) \ x) \ 1) * u).
+R(L(x,y,z) \ x,x \ L(x,y,z),u) = u / ((x \ L(x,y,z)) * u).
+x \ (y * (T(y,z * K(y,u)) \ x)) = T(y,u) * ((T(y,u) * (y \ z)) \ (y \ z)).
+x \ (L(y,z,u) \ (y * x)) = L(y,z,u) \ y.
+L(x,y,z) \ (x * u) = u * a(z,y,x).
+x \ (L(y / x,z,u) \ y) = L(y / x,z,u) \ (y / x).
+L(x / y,z,u) \ (x / y) = y \ (L(x / y,z,u) \ x).
+x \ (L(y / x,z,u) \ y) = a(u,z,y / x).
+R(x,y,x) \ T(x * y,T(x,y)) = T(y,x).
+R(x,y,x) * T(y,x) = T(x * y,T(x,y)).
+R(x,y,x) * T(y,x) = T(x * y,x).
+T(x * y,x) = y * R(x,y,x).
+x * R(y,x,y) = T(y * x,y).
+x \ T(y * x,y) = R(y,x,y).
+x * T(R(y,x,T(y,z)),z) = T(T(y,z) * x,T(y,z)).
+T(x * y,x) * K(R(x,y,x),z) = y * T(R(x,y,x),z).
+T(x,y) \ T(x * y,y) = R(y,T(x,y),y).
+x * T(R(y,x,T(y,z)),z) = x / (T(y,z) \ 1).
+T(x * y,x) * K(x,z) = y * T(R(x,y,x),z).
+R(x,T(y,x),x) = x \ (y \ ((y * x) * x)).
+x \ (y \ ((y * x) * x)) = R(x,T(y,x),x).
+R(x,T(y,x),x) = T(R(x,y,x),x).
+T(R(x,y,x),x) = R(x,T(y,x),x).
+R(x,T(y,x),x) = R(x,y,x).
+T(R(x,y,x),y * x) = T(x,y).
+R(x,y,x) \ T(x,y) = K(R(x,y,x),y * x).
+K(R(x,y,x),y * x) = K(x,x * y).
+K(x,x * y) = K(x,y * x).
+K(x,y * x) = K(x,x * y).
+x * K(x,x * y) = T(x,y * x).
+T(x,y * x) = T(x,x * y).
+T(T(x,y),(x \ z) * T(x,y)) = T(T(x,y),z * K(x,y)).
+T(T(L(x,x,y),z),y) = T(T(x,x * y),z).
+T(x,y) * (x \ T(y,x * y)) = L(y,x,y).
+L(x,y,x) = L(x,x,y).
+T(L(x,T(x,y),z),y) = L(T(x,y),z,T(x,y)).
+L(x,x,x \ y) = L(x,x,y / x).
+L(x,x,y / x) = L(x,x,x \ y).
+T(L(x,y,T(x,z)),z) = T(L(x,T(x,z),y),z).
+T(L(x,T(x,y),z),y) = T(L(x,z,T(x,y)),y).
+T(x / (x / y),x) = L(y,y,y \ x).
+x * T(R(y,x,y),z) = x / (T(y,z) \ 1).
+x / (y * (L(y,z,u) \ 1)) = y \ (L(y,z,u) * x).
+x / (y * (L(y,z,u) \ 1)) = L(y,z,u) * (y \ x).
+x / (L(y,z,u) \ y) = L(y,z,u) * (y \ x).
+x / a(y,z,u) = L(u,z,y) * (u \ x).
+L(x,y,z) * (x \ u) = u / a(z,y,x).
+T(L(x,y,z),u) * (T(x,u) \ 1) = x \ L(x,y,z).
+x \ L(x,y,z) = u \ (L(x,y,z) * (x \ u)).
+x \ (L(y,z,u) * (y \ x)) = y \ L(y,z,u).
+x * (y \ L(y,z,u)) = L(y,z,u) * (y \ x).
+L(x,y,z) * (x \ u) = u * (x \ L(x,y,z)).
+T(x * y,x) * K(x,z) = y / (T(x,z) \ 1).
+(x / (T(y,z) \ 1)) / T(y,z) = R(x,y,T(y,z)).
+R(x,y,T(y,z)) = R(x,T(y,z),T(y,z)).
+R(x,T(y,z),T(y,z)) = R(x,y,T(y,z)).
+R(x,y,T(y,z)) = R(x,T(y,z),y).
+R(x,T(y,z),y) = R(x,y,T(y,z)).
+T(x,y) * ((T(x,y) * (x \ z)) \ (x \ z)) = K(z * K(x,y),x).
+R(x,y,z / (u * w)) = R(x,y,w \ (u \ z)).
+R(x,T(y,z),y) = R(x,y,y).
+x * (R(x,y,y) \ y) = L(y,x,T(y,z)).
+L(x,y,T(x,z)) = y * (R(y,x,x) \ x).
+R(x,y,z \ (u \ w)) = R(x,y,(u * z) \ w).
+R(x,y,(z * u) \ w) = R(x,y,u \ (z \ w)).
+L(x,y,T(x,z)) = L(x,y,x).
+T(L(x,T(x,y),z),y) = T(L(x,z,x),y).
+T(L(x,T(x,y),z),y) = T(L(x,x,z),y).
+T(T(L(x,x,y),z),y) = T(T(x,z),y * T(x,z)).
+T(T(x,y),z * T(x,y)) = T(T(x,x * z),y).
+T(T(x,x * (x \ y)),z) = T(T(x,z),y * K(x,z)).
+T(T(x,y),z) = T(T(x,z),y * K(x,z)).
+T(T(x,y),z * K(x,y)) = T(T(x,z),y).
+T(T(x,y),z) \ 1 = (y * K(x,z)) \ (x \ y).
+(x * K(y,z)) \ (y \ x) = T(T(y,x),z) \ 1.
+R(a(x,y,z),z \ L(z,y,x),u) = u / ((z \ L(z,y,x)) * u).
+T(x,y) * ((z * K(x,y)) \ (x \ z)) = K(z * K(x,y),x).
+T(x,y) * (T(T(x,z),y) \ 1) = K(z * K(x,y),x).
+K(x * K(y,z),y) = z \ (y * (T(y,x) \ z)).
+x \ (y * (T(y,z) \ x)) = K(z * K(y,x),y).
+K(x * K(y,z),y) = K(x,y).
+K(x,y) \ 1 = K(y,x * K(y,z)).
+K(x,y * K(x,z)) = K(y,x) \ 1.
+K(x,y * K(x,z)) = K(x,y).
+K(x,x \ y) = K(x,T(x,z) \ y).
+K(x,T(x,y) \ z) = K(x,x \ z).
+K(x * K(y,x),L(x,x,y) \ z) = K(x * K(y,x),(x * K(y,x)) \ z).
+K(x * K(y,x),(x * K(y,x)) \ z) = K(x * K(y,x),L(x,x,y) \ z).
+K(x / (x / y),L(y,y,y \ x) \ z) = K(x / (x / y),(x / (x / y)) \ z).
+K(x * K(y,x),(x * K(y,x)) \ z) = K(x,L(x,x,y) \ z).
+K(x / (x / y),(x / (x / y)) \ z) = K((x / y) \ x,L(y,y,y \ x) \ z).
+K((x / y) \ x,L(y,y,y \ x) \ z) = K(x / (x / y),(x / (x / y)) \ z).
+K(x * K(y,x),(x \ z) * K(x,y)) = K(x,L(x,x,y) \ z).
+K(x,L(x,x,y) \ z) = K(x,(x \ z) * K(x,y)).
+K(x,(x \ y) * K(x,z)) = K(x,L(x,x,z) \ y).
+K(x,L(x,x,y) \ z) = K(x,x \ z).
+K(x,L(x,x,x \ y) \ z) = K(y / (y / x),(y / (y / x)) \ z).
+K(x / (x / y),(x / (x / y)) \ z) = K(y,L(y,y,y \ x) \ z).
+K(x / (x / y),(x / (x / y)) \ z) = K(y,y \ z).
+K(x,x \ y) = K((z / x) \ z,(z / (z / x)) \ y).
+K((x / y) \ x,(x / (x / y)) \ z) = K(y,y \ z).
+K(x,(y / (y / x)) \ z) = K(x,x \ z).
+K(x,((y * x) / y) \ z) = K(x,x \ z).
+K(T(L(x,y,z),y),((z * (x * y)) / (z * y)) \ u) = K(T(L(x,y,z),y),T(L(x,y,z),y) \ u).
+K(T(L(x,y,z),y),((z * x) / z) \ u) = K(T(L(x,y,z),y),T(L(x,y,z),y) \ u).
+K(T(L(x,y,z),y),T(L(x,y,z),y) \ u) = K(T(L(x,y,z),y),((z * x) / z) \ u).
+a(x,y,z / u) = a(x,y,u \ z).
+L(R(x,x \ 1,y),z,u) * ((x \ 1) * y) = y / a(u,z,R(x,x \ 1,y)).
+L(R(x,x \ y,z),u,w) * ((x \ y) * z) = (y * z) / a(w,u,R(x,x \ y,z)).
+x / a(y,z,u) = x * (u \ L(u,z,y)).
+x * (y \ L(y,z,u)) = x / a(u,z,y).
+a(x,y,z) \ 1 = 1 / a(x,y,z).
+1 / a(x,y,z) = a(x,y,z) \ 1.
+(x * y) / a(z,u,w) = x * (y / a(z,u,w)).
+R(L(x,y,z),x \ 1,u) * ((x \ 1) * u) = u / a(z,y,R(x,x \ 1,u)).
+R(L(x,y,z),x \ u,w) * ((x \ u) * w) = (u * w) / a(z,y,R(x,x \ u,w)).
+((x / a(y,z,u)) * w) / ((u \ L(u,z,y)) * w) = R(x,u \ L(u,z,y),w).
+a(x,y,z) = a(x,y,(z \ u) \ u).
+a(x,y,(z \ u) \ u) = a(x,y,z).
+a(x,y,R(z / u,u,w)) = a(x,y,(u * T(w,z)) \ (w * z)).
+x / a(y,z,R(u,u \ 1,x)) = (L(u,z,y) * (u \ 1)) * x.
+x / a(y,z,R(u,u \ 1,x)) = (1 / a(y,z,u)) * x.
+x / a(y,z,R(u,u \ 1,x)) = (a(y,z,u) \ 1) * x.
+(x * y) / a(z,u,R(w,w \ x,y)) = (L(w,u,z) * (w \ x)) * y.
+(x * y) / a(z,u,R(w,w \ x,y)) = (x / a(z,u,w)) * y.
+K(T(L(x,y,z),y),T(L(x,y,z),y) \ u) = K(L(x,y,z),((z * x) / z) \ u).
+K(T(L(x,y,z),y),T(L(x,y,z),y) \ u) = K(x,((z * x) / z) \ u).
+K(T(L(x,y,z),y),T(L(x,y,z),y) \ u) = K(x,x \ u).
+K(x,x \ y) = K(L(x,z,u),T(L(x,z,u),z) \ y).
+K(L(x,y,z),T(L(x,y,z),y) \ u) = K(x,x \ u).
+K(x,x \ y) = K(L(x,z,u),L(x,z,u) \ y).
+K(L(x,y,z),L(x,y,z) \ u) = K(x,x \ u).
+K(x,x \ y) = K(x,L(x,z,u) \ y).
+K(x,L(x,y,z) \ u) = K(x,x \ u).
+K(x,L(x,y,z) \ (x * u)) = K(x,u).
+K(x,x * (L(x,y,z) \ u)) = K(x,u).
+K(x,y) \ 1 = K(x * (L(x,z,u) \ y),x).
+K(x * (L(x,y,z) \ u),x) = K(x,u) \ 1.
+K(x * (L(x,y,z) \ u),x) = K(u,x).
+(L(x,y,z) \ (x * u)) * L(x,y,z) = (x * u) * K(u,x).
+(L(x,y,z) \ (x * u)) * L(x,y,z) = u * x.
+(x * a(y,z,u)) * L(u,z,y) = x * u.
+x * L(y,z,u) != z * y | x = R(z,u,y).
+x * a(y,x,z) = R(x,y,z).
+x \ R(x,y,z) = a(y,x,z).
+x \ R(x,y,z) = a(y,x,z * K(u,w)).
+a(x,y,z * K(u,w)) = y \ R(y,x,z).
+x \ R(x,y,z \ (u \ w)) = a(y,x,(u * z) \ w).
+a(x,y,z * K(u,w)) = a(x,y,z).
+a(x,y,(z * u) \ w) = a(x,y,u \ (z \ w)).
+a(x,y,T(z,u) \ w) = a(x,y,z \ w).
+a(x,y,z \ T(u,w)) = a(x,y,z \ u).
+a(x,y,T(z,u) \ T(w,v5)) = a(x,y,z \ w).
+a(x,y,z \ (u \ (w * z))) = a(x,y,u \ w).
+a(x,y,T(z,u) \ (w \ (z * u))) = a(x,y,w \ u).
+a(x,y,(z * T(u,w)) \ (u * w)) = a(x,y,z \ w).
+a(x,y,R(z / u,u,w)) = a(x,y,u \ z).
+a(x,y,R(z,z \ u,w)) = a(x,y,(z \ u) \ u).
+a(x,y,R(z,z \ u,w)) = a(x,y,z).
+x / a(y,z,u) = (a(y,z,u) \ 1) * x.
+(a(x,y,z) \ 1) * u = u / a(x,y,z).
+(x * y) / a(z,u,w) = (x / a(z,u,w)) * y.
+(x \ L(x,y,z)) * u = u / a(z,y,x).
+(x / a(y,z,u)) * w = x * (w / a(y,z,u)).
+R(a(x,y,z),z \ L(z,y,x),u) = u / (u / a(x,y,z)).
+(x * (y / a(z,u,w))) / ((w \ L(w,u,z)) * y) = R(x,w \ L(w,u,z),y).
+(x * (y / a(z,u,w))) / (y / a(z,u,w)) = R(x,w \ L(w,u,z),y).
+R(x,y \ L(y,z,u),w) = x.
+a(x,y,z) = u / (u / a(x,y,z)).
+x / (x / a(y,z,u)) = a(y,z,u).
+a(x,y,z) \ u = u / a(x,y,z).
+x / a(y,z,u) = a(y,z,u) \ x.
+a(x,y,z) \ (u * w) = (u / a(x,y,z)) * w.
+a(x,y,z) \ (u * w) = (a(x,y,z) \ u) * w.
+x * y != z \ ((z * u) * y) | x = R(u,z,y).
+a(x,y,z) \ (a(x,y,z) * u) = R(u,a(x,y,z),w).
+R(x,a(y,z,u),w) = a(y,z,u) \ (a(y,z,u) * x).
+R(x,a(y,z,u),w) = x.
+x \ x = a(a(y,z,u),x,w).
+a(a(x,y,z),u,w) = u \ u.
+
+end_of_list.

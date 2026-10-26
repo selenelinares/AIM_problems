@@ -1,0 +1,8 @@
+--term-ordering=KBO --precedence="'a'>'R'>'L'>'/'>'K'>'\\'>'T'>'*'>'1'" \
+--order-weights="'1':1,'*':1,'T':1,'\\':1,'K':1,'/':1,'L':1,'R':1,'a':1" \
+--no-eq-unfolding --disable-paramod-into-neg-units \
+--prefer-initial-clauses \
+--watchlist \
+--no-watchlist-simplification \
+-H '(1*Refinedweight(PreferWatchlist,1,1,2,1,1))' \
+

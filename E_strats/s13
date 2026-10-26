@@ -1,0 +1,2 @@
+--term-ordering=KBO --precedence="'a'>'R'>'L'>'/'>'K'>'\\'>'T'>'*'>'1'"  --order-weights="'1':1,'*':1,'T':1,'\\':1,'K':1,'/':1,'L':1,'R':1,'a':1" 
+--no-eq-unfolding -H '(5*Refinedweight(PreferGoals,1,2,2,2,0.5),15*Refinedweight(PreferNonGoals,2,1,2,2,2),5*OrientLMaxWeight(PreferWatchlist,2,1,2,1,1),1*FIFOWeight(PreferWatchlist)' --watchlist

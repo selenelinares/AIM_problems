@@ -1,0 +1,266 @@
+
+% The LADR formulas contain function or predicate symbols
+% that are not legal TPTP symbols, and we have replaced those
+% symbols with new symbols.  Here is the list of the unaccepted
+% symbols and the corresponding replacements.
+%
+%   (arity 0)        1    '1'
+%   (arity 2)        K    'K'
+%   (arity 3)        R    'R'
+%   (arity 3)        L    'L'
+%   (arity 2)        T    'T'
+%   (arity 2)        *    '*'
+%   (arity 2)        \    '\\'
+%   (arity 2)        /    '/'
+
+cnf(ax1,axiom,'*'('1',A) = A).
+cnf(ax2,axiom,'*'(A,'1') = A).
+cnf(ax3,axiom,'\\'(A,'*'(A,B)) = B).
+cnf(ax4,axiom,'*'(A,'\\'(A,B)) = B).
+cnf(ax5,axiom,'/'('*'(A,B),B) = A).
+cnf(ax6,axiom,'*'('/'(A,B),B) = A).
+fof(ax7,axiom,! [X0] : ! [X1] : ! [X2] : ! [X3] : (('*'(X0,X1) = X2 & '*'(X0,X3) = X2) => X1 = X3)).
+fof(ax8,axiom,! [X4] : ! [X5] : ! [X6] : ! [X7] : (('*'(X4,X5) = X6 & '*'(X7,X5) = X6) => X4 = X7)).
+fof(ax9,axiom,! [X8] : ! [X9] : ! [X10] : ('*'(X8,X9) = '*'(X8,X10) => X9 = X10)).
+fof(ax10,axiom,! [X11] : ! [X12] : ! [X13] : ('*'(X11,X12) = '*'(X13,X12) => X11 = X13)).
+cnf(associator,axiom,'\\'('*'(A,'*'(B,C)),'*'('*'(A,B),C)) = a(A,B,C)).
+cnf(commutator,axiom,'\\'('*'(A,B),'*'(B,A)) ='K'(B,A)).
+cnf(ax13,axiom,'\\'('*'(A,B),'*'(A,'*'(B,C))) ='L'(C,B,A)).
+cnf(ax14,axiom,'/'('*'('*'(A,B),C),'*'(B,C)) ='R'(A,B,C)).
+cnf(ax15,axiom,'\\'(A,'*'(B,A)) ='T'(B,A)).
+fof(ax16,axiom,! [X14] : ! [X15] : ! [X16] : (a(X14,X15,X16) ='1' =>'L'(X16,X15,X14) = X16)).
+fof(ax17,axiom,! [X17] : ! [X18] : ! [X19] : ('L'(X17,X18,X19) = X17 => a(X19,X18,X17) ='1')).
+fof(ax18,axiom,! [X20] : ! [X21] : ('T'(X20,X21) = X20 =>'T'(X21,X20) = X21)).
+fof(ax19,axiom,! [X22] : ! [X23] : ('T'(X22,X23) = X22 =>'K'(X22,X23) ='1')).
+fof(ax20,axiom,! [X24] : ! [X25] : ('K'(X24,X25) ='1' =>'T'(X24,X25) = X24)).
+cnf(ax21,axiom,'T'('T'(A,B),C) ='T'('T'(A,C),B)).
+cnf(ax22,axiom,'T'('L'(A,B,C),D) ='L'('T'(A,D),B,C)).
+cnf(ax23,axiom,'T'('R'(A,B,C),D) ='R'('T'(A,D),B,C)).
+cnf(ax24,axiom,'L'('R'(A,B,C),D,E) ='R'('L'(A,D,E),B,C)).
+cnf(ax25,axiom,'L'('L'(A,B,C),D,E) ='L'('L'(A,D,E),B,C)).
+cnf(ax26,axiom,'R'('R'(A,B,C),D,E) ='R'('R'(A,D,E),B,C)).
+cnf(aK3,axiom,a(A,B,'K'(C,D)) ='1').
+fof(Ka_conj,conjecture,! [X26] : ! [X27] : ! [X28] : ! [X29] :'K'(a(X26,X27,X28),X29) ='1').
+
+
+%%%%%%%%%%%%%%%%%%%%
+% original watchlist
+%%%%%%%%%%%%%%%%%%%%
+
+cnf(sos,watchlist,'*'('K'(A,a(B,C,D)),E) = E).
+cnf(sos,watchlist,'K'(A,a(B,C,D)) ='1').
+cnf(sos,watchlist,'1' ='K'(A,a(B,C,D))).
+cnf(sos,watchlist,'K'(A,'\\'('L'(B,C,D),B)) ='1').
+cnf(sos,watchlist,'K'(A,'*'('\\'(B,'1'),C)) ='K'(A,'\\'(B,C))).
+cnf(sos,watchlist,'K'(A,'\\'(B,'L'(C,D,E))) ='K'(A,'\\'(B,C))).
+cnf(sos,watchlist,'K'(A,'\\'(B,'L'('*'(B,C),D,E))) ='K'(A,C)).
+cnf(sos,watchlist,'K'(A,'*'('\\'('L'(B,C,D),'1'),B)) ='1').
+cnf(sos,watchlist,'K'(A,'*'(B,'L'('\\'(B,C),D,E))) ='K'(A,C)).
+cnf(sos,watchlist,'K'(A,'*'(B,'L'(C,D,E))) ='K'(A,'*'(B,C))).
+cnf(sos,watchlist,'\\'('T'('*'(A,'L'(B,C,D)),E),'*'(A,'L'(B,C,D))) ='K'(E,'*'(A,B))).
+cnf(sos,watchlist,'\\'('T'('*'(A,'L'('\\'(A,'*'(A,B)),C,D)),E),'*'(A,'L'(B,C,D))) ='K'(E,'*'(A,B))).
+cnf(sos,watchlist,'T'('*'(A,'L'('\\'(A,B),C,D)),E) = '*'(A,'L'('\\'(A,'T'(B,E)),C,D))).
+cnf(sos,watchlist,'*'(A,'*'(B,'L'('\\'(B,'T'(C,A)),D,E))) = '*'('*'(B,'L'('\\'(B,C),D,E)),A)).
+cnf(sos,watchlist,'*'(A,'*'(B,'L'('\\'(B,'\\'(A,'*'(C,B))),D,E))) = '*'(B,'*'(A,'L'('\\'(A,'T'(C,B)),D,E)))).
+cnf(sos,watchlist,'K'(A,'*'('\\'(B,'1'),B)) ='1').
+cnf(sos,watchlist,'K'(A,'K'('\\'(B,'1'),B)) ='1').
+cnf(sos,watchlist,'T'(A,'K'('\\'(B,'1'),B)) = A).
+cnf(sos,watchlist,'T'(A,'\\'(B,'L'(B,C,D))) = A).
+cnf(sos,watchlist,A ='T'(A,'\\'(B,'L'(B,C,D)))).
+cnf(sos,watchlist,'T'(A,'*'('/'('1',B),'L'(B,C,D))) = A).
+cnf(sos,watchlist,'T'(A,'*'(B,'L'('\\'(B,'1'),C,D))) = A).
+cnf(sos,watchlist,'*'(A,'*'(B,'L'('\\'(B,'\\'(A,'*'(B,C))),D,E))) = '*'(B,'*'(A,'L'('\\'(A,C),D,E)))).
+cnf(sos,watchlist,'*'(A,'*'(B,'L'('\\'(B,C),D,E))) = '*'(B,'*'(A,'L'('\\'(A,'\\'(B,'*'(A,C))),D,E)))).
+cnf(sos,watchlist,'*'('*'(A,'L'('\\'(A,'1'),B,C)),D) = '*'(D,'*'(A,'L'('\\'(A,'1'),B,C)))).
+cnf(sos,watchlist,'*'(A,'*'(B,'L'('\\'(B,'1'),C,D))) = '*'('*'(B,'L'('\\'(B,'1'),C,D)),A)).
+cnf(sos,watchlist,'*'('T'(A,B),'L'('\\'('T'(A,B),C),D,E)) = '*'(A,'L'('\\'(A,C),D,E))).
+cnf(sos,watchlist,'*'(A,'L'('\\'(A,B),C,D)) = '*'('T'(A,E),'L'('\\'('T'(A,E),B),C,D))).
+cnf(sos,watchlist,'*'(A,'*'('K'(A,B),'L'('\\'('K'(A,B),'\\'(A,C)),D,E))) = '*'('T'(A,B),'L'('\\'('T'(A,B),C),D,E))).
+cnf(sos,watchlist,'*'(A,'*'('T'(B,A),'L'('\\'('T'(B,A),C),D,E))) = '*'(B,'*'(A,'L'('\\'(A,'\\'(B,'*'(A,C))),D,E)))).
+cnf(sos,watchlist,'*'('*'(A,B),'L'('\\'('*'(A,B),'*'(B,C)),D,E)) = '*'(B,'*'('T'(A,B),'L'('\\'('T'(A,B),C),D,E)))).
+cnf(sos,watchlist,'*'('K'(A,B),'L'('\\'('K'(A,B),C),D,E)) ='L'(C,D,E)).
+cnf(sos,watchlist,'*'('K'(A,B),'L'('\\'('K'(A,B),C),D,E)) = '*'('/'('L'(C,D,E),C),C)).
+cnf(sos,watchlist,'*'('/'('L'(A,B,C),A),A) = '*'('K'(D,E),'L'('\\'('K'(D,E),A),B,C))).
+cnf(sos,watchlist,'*'('/'('K'(A,B),C),'L'('*'(C,'K'(B,A)),D,E)) = '/'('L'(C,D,E),C)).
+cnf(sos,watchlist,'*'(A,'*'('T'(B,A),'L'('\\'('T'(B,A),'1'),C,D))) = '*'('*'(B,'L'('\\'(B,'1'),C,D)),A)).
+cnf(sos,watchlist,'*'(A,'*'('T'(B,A),'L'('\\'('T'(B,A),'1'),C,D))) = '*'('*'(B,A),'L'('\\'('*'(B,A),A),C,D))).
+cnf(sos,watchlist,'*'('*'(A,B),'L'('\\'('*'(A,B),B),C,D)) = '*'(B,'*'('T'(A,B),'L'('\\'('T'(A,B),'1'),C,D)))).
+cnf(sos,watchlist,'*'('\\'(A,'1'),'L'('\\'('\\'(A,'1'),B),C,D)) = '\\'(A,'L'('*'(A,B),C,D))).
+cnf(sos,watchlist,'\\'(A,'L'('*'(A,B),C,D)) = '*'('\\'(A,'1'),'L'('\\'('\\'(A,'1'),B),C,D))).
+cnf(sos,watchlist,'*'('L'('/'(A,'\\'(B,'1')),C,D),'\\'(B,'1')) = '\\'(B,'L'('*'(B,A),C,D))).
+cnf(sos,watchlist,'*'('L'('/'(A,'\\'(B,'1')),C,D),'\\'(B,'1')) = '\\'(B,'L'('\\'('1','*'(B,A)),C,D))).
+cnf(sos,watchlist,'\\'(A,'L'('\\'('1','*'(A,B)),C,D)) = '*'('L'('/'(B,'\\'(A,'1')),C,D),'\\'(A,'1'))).
+cnf(sos,watchlist,'*'(A,'*'(B,'L'('\\'(B,'\\'(A,'*'(C,B))),D,E))) = '*'('*'(A,'L'('\\'(A,C),D,E)),B)).
+cnf(sos,watchlist,'*'('*'(A,'L'('\\'(A,B),C,D)),E) = '*'(A,'*'(E,'L'('\\'(E,'\\'(A,'*'(B,E))),C,D)))).
+cnf(sos,watchlist,'*'('*'(A,B),'L'('\\'('*'(A,B),'*'(C,B)),D,E)) = '*'('*'(A,'L'('\\'(A,C),D,E)),B)).
+cnf(sos,watchlist,'*'('*'(A,B),'L'('\\'('*'(A,B),'*'(C,B)),D,E)) = '*'('*'('L'('/'(C,A),D,E),A),B)).
+cnf(sos,watchlist,'/'('L'('*'(A,'K'(B,C)),D,E),'*'(A,'K'(B,C))) = '*'('/'('K'(C,B),A),'L'('*'(A,'K'(B,C)),D,E))).
+cnf(sos,watchlist,'*'('/'('K'(A,B),C),'L'('*'(C,'K'(B,A)),D,E)) = '/'('L'('*'(C,'K'(B,A)),D,E),'*'(C,'K'(B,A)))).
+cnf(sos,watchlist,'*'('/'('1',A),'L'(A,B,C)) = '/'('L'(A,B,C),A)).
+cnf(sos,watchlist,'/'('L'(A,B,C),A) = '*'('/'('1',A),'L'(A,B,C))).
+cnf(sos,watchlist,'/'('L'('\\'('1',A),B,C),A) = '*'('/'('1',A),'L'(A,B,C))).
+cnf(sos,watchlist,'*'('/'('1',A),'L'(A,B,C)) = '/'('L'('\\'('1',A),B,C),A)).
+cnf(sos,watchlist,'*'('/'('1',A),'L'('\\'('/'('1',A),'1'),B,C)) = '/'('L'('\\'('1',A),B,C),A)).
+cnf(sos,watchlist,'*'('*'('/'('K'(A,B),C),'L'('*'(C,'K'(B,A)),D,E)),C) = '*'('K'(A,B),'L'('\\'('K'(A,B),C),D,E))).
+cnf(sos,watchlist,'*'('/'(A,B),'L'('\\'('/'(A,B),'1'),C,D)) = '/'('*'(A,'L'('\\'(A,B),C,D)),B)).
+cnf(sos,watchlist,'/'('*'(A,'L'('\\'(A,B),C,D)),B) = '*'('/'(A,B),'L'('\\'('/'(A,B),'1'),C,D))).
+cnf(sos,watchlist,'*'('*'('/'(A,B),'L'('\\'('/'(A,B),'1'),C,D)),B) = '*'(A,'L'('\\'(A,B),C,D))).
+cnf(sos,watchlist,'*'('*'('/'(A,B),'L'('\\'('/'(A,B),'1'),C,D)),B) = '*'(A,'L'('\\'('*'('/'(A,B),B),B),C,D))).
+cnf(sos,watchlist,'*'(A,'L'('\\'('*'('/'(A,B),B),B),C,D)) = '*'('*'('/'(A,B),'L'('\\'('/'(A,B),'1'),C,D)),B)).
+cnf(sos,watchlist,'*'('*'(A,B),'L'('\\'('*'(A,B),B),C,D)) = '*'('*'(A,'L'('\\'(A,'1'),C,D)),B)).
+cnf(sos,watchlist,'*'('*'(A,B),'L'('\\'('*'(A,B),B),C,D)) = '*'('*'('L'('/'('1',A),C,D),A),B)).
+cnf(sos,watchlist,'*'(A,'*'('K'(A,B),'L'('\\'('K'(A,B),'\\'(A,C)),D,E))) = '*'('T'(A,B),'L'('\\'('*'(A,'K'(A,B)),C),D,E))).
+cnf(sos,watchlist,'*'('T'(A,B),'L'('\\'('*'(A,'K'(A,B)),C),D,E)) = '*'(A,'*'('K'(A,B),'L'('\\'('K'(A,B),'\\'(A,C)),D,E)))).
+cnf(sos,watchlist,'K'(A,'\\'('L'(B,C,D),B)) ='K'(A,a(D,C,B))).
+cnf(sos,watchlist,'K'(A,a(B,C,D)) ='K'(A,'\\'('L'(D,C,B),D))).
+cnf(sos,watchlist,'K'(A,'\\'('*'(B,'*'(C,D)),'*'('*'(B,C),E))) ='K'(A,'\\'('L'(D,C,B),E))).
+cnf(sos,watchlist,'T'(A,'*'('/'('1',B),C)) ='T'(A,'\\'(B,C))).
+cnf(sos,watchlist,'T'(A,'L'(B,C,D)) ='T'(A,B)).
+cnf(sos,watchlist,'T'(A,B) ='T'(A,'L'(B,C,D))).
+cnf(sos,watchlist,'K'(A,'\\'('*'(B,C),'*'(B,D))) ='K'(A,'\\'(C,D))).
+cnf(sos,watchlist,'K'(A,'L'(B,C,D)) ='K'(A,B)).
+cnf(sos,watchlist,'T'(A,'L'(B,C,D)) = '/'(A,'K'(B,A))).
+cnf(sos,watchlist,'K'(A,'L'(B,C,D)) = '\\'('K'(B,A),'1')).
+cnf(sos,watchlist,'\\'('K'(A,B),'1') ='K'(B,'L'(A,C,D))).
+cnf(sos,watchlist,'K'('L'(A,B,C),D) ='K'(A,D)).
+cnf(sos,watchlist,'\\'('*'(A,'*'(B,C)),'*'(A,'*'(B,'T'(C,D)))) ='K'('L'(C,B,A),D)).
+cnf(sos,watchlist,'\\'('*'(A,'L'('\\'(B,'T'('*'(B,C),D)),E,F)),'*'(A,'L'(C,E,F))) ='K'(D,'*'(B,C))).
+cnf(sos,watchlist,'*'('*'(A,B),'L'('\\'('*'(B,'T'(A,B)),B),C,D)) = '*'(B,'*'('T'(A,B),'L'('\\'('T'(A,B),'1'),C,D)))).
+cnf(sos,watchlist,'\\'('*'(A,'*'(B,C)),'*'('*'(A,B),'L'('T'(C,D),B,A))) ='K'('L'(C,B,A),D)).
+cnf(sos,watchlist,'\\'('*'(A,'L'('\\'(B,'T'(C,D)),E,F)),'*'(A,'L'('\\'(B,C),E,F))) ='K'(D,C)).
+cnf(sos,watchlist,'/'('L'('*'(A,'K'(B,C)),D,E),'*'(F,'K'(B,C))) = '/'('L'(A,D,E),F)).
+cnf(sos,watchlist,'\\'('*'(A,'L'(B,C,D)),'*'(A,'L'('*'(B,'K'(E,F)),C,D))) ='K'(E,F)).
+cnf(sos,watchlist,'L'('*'(A,'K'(B,C)),D,E) = '*'('L'(A,D,E),'K'(B,C))).
+cnf(sos,watchlist,'\\'('*'(A,B),'*'(A,'*'(B,'*'(C,'K'(D,E))))) = '*'('L'(C,B,A),'K'(D,E))).
+cnf(sos,watchlist,'*'('*'(A,'T'(B,A)),'L'('\\'('*'(B,A),'*'(A,C)),D,E)) = '*'(A,'*'('T'(B,A),'L'('\\'('T'(B,A),C),D,E)))).
+cnf(sos,watchlist,'*'('*'(A,B),'L'('\\'('*'(A,B),C),D,E)) = '*'(A,'*'(B,'L'('\\'(B,'\\'(A,C)),D,E)))).
+cnf(sos,watchlist,'*'('*'(A,B),'L'('\\'('*'(A,B),A),C,D)) = '*'(A,'*'(B,'L'('\\'(B,'1'),C,D)))).
+cnf(sos,watchlist,'\\'('*'(A,B),'*'(A,'*'('*'(B,C),'K'(D,E)))) = '*'('L'(C,B,A),'K'(D,E))).
+cnf(sos,watchlist,'\\'(A,'L'('L'('\\'('\\'(A,'1'),B),C,D),'\\'(A,'1'),A)) = '*'('L'('/'(B,'\\'(A,'1')),C,D),'\\'(A,'1'))).
+cnf(sos,watchlist,'*'('L'('R'('/'('1',A),A,B),C,D),'*'(A,B)) = '*'('*'(A,B),'L'('\\'('*'(A,B),B),C,D))).
+cnf(sos,watchlist,'*'('L'('R'('/'(A,B),B,C),D,E),'*'(B,C)) = '*'('*'(B,C),'L'('\\'('*'(B,C),'*'(A,C)),D,E))).
+cnf(sos,watchlist,'L'('L'('\\'('\\'(A,B),C),D,E),'\\'(A,B),A) ='L'('\\'(B,'*'(A,C)),D,E)).
+cnf(sos,watchlist,'L'('\\'(A,'*'(B,C)),D,E) ='L'('L'('\\'('\\'(B,A),C),D,E),'\\'(B,A),B)).
+cnf(sos,watchlist,'L'('\\'(A,B),A,'/'('1',A)) = '*'('/'('1',A),B)).
+cnf(sos,watchlist,'*'('/'('1',A),B) ='L'('\\'(A,B),A,'/'('1',A))).
+cnf(sos,watchlist,'*'('/'('1',A),'*'(A,B)) ='L'(B,A,'/'('1',A))).
+cnf(sos,watchlist,'L'(A,B,'/'('1',B)) = '*'('/'('1',B),'*'(B,A))).
+cnf(sos,watchlist,'\\'(A,'L'(A,'\\'(A,'1'),A)) ='K'('\\'(A,'1'),A)).
+cnf(sos,watchlist,'K'('\\'(A,'1'),A) = '\\'(A,'L'(A,'\\'(A,'1'),A))).
+cnf(sos,watchlist,'\\'(A,'L'(B,'\\'(A,'1'),A)) = '*'('\\'(A,'1'),B)).
+cnf(sos,watchlist,'*'(A,'*'('\\'(A,'1'),B)) ='L'(B,'\\'(A,'1'),A)).
+cnf(sos,watchlist,'L'(A,'\\'(B,'1'),B) = '*'(B,'*'('\\'(B,'1'),A))).
+cnf(sos,watchlist,'*'('\\'(A,'T'(B,C)),'K'(C,B)) = '\\'(A,B)).
+cnf(sos,watchlist,'\\'(A,B) = '*'('\\'(A,'T'(B,C)),'K'(C,B))).
+cnf(sos,watchlist,'\\'(A,'*'(B,'*'(C,'K'(D,E)))) = '*'('\\'(A,'*'(B,C)),'K'(D,E))).
+cnf(sos,watchlist,'\\'('/'('K'(A,B),C),'1') = '*'(C,'K'(B,A))).
+cnf(sos,watchlist,'/'('1','*'(A,'K'(B,C))) = '/'('K'(C,B),A)).
+cnf(sos,watchlist,'\\'(A,'*'(B,'K'(C,D))) = '*'('\\'(A,B),'K'(C,D))).
+cnf(sos,watchlist,~ '*'('K'(A,B),C) ='1' |'K'(B,A) = C).
+cnf(sos,watchlist,~'1' = '*'('K'(A,B),C) |'K'(B,A) = C).
+cnf(sos,watchlist,'T'(A,B) = '/'(A,'K'(B,A))).
+cnf(sos,watchlist,'*'('T'(A,B),'K'(B,A)) = A).
+cnf(sos,watchlist,'K'(A,B) = '\\'('T'(B,A),B)).
+cnf(sos,watchlist,'\\'('T'(A,B),A) ='K'(B,A)).
+cnf(sos,watchlist,'*'('K'(A,B),'K'(B,A)) ='1').
+cnf(sos,watchlist,'\\'('K'(A,B),'1') ='K'(B,A)).
+cnf(sos,watchlist,'K'(A,B) = '\\'('K'(B,A),'1')).
+cnf(sos,watchlist,'T'(A,B) = '/'(A,'\\'('K'(A,B),'1'))).
+cnf(sos,watchlist,'/'(A,'\\'('K'(A,B),'1')) ='T'(A,B)).
+cnf(sos,watchlist,'*'('T'(A,B),'\\'('K'(A,B),'1')) = A).
+cnf(sos,watchlist,'\\'('T'(A,B),A) = '\\'('K'(A,B),'1')).
+cnf(sos,watchlist,'\\'('*'(A,B),'*'(B,A)) = '\\'('K'(A,B),'1')).
+cnf(sos,watchlist,'\\'('*'(A,'K'(B,C)),A) = '\\'('K'(B,C),'1')).
+cnf(sos,watchlist,'\\'(A,'/'(A,'K'(B,C))) = '\\'('K'(B,C),'1')).
+cnf(sos,watchlist,'\\'('*'(A,'*'(B,C)),'*'(A,'*'(B,'T'(C,D)))) ='K'(C,D)).
+cnf(sos,watchlist,'\\'('*'(A,'*'(B,C)),'*'('*'(A,B),'T'('L'(C,B,A),D))) ='K'('L'(C,B,A),D)).
+cnf(sos,watchlist,'*'(A,'\\'('K'(B,C),'1')) = '/'(A,'K'(B,C))).
+cnf(sos,watchlist,'/'('1','K'(A,B)) = '\\'('K'(A,B),'1')).
+cnf(sos,watchlist,'*'('\\'('K'(A,B),'1'),'K'(A,B)) ='1').
+cnf(sos,watchlist,'*'('*'(A,B),'K'(B,C)) = '*'(A,'T'(B,C))).
+cnf(sos,watchlist,'\\'('*'(A,B),'*'(A,'T'(B,C))) ='K'(B,C)).
+cnf(sos,watchlist,'T'(A,B) = '*'(A,'K'(A,B))).
+cnf(sos,watchlist,'*'('\\'(A,'1'),'K'(B,C)) = '\\'(A,'K'(B,C))).
+cnf(sos,watchlist,'\\'(A,'K'(B,C)) = '*'('\\'(A,'1'),'K'(B,C))).
+cnf(sos,watchlist,'/'('*'(A,'K'(B,C)),'*'(D,'K'(B,C))) = '/'(A,D)).
+cnf(sos,watchlist,'/'(A,B) = '/'('*'(A,'K'(C,D)),'*'(B,'K'(C,D)))).
+cnf(sos,watchlist,'*'(A,'*'(B,'K'(B,A))) = '*'(B,A)).
+cnf(sos,watchlist,'*'(A,'*'('\\'(A,B),'K'(C,D))) = '*'(B,'K'(C,D))).
+cnf(sos,watchlist,'*'(A,'K'(B,C)) = '*'(D,'*'('\\'(D,A),'K'(B,C)))).
+cnf(sos,watchlist,'R'(A,B,'K'(C,D)) = A).
+cnf(sos,watchlist,A ='R'(A,B,'K'(C,D))).
+cnf(sos,watchlist,~ '*'(A,'*'(B,C)) = '*'('*'(D,B),C) | A ='R'(D,B,C)).
+cnf(sos,watchlist,'*'('L'('/'(A,B),C,D),B) = '*'(B,'L'('\\'(B,A),C,D))).
+cnf(sos,watchlist,'*'(A,'L'('\\'(A,B),C,D)) = '*'('L'('/'(B,A),C,D),A)).
+cnf(sos,watchlist,'*'(A,'/'('1','K'(B,C))) = '/'(A,'K'(B,C))).
+cnf(sos,watchlist,'/'(A,'K'(B,C)) = '*'(A,'/'('1','K'(B,C)))).
+cnf(sos,watchlist,'\\'('R'(A,'\\'(A,'1'),B),B) = '*'('\\'(A,'1'),B)).
+cnf(sos,watchlist,'\\'('R'('/'('1',A),A,B),B) = '*'(A,B)).
+cnf(sos,watchlist,'R'('/'('1',A),A,B) = '/'(B,'*'(A,B))).
+cnf(sos,watchlist,'*'('L'('R'(A,B,C),D,E),'*'(B,C)) = '*'('*'('L'(A,D,E),B),C)).
+cnf(sos,watchlist,'/'(A,'L'(B,'/'('1',B),A)) = '*'(A,'/'('1',B))).
+cnf(sos,watchlist,'/'(A,'L'('\\'(B,'1'),B,A)) = '*'(A,B)).
+cnf(sos,watchlist,'L'('\\'('T'(A,B),C),'T'(A,B),B) = '\\'('*'(A,B),'*'(B,C))).
+cnf(sos,watchlist,'L'('\\'(A,'\\'(B,C)),A,B) = '\\'('*'(B,A),C)).
+cnf(sos,watchlist,'L'('\\'('\\'(A,B),C),'\\'(A,B),A) = '\\'(B,'*'(A,C))).
+cnf(sos,watchlist,'L'('\\'(A,'1'),A,B) = '\\'('*'(B,A),B)).
+cnf(sos,watchlist,'*'('*'(A,B),'K'(C,D)) = '*'(A,'*'(B,'K'(C,D)))).
+cnf(sos,watchlist,'*'('*'(A,B),'L'('L'(C,B,A),D,E)) = '*'(A,'*'(B,'L'(C,D,E)))).
+cnf(sos,watchlist,'K'('\\'(A,'1'),A) = '*'('\\'(A,'1'),A)).
+cnf(sos,watchlist,'\\'('*'(A,B),'*'(A,'*'(B,'K'(C,D)))) ='K'(C,D)).
+cnf(sos,watchlist,'K'(A,B) = '\\'('*'(C,D),'*'(C,'*'(D,'K'(A,B))))).
+cnf(sos,watchlist,'*'(A,'L'('T'(B,A),C,D)) = '*'('L'(B,C,D),A)).
+cnf(sos,watchlist,~ '*'(A,B) = '*'(C,A) |'T'(C,A) = B).
+cnf(sos,watchlist,~ '*'(A,B) = '*'(B,C) |'T'(A,B) = C).
+cnf(sos,watchlist,'/'('*'(A,B),'K'(A,B)) = '*'(B,A)).
+cnf(sos,watchlist,'L'('K'(A,B),C,D) ='K'(A,B)).
+cnf(sos,watchlist,'T'('/'(A,B),B) = '\\'(B,A)).
+cnf(sos,watchlist,'*'(A,'T'(B,A)) = '*'(B,A)).
+cnf(sos,watchlist,'R'('/'(A,B),B,C) = '/'('*'(A,C),'*'(B,C))).
+cnf(sos,watchlist,'*'('R'(A,B,C),'*'(B,C)) = '*'('*'(A,B),C)).
+cnf(sos,watchlist,'\\'(A,'*'('/'(A,B),'*'(B,C))) ='L'(C,B,'/'(A,B))).
+cnf(sos,watchlist,'L'(A,B,'/'(C,B)) = '\\'(C,'*'('/'(C,B),'*'(B,A)))).
+cnf(sos,watchlist,'L'('\\'(A,B),A,C) = '\\'('*'(C,A),'*'(C,B))).
+cnf(sos,watchlist,'\\'(A,'*'(B,'*'('\\'(B,A),C))) ='L'(C,'\\'(B,A),B)).
+cnf(sos,watchlist,'L'(A,'\\'(B,C),B) = '\\'(C,'*'(B,'*'('\\'(B,C),A)))).
+cnf(sos,watchlist,'*'('*'(A,B),'L'(C,B,A)) = '*'(A,'*'(B,C))).
+cnf(sos,watchlist,'\\'(A,'*'('\\'(B,A),B)) ='K'('\\'(B,A),B)).
+cnf(sos,watchlist,'K'('\\'(A,B),A) = '\\'(B,'*'('\\'(A,B),A))).
+cnf(sos,watchlist,'*'('*'(A,B),'K'(B,A)) = '*'(B,A)).
+cnf(sos,watchlist,~ '*'(A,B) = C | '/'(C,B) = A).
+cnf(sos,watchlist,~ A = '*'(B,C) | '/'(A,C) = B).
+cnf(sos,watchlist,~ '*'(A,B) = C | '\\'(A,C) = B).
+cnf(sos,watchlist,~ A = '*'(B,C) | '\\'(B,A) = C).
+cnf(sos,watchlist,'\\'('/'(A,B),A) = B).
+cnf(sos,watchlist,'/'(A,'\\'(B,A)) = B).
+cnf(sos,watchlist,'\\'(A,A) ='1').
+cnf(sos,watchlist,'\\'('1',A) = A).
+cnf(sos,watchlist,~'K'(a(c1,c2,c3),c4) ='1').
+cnf(sos,watchlist,a(A,B,'K'(C,D)) ='1').
+cnf(sos,watchlist,'L'('L'(A,B,C),D,E) ='L'('L'(A,D,E),B,C)).
+cnf(sos,watchlist,'R'('L'(A,B,C),D,E) ='L'('R'(A,D,E),B,C)).
+cnf(sos,watchlist,'L'('R'(A,B,C),D,E) ='R'('L'(A,D,E),B,C)).
+cnf(sos,watchlist,'L'('T'(A,B),C,D) ='T'('L'(A,C,D),B)).
+cnf(sos,watchlist,'T'('L'(A,B,C),D) ='L'('T'(A,D),B,C)).
+cnf(sos,watchlist,~'T'(A,B) = A |'K'(A,B) ='1').
+cnf(sos,watchlist,~ a(A,B,C) ='1' |'L'(C,B,A) = C).
+cnf(sos,watchlist,'T'(A,B) = '\\'(B,'*'(A,B))).
+cnf(sos,watchlist,'\\'(A,'*'(B,A)) ='T'(B,A)).
+cnf(sos,watchlist,'R'(A,B,C) = '/'('*'('*'(A,B),C),'*'(B,C))).
+cnf(sos,watchlist,'/'('*'('*'(A,B),C),'*'(B,C)) ='R'(A,B,C)).
+cnf(sos,watchlist,'L'(A,B,C) = '\\'('*'(C,B),'*'(C,'*'(B,A)))).
+cnf(sos,watchlist,'\\'('*'(A,B),'*'(A,'*'(B,C))) ='L'(C,B,A)).
+cnf(sos,watchlist,'K'(A,B) = '\\'('*'(B,A),'*'(A,B))).
+cnf(sos,watchlist,'\\'('*'(A,B),'*'(B,A)) ='K'(B,A)).
+cnf(sos,watchlist,a(A,B,C) = '\\'('*'(A,'*'(B,C)),'*'('*'(A,B),C))).
+cnf(sos,watchlist,'\\'('*'(A,'*'(B,C)),'*'('*'(A,B),C)) = a(A,B,C)).
+cnf(sos,watchlist,~ '*'(A,B) = '*'(C,B) | A = C).
+cnf(sos,watchlist,~ '*'(A,B) = '*'(A,C) | B = C).
+cnf(sos,watchlist,~ '*'(A,B) = C | ~ '*'(D,B) = C | D = A).
+cnf(sos,watchlist,'*'('/'(A,B),B) = A).
+cnf(sos,watchlist,'/'('*'(A,B),B) = A).
+cnf(sos,watchlist,'*'(A,'\\'(A,B)) = B).
+cnf(sos,watchlist,'\\'(A,'*'(A,B)) = B).
+cnf(sos,watchlist,'*'(A,'1') = A).
+cnf(sos,watchlist,'*'('1',A) = A).
+cnf(sos,watchlist,'K'(a(A,B,C),D) ='1').

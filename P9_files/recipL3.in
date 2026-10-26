@@ -1,0 +1,1144 @@
+% *****************************************************************
+% AIM:  x * y = y * x => 
+%
+%    L(x,y,(x \ z) * (z \ x)) = x # label("L3 reciprocal").
+% *****************************************************************
+
+assign(order, kbo).
+set(lex_order_vars).
+
+clear(back_demod).
+set(restrict_denials).
+
+set(para_from_small).
+
+assign(max_weight,5).
+
+formulas(assumptions).
+
+   % loop axioms
+   1 * x = x.
+   x * 1 = x.
+   x \ (x * y) = y.
+   x * (x \ y) = y.
+   (x * y) / y = x.
+   (x / y) * y = x.
+
+   % associator (right associated * a = left associated)
+   (x * (y * z)) \ ((x * y) * z) = a(x,y,z) # label("associator").
+
+   % commutator ( (x * y) * K(y,x) = y * x )
+   (x * y) \ (y * x) = K(y,x) # label("commutator").
+
+   % inner mappings
+   (y * x) \ (y * (x * u)) = L(u,x,y).
+   ((u * x) * y) / (x * y) = R(u,x,y).
+   x \ (u * x) = T(u,x).
+
+   % abelian inner mapping group
+   T(T(u,x),y) = T(T(u,y),x).
+   T(L(u,x,y),z) = L(T(u,z),x,y).
+   T(R(u,x,y),z) = R(T(u,z),x,y).
+   L(R(u,x,y),z,w) = R(L(u,z,w),x,y).
+   L(L(u,x,y),z,w) = L(L(u,z,w),x,y).
+   R(R(u,x,y),z,w) = R(R(u,z,w),x,y).
+
+   % extra assumption for this case
+   x * y = y * x # label("Commutativity").
+
+end_of_list.
+
+formulas(goals).
+
+   L(x,y,(x \ z) * (z \ x)) = x # label("L3 reciprocal").
+
+end_of_list.
+
+% *********************
+% AIM: Auxiliary Lemmas
+% *********************
+
+formulas(assumptions).
+
+   % cancellation laws (long form)
+
+   x * y != u | x * z != u | y = z # label("*-Cancellation 1").
+   y * x != u | z * x != u | y = z # label("*-Cancellation 2").
+
+   x / y != u | x / z != u | y = z # label("/-Cancellation 1").
+   y / x != u | z / x != u | y = z # label("/-Cancellation 2").
+
+   x \ y != u | x \ z != u | y = z # label("\-Cancellation 1").
+   y \ x != u | z \ x != u | y = z # label("\-Cancellation 2").
+
+   T(x,y) != u | T(z,y) != u | x = z # label("T-Cancellation 1").
+   L(z,x,y) != u | L(w,x,y) != u | z = w # label("L-Cancellation 1").
+   R(z,x,y) != u | R(w,x,y) != u | z = w # label("R-Cancellation 1").
+
+   % cancellation laws (short form)
+
+   x * y != x * z | y = z # label("*-Cancellation 3").
+   y * x != z * x | y = z # label("*-Cancellation 4").
+
+   x / y != x / z | y = z # label("/-Cancellation 3").
+   y / x != z / x | y = z # label("/-Cancellation 4").
+
+   x \ y != x \ z | y = z # label("\-Cancellation 3").
+   y \ x != z \ x | y = z # label("\-Cancellation 4").
+
+   T(x,y) != T(z,y) | x = z # label("T-Cancellation 2").
+   L(z,x,y) != L(w,x,y) | z = w # label("L-Cancellation 2").
+   R(z,x,y) != R(w,x,y) | z = w # label("R-Cancellation 2").
+
+   % compatibility
+
+   a(x,y,z) != 1 | L(z,y,x) = z # label("Compat 1").
+   L(x,y,z) != x | a(z,y,x) = 1 # label("Compat 2").
+   T(x,y) != x | T(y,x) = y # label("Compat 3").
+   T(x,y) != x | K(x,y) = 1 # label("Compat 4").
+   K(x,y) != 1 | T(x,y) = x # label("Compat 5").
+
+   % sometimes helpful for demodulation-free proofs
+
+   x != y | x * z = y * z # label("Aux 1").
+   x != y | z * x = z * y # label("Aux 2").
+   x != y | x / z = y / z # label("Aux 3").
+   x != y | z / x = z / y # label("Aux 4").
+   x != y | x \ z = y \ z # label("Aux 5").
+   x != y | z \ x = z \ y # label("Aux 6").
+
+   x != y | y != z | x = z # label("Transitivity =").
+
+end_of_list.
+
+%
+% Hints extracted from previously found proofs.
+%
+
+formulas(hints).
+
+L(x,y,(x \ z) * (z \ x)) = x.
+x * y = y * x.
+1 * x = x.
+x * 1 = x.
+x \ (x * y) = y.
+x * (x \ y) = y.
+(x / y) * y = x.
+(x * (y * z)) \ ((x * y) * z) = a(x,y,z).
+(x * y) \ (x * (y * z)) = L(z,y,x).
+x \ (y * x) = T(y,x).
+L(L(x,y,z),u,w) = L(L(x,u,w),y,z).
+K(x,K(y,z * z)) = 1.
+a(x,K(x,y),z) = 1.
+a(x,y,K(x,z)) = 1.
+x * y != z | x * u != z | y = u.
+x * y != z | u * y != z | x = u.
+x / y != z | x / u != z | y = u.
+x \ y != z | x \ u != z | y = u.
+x \ y != z | u \ y != z | x = u.
+T(x,y) != z | T(u,y) != z | x = u.
+L(x,y,z) != u | L(w,y,z) != u | x = w.
+x * y != x * z | y = z.
+x * y != z * y | x = z.
+x \ y != x \ z | y = z.
+x \ y != z \ y | x = z.
+L(x,y,z) != L(u,y,z) | x = u.
+a(x,y,z) != 1 | L(z,y,x) = z.
+L(x,y,z) != x | a(z,y,x) = 1.
+x != y | z * x = z * y.
+x != y | y != z | x = z.
+K(x,y) * (y * x) = x * y.
+((x * y) * z) / R(x,y,z) = (y * z) * K(L(x,y,z),y * z).
+L(c1,c2,(c1 \ c3) * (c3 \ c1)) != c1.
+1 * (x * y) = y * x.
+x \ (y * x) = y.
+1 \ x = x.
+x \ x = 1.
+x = (y \ x) * y.
+(x \ y) * x = y.
+(x * (y * z)) \ (z * (x * y)) = a(x,y,z).
+(x * y) \ ((x * z) * (z \ y)) = a(x,z,z \ y).
+(x * y) \ (y * (x * z)) = L(z,x,y).
+(x * y) \ (x * (z * y)) = L(z,y,x).
+(x * y) \ (x * z) = L(y \ z,y,x).
+L(x \ y,x,z) = (z * x) \ (z * y).
+a(x,1,y) = 1.
+a(x,y,1) = 1.
+x * y != z | y * u != z | x = u.
+x != y | z * u != y | z \ x = u.
+x != y | z \ u != y | z * x = u.
+x != 1 * y | x = y.
+1 * x != y | y = x.
+x != y * z | y \ x = z.
+x * y != z | x \ z = y.
+x != y \ z | y * x = z.
+x \ y != z | x * z = y.
+x * (y * z) = x * (z * y).
+(x * (y * z)) / R(y,z,x) = (z * x) * K(L(y,z,x),z * x).
+x \ (y * x) != z | T(y,x) = z.
+T(x,y) = x.
+(x \ y) \ y = x.
+x \ y = y / x.
+x / y = y \ x.
+x != y | z \ u != y | x * z = u.
+x != y \ z | x * y = z.
+x \ y != z | z * x = y.
+x \ (y * x) != z | y = z.
+x = L(x,y,x).
+L(x,y,x) = x.
+L(x,y,z) != u | (y * z) \ (z * (y * x)) = u.
+(x * y) \ (y * (x * z)) = 1 * L(z,x,y).
+(x * y) \ (y * (z * x)) = L(z,x,y).
+x \ ((y \ x) * (y * z)) = L(z,y,y \ x).
+(x * y) \ (y * z) = L(x \ z,x,y).
+L(x \ y,x,z) = (x * z) \ (z * y).
+L(x,y,z) * (y * z) = z * (x * y).
+(x * y) * L(z,x,y) = y * (z * x).
+x \ ((y \ x) * (z * y)) = L(z,y,y \ x).
+L(x,y,z) \ (z * (x * y)) = y * z.
+x * (y * z) != u * (z * x) | L(y,z,x) = u.
+x * (y * z) != z * y | K(z,y) = x.
+K(x,y) = 1.
+x * y != z | z = y * x.
+x * y != z | y * x = z.
+x \ (y * (z * (y \ x))) = L(z,y \ x,y).
+x != y | (x \ z) \ z = y.
+(x \ y) \ y = x * 1.
+x \ (y * (z * u)) != L(z,u,y) | y * u = x.
+x * y = L(z,y,x) \ (x * (z * y)).
+L(x,y,z) \ (z * (x * y)) = z * y.
+x != y | z \ u != y | x \ u = z.
+x != y \ z | x \ z = y.
+x \ y != z | z \ y = x.
+x \ y != L(L(z,u,w),v5,v6) | x * L(L(z,v5,v6),u,w) = y.
+(x * y) * L(L(z,x,y),u,w) = y * (x * L(z,u,w)).
+(x * y) * L(L(z,y,x),u,w) = x * (y * L(z,u,w)).
+x != y | (z \ x) * u != y | z = u.
+x != y | z * u != y | u \ x = z.
+x != y * z | z \ x = y.
+x * y != z | y \ z = x.
+x \ y != (z \ u) * z | u * x = y.
+x * L(y,z,z \ x) = (z \ x) * (y * z).
+x \ y != z * (z \ u) | u * x = y.
+x * L(y,z \ x,z) = z * (y * (z \ x)).
+L(x,x \ y,z) \ (z * y) = z * (x \ y).
+a(x,y,z) * (x * (y * z)) = z * (x * y).
+(x * (y * z)) \ (y * (x * z)) = a(x,z,y).
+(x * y) \ (z * (x * (z \ y))) = a(x,z \ y,z).
+(x * (y * z)) \ (y * (z * x)) = a(x,z,y).
+(x * (y * (x \ z))) \ (y * z) = a(x,x \ z,y).
+(x * (y * (x \ 1))) \ y = a(x,x \ 1,y).
+(x * y) \ (z * (y * (z \ x))) = a(y,z \ x,z).
+x \ (y * (x * (y \ 1))) = a(x,y \ 1,y).
+x \ (y * ((z \ x) * (y \ z))) = a(z \ x,y \ z,y).
+((x \ 1) \ y) \ (x * y) = a((x \ 1) \ y,x \ 1,x).
+a((x \ 1) \ y,x \ 1,x) = ((x \ 1) \ y) \ (x * y).
+x \ (y * (z * (y \ x))) != u | L(z,y \ x,y) = u.
+L(x,y \ 1,y) = y * (x * (y \ 1)).
+x * (y * (x \ 1)) = L(y,x \ 1,x).
+x * y != z \ (u * (w * (u \ z))) | x \ L(w,u \ z,u) = y.
+x \ L(y,x \ 1,x) = y * (x \ 1).
+1 \ x != y | x = y.
+x * (y * z) != u | x * (z * y) = u.
+x * ((x \ 1) * y) = L(y,x \ 1,x).
+x * y = L((x \ 1) \ y,x \ 1,x).
+L((x \ 1) \ y,x \ 1,x) = x * y.
+L(x,y \ 1,y) \ x = a(y,y \ 1,x).
+x \ L(x,y \ 1,y) = a(x,y \ 1,y).
+L(x,y,y \ 1) \ x = a(y \ 1,(y \ 1) \ 1,x).
+a(x \ 1,(x \ 1) \ 1,y) = L(y,x,x \ 1) \ y.
+a(x \ 1,x,y) = L(y,x,x \ 1) \ y.
+L(x,y,y \ 1) \ x = a(y \ 1,y,x).
+x != y | z \ y = z \ x.
+x * ((y \ 1) * (x \ y)) = a(y \ 1,x \ y,x).
+(x \ y) * ((y \ 1) * x) = a(y \ 1,(x \ y) \ y,x \ y).
+a(x \ 1,(y \ x) \ x,y \ x) = (y \ x) * ((x \ 1) * y).
+(x \ 1) * (x * y) = L(y,x,x \ 1).
+x * y != z \ ((u \ z) * (u * w)) | x \ L(w,u,u \ z) = y.
+(x \ 1) \ L(y,x,x \ 1) = x * y.
+(x * y) * (x \ 1) = L(y,x,x \ 1).
+(x \ 1) * (y * x) = L(y,x,x \ 1).
+(x \ 1) * y = L(x \ y,x,x \ 1).
+L(x \ y,x,x \ 1) = (x \ 1) * y.
+(x * y) * (y \ 1) = L(x,y,y \ 1).
+x * (y \ 1) = L(y \ x,y,y \ 1).
+L(x \ y,x,x \ 1) = y * (x \ 1).
+x * ((y \ x) \ 1) = L(y,y \ x,(y \ x) \ 1).
+L(x,x \ y,(x \ y) \ 1) = y * ((x \ y) \ 1).
+(x * ((y \ x) \ z)) \ (y * z) = a((y \ x) \ z,y \ x,y).
+a((x \ y) \ z,x \ y,x) = (y * ((x \ y) \ z)) \ (x * z).
+a((x \ y) \ 1,x \ y,x) = (y * ((x \ y) \ 1)) \ x.
+(x \ y) \ y = x * K(z,u).
+x \ y != z | y / x = z.
+x / (y \ x) = y * K(z,u).
+(x * (y * z)) / u != (z * x) * K(L(y,z,x),z * x) | R(y,z,x) = u.
+R(x,y,z) = (y * z) \ (z * (x * y)).
+(x * y) \ (y * (z * x)) = R(z,x,y).
+(x * y) \ (y * (z * x)) != u | L(z,x,y) = u.
+L(x,y,z) = R(x,y,z).
+R(x,y,z) = L(x,y,z).
+(x * y) \ (y * (x * z)) = R(z,x,y).
+L(x,y,z) != L(L(u,y,z),w,v5) | L(u,w,v5) = x.
+L(x,y,L(x,z,u)) = x.
+L(x,y,z) = L(L(x,y,z),u,x).
+L(L(x,y,z),u,x) = L(x,y,z).
+x * y != L(z,u,L(z,w,v5)) | x \ z = y.
+L(x,y,z) \ x = x * (L(x,y,z) \ 1).
+x * (L(x,y,z) \ 1) = L(x,y,z) \ x.
+a(x,y,L(x,z,u)) = 1.
+x * y != L(L(z,u,w),v5,z) | y \ L(z,u,w) = x.
+(x \ 1) \ L(x \ 1,y,z) = x * L(x \ 1,y,z).
+x \ y != L(L(z,u,w),v5,z) | L(z,u,w) * x = y.
+L(x,y,z) * u = x * (L(x,y,z) * (x \ u)).
+x * (L(x,y,z) * (x \ u)) = L(x,y,z) * u.
+x \ y != L(L(z,u,w),v5,z) | x * L(z,u,w) = y.
+x * L(y,z,u) = y * (L(y,z,u) * (y \ x)).
+x * (L(x,y,z) * (x \ u)) = u * L(x,y,z).
+(x * y) * L(x,z,u) = x * (y * L(x,z,u)).
+x * y != L(L(z,u,w),v5,z) | x \ L(z,u,w) = y.
+x \ L(x,y,z) = L(x,y,z) * (x \ 1).
+L(x,y,z) * (x \ 1) = x \ L(x,y,z).
+(x \ 1) * L(x,y,z) = x \ L(x,y,z).
+x != y | T(z,u) != y | x = z.
+x != y | z != y | x = z.
+x \ y != L(z,u \ 1,u) | x * (u * ((u \ 1) * z)) = y.
+x * (y * ((y \ 1) * z)) = x * L(z,y \ 1,y).
+x \ y != (z * u) * (u \ 1) | x * L(z,u,u \ 1) = y.
+x * L(y,x,x \ 1) = L(y * x,x \ 1,x).
+x \ (1 * (x * y)) = R(y,x,1).
+x \ (x * y) = R(y,x,1).
+x \ (x * y) != z | y = z.
+x = R(x,y,1).
+R(x,y,1) = x.
+R(x,y,z) != u | L(x,y,z) = u.
+L(x,y,1) = x.
+L(x,y,1) != z | x = z.
+L(x * y,z,u) = L(L((x \ 1) \ y,z,u),x \ 1,x).
+L(L((x \ 1) \ y,z,u),x \ 1,x) = L(x * y,z,u).
+x * y != L(L((z \ 1) \ u,w,v5),z \ 1,z) | x \ L(z * u,w,v5) = y.
+x \ L(x * y,z,u) = (x \ 1) * L((x \ 1) \ y,z,u).
+(x \ 1) * L((x \ 1) \ y,z,u) = x \ L(x * y,z,u).
+L(x * (y \ 1),z,u) = L(L(y \ x,z,u),y,y \ 1).
+L(L(x \ y,z,u),x,x \ 1) = L(y * (x \ 1),z,u).
+(x * (y \ 1)) \ (y \ x) = a(y \ 1,y,y \ x).
+a(x \ 1,x,x \ y) = (y * (x \ 1)) \ (x \ y).
+L(x \ y,z,y * (x \ 1)) = x \ y.
+x * y != L(L(z \ u,w,v5),z,z \ 1) | y \ L(u * (z \ 1),w,v5) = x.
+(x \ 1) \ L(y * (x \ 1),z,u) = x * L(x \ y,z,u).
+L(x \ y,x,z) = (x * z) \ (y * z).
+L(x \ 1,x,y) = (x * y) \ y.
+L(x \ (y \ z),x,y) = (x * y) \ z.
+L(x \ y,x,y \ z) = (x * (y \ z)) \ z.
+x != (y * (z * u)) \ (u * (y * z)) | a(y,z,u) = x.
+a(x,y,z) = L(x \ ((y * z) \ (z * (x * y))),x,y * z).
+L(x \ ((y * z) \ (z * (x * y))),x,y * z) = a(x,y,z).
+L((x * y) \ z,u,w) = L(L(x \ (y \ z),u,w),x,y).
+L(L(x \ (y \ z),u,w),x,y) = L((x * y) \ z,u,w).
+(x * y) * L((y * x) \ z,u,w) = x * (y * L(y \ (x \ z),u,w)).
+L((x * y) \ z,x,x \ 1) = L((y \ z) * (x \ 1),x,y).
+L(L(x \ 1,y,z),x,u) = L((x * u) \ u,y,z).
+L(x \ L(x,y,z),x,y * z) = a(x,y,z).
+L(x \ L(x,y,z),x,z * y) = a(x,y,z).
+L(x \ L(x,y,y \ z),x,z) = a(x,y,y \ z).
+L(x * L(x \ 1,y,z),x \ 1,y * z) = a(x \ 1,y,z).
+L(x * L(x \ 1,y,y \ z),x \ 1,z) = a(x \ 1,y,y \ z).
+L(x * L(x \ 1,y * z,z \ 1),x \ 1,L(y,z,z \ 1)) = a(x \ 1,y * z,z \ 1).
+x * L(x \ 1,y,y \ 1) = a(x \ 1,y,y \ 1).
+x \ y != (z * u) \ u | L(z \ 1,z,u) \ y = x.
+L(x \ 1,x,y) \ z = ((x * y) \ y) \ z.
+L(x \ 1,x,y) \ y = x * y.
+x \ y != (z * u) \ u | x * L(z \ 1,z,u) = y.
+(((x * y) \ y) \ z) * L(x \ 1,x,y) = z.
+x * L(y \ 1,y,z) = x * ((y * z) \ z).
+L(x \ 1,x,y) = (y * x) \ y.
+L(x \ 1,x,x \ y) = y \ (x \ y).
+L(x \ 1,x,y * (x \ 1)) = L(y,x \ 1,x) \ (y * (x \ 1)).
+L(x,y \ 1,y) \ (x * (y \ 1)) = L(y \ 1,y,x * (y \ 1)).
+L(x \ 1,x,L(x,y,z) \ 1) = (L(x,y,z) \ x) \ (L(x,y,z) \ 1).
+(L(x,y,z) \ x) \ (L(x,y,z) \ 1) = L(x \ 1,x,L(x,y,z) \ 1).
+((x \ y) * x) * L(y \ (x \ y),z,u) = (x \ y) * (x * L(x \ 1,z,u)).
+L(x,1,y) = x.
+L(1,x,y) = 1.
+x != y | z \ (z * y) = x.
+x \ (x * y) = L(y,1,z).
+L(x,1,y) = z \ (z * x).
+a(x \ 1,y,(x * z) \ z) = 1.
+a(x \ 1,y,z \ (x \ z)) = 1.
+(x \ y) \ y != z | x = z.
+L(x \ 1,x,y) * ((y \ 1) * (x * y)) = a(y \ 1,L(x \ 1,x,y) \ y,L(x \ 1,x,y)).
+a(x \ 1,L(y \ 1,y,x) \ x,L(y \ 1,y,x)) = L(y \ 1,y,x) * ((x \ 1) * (y * x)).
+L(x,x \ 1,y) = (y * (x \ 1)) \ y.
+a((x \ y) \ 1,z,y \ x) = 1.
+L(x \ (y \ x),z,y \ 1) = x \ (y \ x).
+L(x \ y,z,(y \ x) \ 1) = x \ y.
+a(((x * y) \ y) \ 1,z,x) = 1.
+x \ y != (z * (u \ 1)) \ z | L(u,u \ 1,z) \ y = x.
+L(x,x \ 1,y) \ y = y * (x \ 1).
+L(x \ L(x,y,z),x,L(x,y,z) \ 1) = (L(x,y,z) \ x) \ 1.
+(x * (y \ z)) * L((x * (y \ z)) \ z,u,w) = (y \ z) * (x * L(x \ y,u,w)).
+x \ y != (z * u) \ (w * u) | L(z \ w,z,u) \ y = x.
+L(x \ y,x,z) \ (y * z) = x * z.
+L(x \ y,x,z) = (z * x) \ (y * z).
+L(L(x,y,z) \ u,L(x,y,z),y * z) = (z * (x * y)) \ (u * (y * z)).
+x \ L(x,y,y \ 1) = a(x,y,y \ 1).
+x \ y != L(z \ L(z,u,u \ w),z,w) | x * a(z,u,u \ w) = y.
+x * a(x,y,y \ 1) = L(x,y,y \ 1).
+(x \ y) \ (y * (x \ 1)) = a(x \ y,x,x \ 1).
+a(x \ y,x,x \ 1) = (x \ y) \ (y * (x \ 1)).
+(x \ ((x \ 1) \ y)) \ ((x * (x \ 1)) \ y) = a(x \ ((x \ 1) \ y),x,x \ 1).
+x != y * z | z * y = x.
+x * y = L(y \ z,y,x) \ (z * x).
+L(x \ y,x,z) \ (y * z) = z * x.
+L(x,x \ y,z) \ (y * z) = z * (x \ y).
+(x * (y \ z)) \ (z * x) = L(y,y \ z,x).
+L(x,x \ y,z) = (z * (x \ y)) \ (y * z).
+L(L(x,L(x,y,z) \ u,w),y,z) \ (u * w) = w * (L(x,y,z) \ u).
+x \ (y * L(x,z,u)) = L(x,z,u) * (x \ y).
+L(x,y,z) \ (u * x) = x * (L(x,y,z) \ u).
+L(x,y,z) \ (x * u) = x * (L(x,y,z) \ u).
+(x * (y \ 1)) \ (z * (y \ x)) = (y \ x) * (L(y \ x,y,y \ 1) \ z).
+(x \ y) * (L(x \ y,x,x \ 1) \ z) = (y * (x \ 1)) \ (z * (x \ y)).
+L(x,y,((x * z) \ z) \ 1) = x.
+L(x,y,L(x \ 1,x,z) \ 1) = x.
+x \ (y * (((x * z) \ z) \ 1)) = (((x * z) \ z) \ 1) * (x \ y).
+x \ y != z * L(u \ 1,u,w) | (z * ((u * w) \ w)) \ y = x.
+(x * ((y * z) \ z)) \ (u * L(y \ 1,y,z)) = L(x \ u,x,L(y \ 1,y,z)).
+L(x \ y,x,L(z \ 1,z,u)) = (x * ((z * u) \ u)) \ (y * L(z \ 1,z,u)).
+(x * ((x * y) \ y)) \ L(x \ 1,x,y) = x \ 1.
+(x * y) * L((x * y) \ z,u,w) = x * (y * L(y \ (x \ z),u,w)).
+(x * y) * L(L(x \ 1,x,y),z,u) = x * (y * L(y \ (x \ y),z,u)).
+(x \ ((x \ 1) \ y)) \ (1 \ y) = a(x \ ((x \ 1) \ y),x,x \ 1).
+a(x \ ((x \ 1) \ y),x,x \ 1) = (x \ ((x \ 1) \ y)) \ (1 \ y).
+a(x \ ((x \ 1) \ y),x,x \ 1) = (x \ ((x \ 1) \ y)) \ y.
+L((x * (y * z)) \ (u * (z * x)),w,v5) = L(L(L(y,z,x) \ u,w,v5),L(y,z,x),z * x).
+L(L(L(x,y,z) \ u,w,v5),L(x,y,z),y * z) = L((z * (x * y)) \ (u * (y * z)),w,v5).
+(x * y) * L(L(z,x,y),u,w) != v5 | y * (x * L(z,u,w)) = v5.
+x * (y * L(y \ 1,z,u)) = y * (x * L(x \ (y \ x),z,u)).
+x * (y * L(y \ (x \ y),z,u)) = y * (x * L(x \ 1,z,u)).
+L(x \ y,x,z) != u | (x * z) \ (y * z) = u.
+(x * (y * (x \ 1))) \ (y * (y * (x \ 1))) = x \ y.
+L(x,y \ 1,y) \ (x * (x * (y \ 1))) = y \ x.
+L(x,y,z) \ (x * u) != w | x * (L(x,y,z) \ u) = w.
+x * (L(x,y \ 1,y) \ (x * (y \ 1))) = y \ x.
+x * L(y \ 1,y,x * (y \ 1)) = y \ x.
+x * L(y,y \ 1,x * ((y \ 1) \ 1)) = (y \ 1) \ x.
+x * L(y,y \ 1,x * y) = (y \ 1) \ x.
+x \ ((y \ 1) \ x) = L(y,y \ 1,x * y).
+L(x,x \ 1,y * x) = y \ ((x \ 1) \ y).
+x * L(y,y \ 1,y * x) = (y \ 1) \ x.
+L(x,x \ 1,x * y) = y \ ((x \ 1) \ y).
+L(x,x \ 1,y) = (x \ y) \ ((x \ 1) \ (x \ y)).
+(x \ y) \ ((x \ 1) \ (x \ y)) = L(x,x \ 1,y).
+x != y \ (z \ y) | L(z \ 1,z,z \ y) = x.
+L((x \ 1) \ 1,x \ 1,(x \ 1) \ y) = L(x,x \ 1,x * y).
+L(x,x \ 1,(x \ 1) \ y) = L(x,x \ 1,x * y).
+L(x \ 1,x,((x \ 1) \ 1) \ y) = L(x \ 1,(x \ 1) \ 1,(x \ 1) * y).
+L(x \ 1,(x \ 1) \ 1,(x \ 1) * y) = L(x \ 1,x,((x \ 1) \ 1) \ y).
+L(x \ 1,(x \ 1) \ 1,(x \ 1) * y) = L(x \ 1,x,x \ y).
+L(x \ 1,x,(x \ 1) * y) = L(x \ 1,x,x \ y).
+L(x \ 1,x,y) = L(x \ 1,x,x \ ((x \ 1) \ y)).
+L(x \ 1,x,x \ ((x \ 1) \ y)) = L(x \ 1,x,y).
+L(x * L(x \ 1,x,y),x \ 1,(x \ 1) \ y) = a(x \ 1,x,x \ ((x \ 1) \ y)).
+x * y != L(z,u,L(z \ 1,z,w) \ 1) | y \ z = x.
+(L(x \ 1,x,y) \ 1) \ x = x * L(x \ 1,x,y).
+x != y * (z * u) | y * (u * z) = x.
+(x \ y) * (x * (y \ 1)) = a(y \ 1,(x \ y) \ y,x \ y).
+a(x \ 1,(y \ x) \ x,y \ x) = (y \ x) * (y * (x \ 1)).
+a(x \ 1,y,y \ x) = (y \ x) * ((x \ 1) * y).
+(x \ y) * ((y \ 1) * x) = a(y \ 1,x,x \ y).
+a(x \ 1,y,y \ x) = (y \ x) * (y * (x \ 1)).
+(x \ y) * (x * (y \ 1)) = a(y \ 1,x,x \ y).
+((x * y) \ x) * L(y,x,x \ 1) = a(x \ 1,x * y,(x * y) \ x).
+L(x \ 1,x,x \ y) * (y * ((x \ y) \ 1)) = a((x \ y) \ 1,y,y \ (x \ y)).
+a((x \ y) \ 1,y,y \ (x \ y)) = L(x \ 1,x,x \ y) * (y * ((x \ y) \ 1)).
+a(x \ 1,x,x \ ((x \ 1) \ y)) = y \ (x \ ((x \ 1) \ y)).
+L(a(x \ 1,x,x \ y),y * (x \ 1),x) = ((y * (x \ 1)) * x) \ y.
+L(a(x \ 1,x,x \ y),y * (x \ 1),x) = (x * (y * (x \ 1))) \ y.
+x != (y * (z * (y \ 1))) \ z | a(y,y \ 1,z) = x.
+a(x,x \ 1,y) = L(a(x \ 1,x,x \ y),y * (x \ 1),x).
+L(a(x \ 1,x,x \ y),y * (x \ 1),x) = a(x,x \ 1,y).
+L(a(x \ 1,x,y),(x * y) * (x \ 1),x) = a(x,x \ 1,x * y).
+L(a(x \ 1,x,y),L(y,x,x \ 1),x) = a(x,x \ 1,x * y).
+L(a(x,x \ 1,y),L(y,x \ 1,(x \ 1) \ 1),x \ 1) = a(x \ 1,(x \ 1) \ 1,(x \ 1) * y).
+L(a(x,x \ 1,y),L(y,x \ 1,x),x \ 1) = a(x \ 1,(x \ 1) \ 1,(x \ 1) * y).
+L(a(x,x \ 1,y),L(y,x \ 1,x),x \ 1) = a(x \ 1,x,(x \ 1) * y).
+L(a(x,x \ 1,y),L(y,x \ 1,x),x \ 1) = a(x \ 1,x,y * (x \ 1)).
+(x * y) * L((x * y) \ z,u,w) != v5 | x * (y * L(y \ (x \ z),u,w)) = v5.
+x * ((y \ z) * L((y \ z) \ (x \ z),u,w)) = (y \ z) * (x * L(x \ y,u,w)).
+(x \ y) * ((y * (x \ 1)) \ z) = (y * (x \ 1)) \ (z * (x \ y)).
+(x * (y \ 1)) \ (z * (y \ x)) = (y \ x) * ((x * (y \ 1)) \ z).
+(x * y) \ (y * z) != u | L(x \ z,x,y) = u.
+L(x \ (y \ x),x,y \ 1) = (y \ x) * ((x * (y \ 1)) \ (y \ 1)).
+L(x \ (y \ x),z,y \ 1) != u | x \ (y \ x) = u.
+x \ (y \ x) = (y \ x) * ((x * (y \ 1)) \ (y \ 1)).
+(x \ y) * ((y * (x \ 1)) \ (x \ 1)) = y \ (x \ y).
+(x \ ((x \ 1) \ y)) * (y \ (x \ 1)) = ((x \ 1) \ y) \ (x \ ((x \ 1) \ y)).
+((x \ 1) \ y) \ (x \ ((x \ 1) \ y)) = (x \ ((x \ 1) \ y)) * (y \ (x \ 1)).
+x * y != L(z,u,w) * (u * w) | x \ (w * (z * u)) = y.
+x \ (y * (x * z)) = L(x,z,y) * (x \ (z * y)).
+L(x,y,z) * (x \ (y * z)) = x \ (z * (x * y)).
+(x \ (y * z)) \ (x \ (z * (x * y))) = L(x,y,z).
+(x \ (y * z)) \ (x \ (y * (x * z))) = L(x,z,y).
+(x \ 1) \ y = L(x \ 1,x,z) * ((x \ 1) \ (((x * z) \ z) \ y)).
+L(x \ 1,x,y) * ((x \ 1) \ (((x * y) \ y) \ z)) = (x \ 1) \ z.
+a((x \ 1) \ (x \ y),x \ 1,x) = ((x \ 1) \ (x \ y)) \ y.
+x * y != z * L(u,z,z \ 1) | x \ L(u * z,z \ 1,z) = y.
+x \ L(x * y,y \ 1,y) = L(x,y,y \ 1) * (x \ y).
+x * y != L(z \ u,w,(u \ z) \ 1) | y \ (z \ u) = x.
+((x \ y) * (y \ x)) \ (y \ x) = (x \ y) \ 1.
+(x * y) \ (y * (x * z)) != u | u = L(z,x,y).
+(x * y) \ (y * (x * z)) != u | L(z,x,y) = u.
+(x \ y) * L(x,y,y \ 1) = x \ L(x * y,y \ 1,y).
+x \ L(x * y,y \ 1,y) = (x \ y) * L(x,y,y \ 1).
+x * L(x \ (y \ x),z,u) = (y \ x) * (y * L(y \ 1,z,u)).
+(x \ y) * (x * L(x \ 1,z,u)) = y * L(y \ (x \ y),z,u).
+(x \ y) \ (y * L(y \ (x \ y),z,u)) = x * L(x \ 1,z,u).
+(x * ((y * x) \ y)) * L(x,y,y \ 1) = x * a(y \ 1,y * x,(y * x) \ y).
+(x \ y) \ (y * ((x \ y) * (y \ 1))) = x * L(x \ 1,y,y \ 1).
+(x * y) \ ((y * (z * x)) * L((y * (z * x)) \ (L(z,x,y) \ (y * (z * x))),u,w)) = L(z,x,y) * L(L(z,x,y) \ 1,u,w).
+x \ (y * (x * (y \ 1))) != z | a(x,y \ 1,y) = z.
+a(x \ y,y \ 1,y) = x * L(x \ 1,y,y \ 1).
+x != y * L(y \ 1,z,z \ 1) | a(y \ 1,z,z \ 1) = x.
+a(x \ 1,y,y \ 1) = a(x \ y,y \ 1,y).
+a(x,y,y \ 1) = a((x \ 1) \ y,y \ 1,y).
+a((x \ 1) \ y,y \ 1,y) = a(x,y,y \ 1).
+a((x \ y) \ 1,y,y \ 1) = a(x,y \ 1,y).
+(x * y) \ ((y * (x * z)) * L((y * (z * x)) \ (L(z,x,y) \ (y * (z * x))),u,w)) = L(z,x,y) * L(L(z,x,y) \ 1,u,w).
+(x * y) \ ((y * (x * z)) * L((y * (x * z)) \ (L(z,x,y) \ (y * (z * x))),u,w)) = L(z,x,y) * L(L(z,x,y) \ 1,u,w).
+(x * y) \ ((y * (x * z)) * L((y * (x * z)) \ (x * y),u,w)) = L(z,x,y) * L(L(z,x,y) \ 1,u,w).
+(x * y) \ (y * ((x * z) * L((x * z) \ (y \ (x * y)),u,w))) = L(z,x,y) * L(L(z,x,y) \ 1,u,w).
+(x * y) \ (y * ((x * z) * L((x * z) \ x,u,w))) = L(z,x,y) * L(L(z,x,y) \ 1,u,w).
+(x * y) \ (y * (x * (z * L(z \ (x \ x),u,w)))) = L(z,x,y) * L(L(z,x,y) \ 1,u,w).
+(x * y) \ (y * (x * (z * L(z \ 1,u,w)))) = L(z,x,y) * L(L(z,x,y) \ 1,u,w).
+L(x * L(x \ 1,y,z),u,w) = L(x,u,w) * L(L(x,u,w) \ 1,y,z).
+L(x,y,z) * L(L(x,y,z) \ 1,u,w) = L(x * L(x \ 1,u,w),y,z).
+x * L(x \ 1,y,y \ 1) != z | a(x \ 1,y,y \ 1) = z.
+a(L(x,y,z) \ 1,u,u \ 1) = L(x * L(x \ 1,u,u \ 1),y,z).
+L(x * L(x \ 1,y,y \ 1),z,u) = a(L(x,z,u) \ 1,y,y \ 1).
+x * L(L(x,y,x) \ 1,z,u) = L(x * L(x \ 1,z,u),y,x).
+x * L(L(x,y,L(x,z,u)) \ 1,w,v5) = L(x * L(x \ 1,w,v5),y,L(x,z,u)).
+L(x,x \ 1,x * y) * L(L(x,x \ 1,(x \ 1) \ y) \ 1,z,u) = L(x * L(x \ 1,z,u),x \ 1,(x \ 1) \ y).
+L(x * (x \ 1),y,z) = a(L(x,y,z) \ 1,x,x \ 1).
+a(L(x,y,z) \ 1,x,x \ 1) = L(x * (x \ 1),y,z).
+L(a(x \ 1,y,y \ 1),z,u) = a(L(x,z,u) \ 1,y,y \ 1).
+L(a(x,y,y \ 1),z,u) = a(L(x \ 1,z,u) \ 1,y,y \ 1).
+a(L(x \ 1,y,z) \ 1,u,u \ 1) = L(a(x,u,u \ 1),y,z).
+L(x,x \ 1,x * y) * L(L(x,x \ 1,x * y) \ 1,z,u) = L(x * L(x \ 1,z,u),x \ 1,(x \ 1) \ y).
+L(x,y,z) * L(L(x,y,z) \ 1,u,w) != v5 | L(x * L(x \ 1,u,w),y,z) = v5.
+L(x * L(x \ 1,y,z),x \ 1,x * u) = L(x * L(x \ 1,y,z),x \ 1,(x \ 1) \ u).
+L(x * L(x \ 1,y,z),x \ 1,(x \ 1) \ u) = L(x * L(x \ 1,y,z),x \ 1,x * u).
+L(x * L(x \ 1,x,y),x \ 1,(x \ 1) \ y) != z | a(x \ 1,x,x \ ((x \ 1) \ y)) = z.
+a(x \ 1,x,x \ ((x \ 1) \ y)) = L(x * L(x \ 1,x,y),x \ 1,x * y).
+L(x * L(x \ 1,x,y),x \ 1,x * y) = a(x \ 1,x,x \ ((x \ 1) \ y)).
+L(x * L(x \ 1,y,z),x \ 1,y * z) != u | a(x \ 1,y,z) = u.
+a(x \ 1,x,y) = a(x \ 1,x,x \ ((x \ 1) \ y)).
+a(x \ 1,x,x \ ((x \ 1) \ y)) = a(x \ 1,x,y).
+a(x \ 1,x,x \ y) = a(x \ 1,x,y * (x \ 1)).
+a(x \ 1,x,y * (x \ 1)) = a(x \ 1,x,x \ y).
+a(x \ 1,x,y * (x \ 1)) != z | L(a(x,x \ 1,y),L(y,x \ 1,x),x \ 1) = z.
+L(a(x,x \ 1,y),L(y,x \ 1,x),x \ 1) = a(x \ 1,x,x \ y).
+x * L(x \ 1,y,z) = L(x * L(x \ 1,y,z),u,x).
+L(x * L(x \ 1,y,z),u,x) = x * L(x \ 1,y,z).
+x != (y \ 1) * L((y \ 1) \ z,u,w) | y \ L(y * z,u,w) = x.
+x \ L(x * 1,y,z) = L((x \ 1) * L((x \ 1) \ 1,y,z),u,x \ 1).
+L((x \ 1) * L((x \ 1) \ 1,y,z),u,x \ 1) = x \ L(x * 1,y,z).
+a(x,y,x * L(x \ 1,z,u)) = 1.
+L((x \ 1) * L(x,y,z),u,x \ 1) = x \ L(x * 1,y,z).
+L(x \ L(x,y,z),u,x \ 1) = x \ L(x * 1,y,z).
+L(x \ L(x,y,z),u,x \ 1) = x \ L(x,y,z).
+L(x \ ((y * (x \ 1)) \ y),z,x \ 1) = x \ L(x,x \ 1,y).
+L(x \ L(x,x \ 1,y),x,y * (x \ 1)) = L((x * (y * (x \ 1))) \ y,z,x \ 1).
+L((x * (y * (x \ 1))) \ y,z,x \ 1) = L(x \ L(x,x \ 1,y),x,y * (x \ 1)).
+x != L(y \ L(y,z,u),y,u * z) | a(y,z,u) = x.
+a(x,x \ 1,y) = L((x * (y * (x \ 1))) \ y,z,x \ 1).
+L((x * (y * (x \ 1))) \ y,z,x \ 1) = a(x,x \ 1,y).
+L(a(x,x \ 1,y),z,x \ 1) = a(x,x \ 1,y).
+L(a(x,x \ 1,y),L(y,x \ 1,x),x \ 1) != z | a(x \ 1,x,x \ y) = z.
+a(x \ 1,x,x \ y) = a(x,x \ 1,y).
+a(x \ 1,y,a(x,x \ 1,z)) = 1.
+a(x \ 1,x,y) = a(x,x \ 1,y * x).
+a(x,x \ 1,y * x) = a(x \ 1,x,y).
+a(x,y,a(x \ 1,(x \ 1) \ 1,z)) = 1.
+a(x \ 1,y,a(x \ 1,x,z)) = 1.
+a(x,y,a(x \ 1,x,z)) = 1.
+L(a(x \ 1,x,y),z,x) = a(x \ 1,x,y).
+x \ y != L(a(z \ 1,z,u),w,z) | a(z \ 1,z,u) * x = y.
+a(x \ 1,x,y) * (x * z) = x * (a(x \ 1,x,y) * z).
+a(x \ 1,x,y) * (x * z) = x * (z * a(x \ 1,x,y)).
+(x * a(y \ 1,y,z)) * u != a(y \ 1,y,z) * (y * x) | y = u.
+x = L(x,y,a(x \ 1,x,z)).
+L(x,y,a(x \ 1,x,z)) = x.
+L(x,y,a(x,x \ 1,z)) = x.
+L(x \ 1,y,a(x \ 1,x,z)) = x \ 1.
+x \ y != L(z \ 1,u,a(z \ 1,z,w)) | (z \ 1) \ y = x.
+(x \ 1) \ a(x \ 1,x,y) = x * a(x \ 1,x,y).
+a(x,y,x * (z \ (x \ z))) = 1.
+a(x,y,a(x \ 1,z,z \ 1)) = 1.
+a(x,y,z * ((x \ 1) * (z \ x))) = 1.
+L(x * ((y \ 1) * (x \ y)),z,y) = x * ((y \ 1) * (x \ y)).
+L(a(x \ 1,y \ x,y),z,x) = y * ((x \ 1) * (y \ x)).
+x != y * ((z \ 1) * (y \ z)) | a(z \ 1,y \ z,y) = x.
+a(x \ 1,y \ x,y) = L(a(x \ 1,y \ x,y),z,x).
+L(a(x \ 1,y \ x,y),z,x) = a(x \ 1,y \ x,y).
+a(L(x,y,z) \ 1,x,x \ 1) = L(1,y,z).
+x != L(1,y,z) | 1 = x.
+1 = a(L(x,y,z) \ 1,x,x \ 1).
+a(L(x,y,z) \ 1,x,x \ 1) = 1.
+L(x \ 1,x,L(x,y,z) \ 1) = x \ 1.
+L(x \ 1,x,L(x,y,z) \ 1) != u | (L(x,y,z) \ x) \ (L(x,y,z) \ 1) = u.
+(L(x,y,z) \ x) \ (L(x,y,z) \ 1) = x \ 1.
+x \ y != L(z \ 1,z,L(z,u,w) \ 1) | (z \ 1) * x = y.
+(x \ 1) * (L(x,y,z) \ x) = L(x,y,z) \ 1.
+(x \ 1) * L(L(x \ 1,x,L(x,y,z) \ 1) \ 1,u,w) = L((x \ 1) * L((x \ 1) \ 1,u,w),x,L(x,y,z) \ 1).
+(x \ 1) * L((x \ 1) \ 1,y,z) = L((x \ 1) * L((x \ 1) \ 1,y,z),x,L(x,u,w) \ 1).
+L((x \ 1) * L((x \ 1) \ 1,y,z),x,L(x,u,w) \ 1) = (x \ 1) * L((x \ 1) \ 1,y,z).
+L((x \ 1) * L((x \ 1) \ 1,y,z),x,L(x,u,w) \ 1) = (x \ 1) * L(x,y,z).
+x != (y \ 1) * L(y,z,u) | y \ L(y,z,u) = x.
+x \ L(x,y,z) = L((x \ 1) * L((x \ 1) \ 1,y,z),x,L(x,u,w) \ 1).
+L((x \ 1) * L((x \ 1) \ 1,y,z),x,L(x,u,w) \ 1) = x \ L(x,y,z).
+L((x \ 1) * L(x,y,z),x,L(x,u,w) \ 1) = x \ L(x,y,z).
+L(x \ L(x,y,z),x,L(x,u,w) \ 1) = x \ L(x,y,z).
+L(x \ L(x,y,z),x,L(x,y,z) \ 1) != u | (L(x,y,z) \ x) \ 1 = u.
+(L(x,y,z) \ x) \ 1 = x \ L(x,y,z).
+x != y \ L(y,z,z \ 1) | a(y,z,z \ 1) = x.
+a(x,y,y \ 1) = (L(x,y,y \ 1) \ x) \ 1.
+(L(x,y,y \ 1) \ x) \ 1 = a(x,y,y \ 1).
+x != y \ L(y,z \ 1,z) | a(y,z \ 1,z) = x.
+a(x,y \ 1,y) = (L(x,y \ 1,y) \ x) \ 1.
+(L(x,y \ 1,y) \ x) \ 1 = a(x,y \ 1,y).
+a(x,x \ 1,y) \ 1 = a(y,x \ 1,x).
+a(x,y \ 1,y) \ 1 = a(y,y \ 1,x).
+a(x,y \ 1,y) * a(y,y \ 1,x) = 1.
+a(x \ 1,x,y) \ 1 = a(y,x,x \ 1).
+a(x,y,y \ 1) \ 1 = a(y \ 1,y,x).
+x * L(a(y \ 1,y,z),a(z,y,y \ 1),x * a(y \ 1,y,z)) = (a(y \ 1,y,z) \ 1) \ x.
+L(a(x \ 1,x,y),a(y,x,x \ 1),z) \ z = z * (a(x \ 1,x,y) \ 1).
+a(x \ 1,x,y) \ 1 = a(x \ ((x \ 1) \ y),x,x \ 1).
+a(x \ ((x \ 1) \ y),x,x \ 1) = a(x \ 1,x,y) \ 1.
+x * L(a(y \ 1,y,z),a(z,y,y \ 1),x * a(y \ 1,y,z)) = a(z,y,y \ 1) \ x.
+x != a(y \ 1,y,z) \ 1 | a(z,y,y \ 1) = x.
+a(x,y,y \ 1) = a(y \ ((y \ 1) \ x),y,y \ 1).
+a(x \ ((x \ 1) \ y),x,x \ 1) = a(y,x,x \ 1).
+a(x \ ((x \ 1) \ y),x,x \ 1) != z | (x \ ((x \ 1) \ y)) \ y = z.
+(x \ ((x \ 1) \ y)) \ y = a(y,x,x \ 1).
+x * (L(x,y,z) \ 1) = L(L(x,y,z) \ x,x \ 1,x).
+L(L(x,y,z) \ x,x \ 1,x) = x * (L(x,y,z) \ 1).
+x != y * (L(y,z,u) \ 1) | L(y,z,u) \ y = x.
+L(x,y,z) \ x = L(L(x,y,z) \ x,x \ 1,x).
+L(L(x,y,z) \ x,x \ 1,x) = L(x,y,z) \ x.
+L(L(x,y,z) \ x,L(x,y,z),y * z) = L((z * (x * y)) \ (x * (y * z)),x \ 1,x).
+L(L(x,y,z) \ u,L(x,y,z),y * z) != w | (z * (x * y)) \ (u * (y * z)) = w.
+(x * (y * z)) \ (y * (z * x)) = L((x * (y * z)) \ (y * (z * x)),y \ 1,y).
+L((x * (y * z)) \ (y * (z * x)),y \ 1,y) = (x * (y * z)) \ (y * (z * x)).
+x != (y * (z * u)) \ (z * (u * y)) | a(y,u,z) = x.
+a(x,y,z) = L((x * (z * y)) \ (z * (y * x)),z \ 1,z).
+L((x * (y * z)) \ (y * (z * x)),y \ 1,y) = a(x,z,y).
+L(a(x,y,z),z \ 1,z) = a(x,y,z).
+L(a(x,y,z \ 1),z,z \ 1) = a(x,y,z \ 1).
+x != a(y \ 1,z \ y,z) | L(a(y \ 1,z \ y,z),u,y) = x.
+L(a(x \ 1,(y \ 1) \ x,y \ 1),z,x) = L(a(x \ 1,(y \ 1) \ x,y \ 1),y,y \ 1).
+L(x * (y \ (x \ y)),z,x) = x * (y \ (x \ y)).
+x * L(x \ 1,y,z) = L(x * L(x \ 1,y,z),u,L(x,w,v5)).
+L(x * L(x \ 1,y,z),u,L(x,w,v5)) = x * L(x \ 1,y,z).
+L(x * L(x \ 1,y * z,z \ 1),x \ 1,L(y,z,z \ 1)) != u | a(x \ 1,y * z,z \ 1) = u.
+a(x \ 1,x * y,y \ 1) = x * L(x \ 1,x * y,y \ 1).
+x * L(x \ 1,x * y,y \ 1) = a(x \ 1,x * y,y \ 1).
+L(a(x \ 1,x,y),a(y,x,x \ 1),z) \ z = z * a(y,x,x \ 1).
+L(a(x \ 1,x,y),z,x \ 1) = a(x \ 1,x,y).
+x * y != a(z,u,w) * (z * (u * w)) | y \ (w * (z * u)) = x.
+((x * y) * a(z,x,y)) \ (y * (z * x)) = L(z,x * y,a(z,x,y)).
+x \ y != a(z,u,w) * (z * (u * w)) | (w * (z * u)) \ y = x.
+(x * (y * z)) \ (u * (y * (z * x))) = L(a(y,z,x) \ u,a(y,z,x),y * (z * x)).
+L(a(x,y,z) \ u,a(x,y,z),x * (y * z)) = (z * (x * y)) \ (u * (x * (y * z))).
+x \ (((y * z) \ z) \ u) = x \ (L(y \ 1,y,z) \ u).
+x \ (L(y \ 1,y,z) \ u) = x \ (((y * z) \ z) \ u).
+((x \ (((y * z) \ z) \ u)) * ((L(y \ 1,y,z) \ u) \ x)) \ ((L(y \ 1,y,z) \ u) \ x) = (x \ (L(y \ 1,y,z) \ u)) \ 1.
+((x \ (((x * y) \ y) \ 1)) * (x * L(x \ 1,x,y))) \ ((L(x \ 1,x,y) \ 1) \ x) = (x \ (L(x \ 1,x,y) \ 1)) \ 1.
+x \ y != (z \ u) \ u | z \ y = x.
+x \ (L(x \ 1,y,z) \ 1) = L(x \ 1,y,z) \ (x \ 1).
+L(x \ 1,y,z) \ (x \ 1) = x \ (L(x \ 1,y,z) \ 1).
+(x \ (L(x \ 1,y,z) \ 1)) * L(x \ 1,y,z) = x \ 1.
+(x * y) \ ((z * x) * (z \ y)) = a(x,z,z \ y).
+x \ ((y * z) * (z \ (y \ x))) = a(y,z,z \ (y \ x)).
+x \ y != a(z,u,u \ (z \ w)) | (w \ ((z * u) * (u \ (z \ w)))) \ y = x.
+(x \ ((y * (y \ 1)) * ((y \ 1) \ (y \ x)))) \ 1 = a((y \ 1) \ (y \ x),y \ 1,y).
+x * a(y,z,z \ (y \ x)) = (y * z) * (z \ (y \ x)).
+L(a(x,y,y \ (x \ z)) \ u,a(x,y,y \ (x \ z)),z) = ((x * y) * (y \ (x \ z))) \ (z * u).
+a(x \ 1,x,y) * z != (x \ 1) \ a(x \ 1,x,y) | x = z.
+x = L(x,x \ 1,x * a(x \ 1,x,y)).
+L(x,x \ 1,x * a(x \ 1,x,y)) = x.
+x * y != L(z,z \ u,(z \ u) \ 1) | x \ (u * ((z \ u) \ 1)) = y.
+x \ (y * ((x \ y) \ 1)) = a(x,x \ y,(x \ y) \ 1).
+a(x,x \ y,(x \ y) \ 1) = x \ (y * ((x \ y) \ 1)).
+a(x \ 1,L(y \ 1,y,x) \ x,L(y \ 1,y,x)) = L(y \ 1,y,x) * L(y,x,x \ 1).
+a(x \ 1,y * x,L(y \ 1,y,x)) = L(y \ 1,y,x) * L(y,x,x \ 1).
+L(x \ 1,x,y) * L(x,y,y \ 1) = a(y \ 1,x * y,L(x \ 1,x,y)).
+L(x \ 1,x,y) * L(x,y,y \ 1) = a(y \ 1,x * y,(x * y) \ y).
+a(x \ 1,y * x,(y * x) \ x) = L(y \ 1,y,x) * L(y,x,x \ 1).
+x != L(y \ 1,y,z) * L(y,z,z \ 1) | a(z \ 1,y * z,L(y \ 1,y,z)) = x.
+a(x \ 1,y * x,L(y \ 1,y,x)) = a(x \ 1,y * x,(y * x) \ x).
+x \ y != L((z \ u) * (w \ 1),w,z) | x * L((w * z) \ u,w,w \ 1) = y.
+x * L((y * (y \ x)) \ z,y,y \ 1) = (y \ x) * ((((y \ x) \ z) * (y \ 1)) * y).
+(x \ y) * ((((x \ y) \ z) * (x \ 1)) * x) = y * L((x * (x \ y)) \ z,x,x \ 1).
+(x * y) * L((x * y) \ z,x,x \ 1) = y * (((y \ z) * (x \ 1)) * x).
+(x \ y) * ((((x \ y) \ z) * (x \ 1)) * x) = y * L(y \ z,x,x \ 1).
+(x \ y) * (((x \ 1) * ((x \ y) \ z)) * x) = y * L(y \ z,x,x \ 1).
+(x \ y) * (x * ((x \ 1) * ((x \ y) \ z))) = y * L(y \ z,x,x \ 1).
+x * (y * ((y \ 1) * z)) != u | x * L(z,y \ 1,y) = u.
+(x \ y) * L((x \ y) \ z,x \ 1,x) = y * L(y \ z,x,x \ 1).
+x * (y * L(y \ (x \ y),z,z \ 1)) = (z \ y) * (x * L(x \ z,z \ 1,z)).
+(x \ y) * (z * L(z \ x,x \ 1,x)) = z * (y * L(y \ (z \ y),x,x \ 1)).
+x != y * (z * L(z \ (y \ z),u,w)) | z * (y * L(y \ 1,u,w)) = x.
+x * (y * L(y \ 1,z,z \ 1)) = (z \ x) * (y * L(y \ z,z \ 1,z)).
+(x \ y) * (z * L(z \ x,x \ 1,x)) = y * (z * L(z \ 1,x,x \ 1)).
+(x \ y) * (z * L(z \ x,x \ 1,x)) = y * a(z \ 1,x,x \ 1).
+((x * y) * a(z,x,y)) \ (y * (x * z)) = L(z,x * y,a(z,x,y)).
+((x * (y * (z \ (y \ z)))) * 1) \ ((y * (z \ (y \ z))) * (x * y)) = L(y,x * (y * (z \ (y \ z))),a(y,x,y * (z \ (y \ z)))).
+L(x,y * (x * (z \ (x \ z))),a(x,y,x * (z \ (x \ z)))) = ((y * (x * (z \ (x \ z)))) * 1) \ ((x * (z \ (x \ z))) * (y * x)).
+((x * a(y \ 1,z,z \ 1)) * 1) \ (a(y \ 1,z,z \ 1) * (x * y)) = L(y,x * a(y \ 1,z,z \ 1),a(y,x,a(y \ 1,z,z \ 1))).
+L(x,y * a(x \ 1,z,z \ 1),a(x,y,a(x \ 1,z,z \ 1))) = ((y * a(x \ 1,z,z \ 1)) * 1) \ (a(x \ 1,z,z \ 1) * (y * x)).
+L(x,y * (x * (z \ (x \ z))),a(x,y,x * (z \ (x \ z)))) = (y * (x * (z \ (x \ z)))) \ ((x * (z \ (x \ z))) * (y * x)).
+x != (y * z) \ (z * (y * u)) | L(u,y,z) = x.
+L(x,y,x * (z \ (x \ z))) = L(x,y * (x * (z \ (x \ z))),a(x,y,x * (z \ (x \ z)))).
+L(x,y * (x * (z \ (x \ z))),a(x,y,x * (z \ (x \ z)))) = L(x,y,x * (z \ (x \ z))).
+L(x,y * (x * (z \ (x \ z))),1) = L(x,y,x * (z \ (x \ z))).
+x = L(x,y,x * (z \ (x \ z))).
+L(x,y,x * (z \ (x \ z))) = x.
+L(x \ y,z,(x \ y) * (y \ x)) = x \ y.
+x \ y != L(z \ u,w,(z \ u) * (u \ z)) | (z \ u) \ y = x.
+(x \ y) \ (z * ((x \ y) * (y \ x))) = ((x \ y) * (y \ x)) * ((x \ y) \ z).
+(x \ y) \ (y * (y \ (x \ y))) = x * L(x \ 1,z,(y \ (x \ y)) * ((x \ y) \ y)).
+x * L(x \ 1,y,(z \ (x \ z)) * ((x \ z) \ z)) = (x \ z) \ (z * (z \ (x \ z))).
+L(x,y * a(x \ 1,z,z \ 1),a(x,y,a(x \ 1,z,z \ 1))) = (y * a(x \ 1,z,z \ 1)) \ (a(x \ 1,z,z \ 1) * (y * x)).
+L(x,y,a(x \ 1,z,z \ 1)) = L(x,y * a(x \ 1,z,z \ 1),a(x,y,a(x \ 1,z,z \ 1))).
+L(x,y * a(x \ 1,z,z \ 1),a(x,y,a(x \ 1,z,z \ 1))) = L(x,y,a(x \ 1,z,z \ 1)).
+L(x,y * a(x \ 1,z,z \ 1),1) = L(x,y,a(x \ 1,z,z \ 1)).
+x = L(x,y,a(x \ 1,z,z \ 1)).
+L(x,y,a(x \ 1,z,z \ 1)) = x.
+L(x \ y,z,a(x,y \ 1,y)) = x \ y.
+x \ y != L(z \ u,w,a(z,u \ 1,u)) | (z \ u) * x = y.
+(x \ y) * (z * a(x,y \ 1,y)) = a(x,y \ 1,y) * (z * (x \ y)).
+a(x,y \ 1,y) * (z * (x \ y)) = (x \ y) * (z * a(x,y \ 1,y)).
+x \ y != L(z,u \ x,u) | u * (z * (u \ x)) = y.
+a(x,y \ 1,y) * ((x \ y) * (a(x,y \ 1,y) \ x)) = y.
+x != L(y \ z,y,u) | (u * y) \ (z * u) = x.
+(x * (y * z)) \ (z * x) = L(L(y \ 1,y * z,x),y,z).
+L(L(x \ 1,x * y,z),x,y) = (z * (x * y)) \ (y * z).
+x \ y != L(L(z \ 1,z * u,w),z,u) | x * ((w * (z * u)) \ (u * w)) = y.
+(x * y) * ((z * (x * y)) \ (y * z)) = y * (x * L(x \ 1,x * y,z)).
+(x * y) * ((((x * y) \ x) * (x * y)) \ (y * ((x * y) \ x))) = y * (((x * y) \ x) * ((x \ 1) * (x * y))).
+(x * y) * (x \ (y * ((x * y) \ x))) = y * (((x * y) \ x) * ((x \ 1) * (x * y))).
+x * (((y * x) \ y) * ((y \ 1) * (y * x))) = (y * x) * (y \ (x * ((y * x) \ y))).
+x * a(y \ 1,y * x,(y * x) \ y) = (y * x) * (y \ (x * ((y * x) \ y))).
+x * a(y \ 1,x * y,(y * x) \ y) = (y * x) * (y \ (x * ((y * x) \ y))).
+(x \ (1 * ((y \ 1) \ (y \ x)))) \ 1 = a((y \ 1) \ (y \ x),y \ 1,y).
+a((x \ 1) \ (x \ y),x \ 1,x) = (y \ (1 * ((x \ 1) \ (x \ y)))) \ 1.
+a((x \ 1) \ (x \ y),x \ 1,x) = (y \ ((x \ 1) \ (x \ y))) \ 1.
+((x * a(x \ 1,x,y)) * (x \ 1)) * L(x,z,u) = (x * a(x \ 1,x,y)) * ((x \ 1) * L(x,z,u)).
+L(a(x \ 1,x,y),x,x \ 1) * L(x,z,u) = (x * a(x \ 1,x,y)) * ((x \ 1) * L(x,z,u)).
+(x * a(x \ 1,x,y)) * ((x \ 1) * L(x,z,u)) = L(a(x \ 1,x,y),x,x \ 1) * L(x,z,u).
+(x * a(x \ 1,x,y)) * ((x \ 1) * L(x,z,u)) = a(x \ 1,x,y) * L(x,z,u).
+(x * a(x \ 1,x,y)) * (x \ L(x,z,u)) = a(x \ 1,x,y) * L(x,z,u).
+(x * a(x \ 1,x,y)) * a(x,z,z \ 1) = a(x \ 1,x,y) * L(x,z,z \ 1).
+x * L(x \ 1,y,(z \ (x \ z)) * ((x \ z) \ z)) = (x \ z) \ (x \ z).
+x != y \ y | 1 = x.
+1 = x * L(x \ 1,y,(z \ (x \ z)) * ((x \ z) \ z)).
+x * L(x \ 1,y,(z \ (x \ z)) * ((x \ z) \ z)) = 1.
+x * L(x \ 1,y,(z \ (x \ z)) * x) = 1.
+x * L(x \ 1,y,x * (z \ (x \ z))) = 1.
+x \ 1 = L(x \ 1,y,x * (z \ (x \ z))).
+L(x \ 1,y,x * (z \ (x \ z))) = x \ 1.
+(x * y) * ((L(y \ 1,z,y * (u \ (y \ u))) * (x * y)) \ 1) = y * (x * L(x \ 1,x * y,L(y \ 1,z,y * (u \ (y \ u))))).
+x * (y * L(y \ 1,y * x,L(x \ 1,z,x * (u \ (x \ u))))) = (y * x) * ((L(x \ 1,z,x * (u \ (x \ u))) * (y * x)) \ 1).
+x * (y * L(y \ 1,y * x,L(x \ 1,z,x * (u \ (x \ u))))) = (y * x) * (((x \ 1) * (y * x)) \ 1).
+x * (y * L(y \ 1,y * x,L(x \ 1,z,x * (u \ (x \ u))))) = (y * x) * (L(y,x,x \ 1) \ 1).
+x * (y * L(y \ 1,y * x,x \ 1)) = (y * x) * (L(y,x,x \ 1) \ 1).
+x * a(y \ 1,y * x,x \ 1) = (y * x) * (L(y,x,x \ 1) \ 1).
+(x * y) * (L(x,y,y \ 1) \ 1) = y * a(x \ 1,x * y,y \ 1).
+x * (y * L(y \ (x \ z),x,x \ 1)) = y * (((y \ z) * (x \ 1)) * x).
+x * (y * ((x \ z) * (y \ 1))) = y * (x * L(x \ (y \ z),y,y \ 1)).
+x * (y * L(y \ (x \ z),x,x \ 1)) = y * (x * ((y \ z) * (x \ 1))).
+x * (y * L(y \ (x \ z),x,x \ 1)) = y * L(y \ z,x \ 1,x).
+x * (((x \ y) * (z \ 1)) * L(L(z,z \ 1,x \ y),x,x \ 1)) = ((x \ y) * (z \ 1)) * L(((x \ y) * (z \ 1)) \ y,x \ 1,x).
+((x \ y) * (z \ 1)) * L(((x \ y) * (z \ 1)) \ y,x \ 1,x) = x * (((x \ y) * (z \ 1)) * L(L(z,z \ 1,x \ y),x,x \ 1)).
+((x \ y) * (z \ 1)) * L(((x \ y) * (z \ 1)) \ y,x \ 1,x) = x * ((x \ y) * ((z \ 1) * L(z,x,x \ 1))).
+((x \ y) * (z \ 1)) * L(((x \ y) * (z \ 1)) \ y,x \ 1,x) = x * ((x \ y) * (z \ L(z,x,x \ 1))).
+((x \ y) * (z \ 1)) * L(((x \ y) * (z \ 1)) \ y,x \ 1,x) = x * ((x \ y) * a(z,x,x \ 1)).
+(x \ y) * ((z \ 1) * L((z \ 1) \ ((x \ y) \ y),x \ 1,x)) = x * ((x \ y) * a(z,x,x \ 1)).
+(x \ y) * ((z \ 1) * L((z \ 1) \ x,x \ 1,x)) = x * ((x \ y) * a(z,x,x \ 1)).
+(x \ y) * (z \ L(z * x,x \ 1,x)) = x * ((x \ y) * a(z,x,x \ 1)).
+(x \ y) * (z \ L(x * z,x \ 1,x)) = x * ((x \ y) * a(z,x,x \ 1)).
+(x \ y) * ((z \ x) * L(z,x,x \ 1)) = x * ((x \ y) * a(z,x,x \ 1)).
+(x \ y) * (z * L(z \ x,x \ 1,x)) = x * ((x \ y) * a(z \ 1,x,x \ 1)).
+(x \ y) * (z * L(z \ x,x \ 1,x)) != u | y * a(z \ 1,x,x \ 1) = u.
+x * a(y \ 1,z,z \ 1) = z * ((z \ x) * a(y \ 1,z,z \ 1)).
+x * ((x \ y) * a(z \ 1,x,x \ 1)) = y * a(z \ 1,x,x \ 1).
+x * ((y \ z) * L(y,z,z \ 1)) = z * ((z \ (x * z)) * a(y,z,z \ 1)).
+(x * y) \ z != u | L(x \ (y \ z),x,y) = u.
+x * ((y \ z) * L(y,z,z \ 1)) = z * (x * a(y,z,z \ 1)).
+x * y != x * z | z = y.
+x * a(y,x,x \ 1) = (y \ x) * L(y,x,x \ 1).
+(x \ y) * L(x,y,y \ 1) = y * a(x,y,y \ 1).
+x * (y * a(z,y,y \ 1)) = y * (x * a(z,y,y \ 1)).
+(x * a(y,x,x \ 1)) * z = x * (z * a(y,x,x \ 1)).
+L(L(x,y,z),u,w) \ (v5 * x) = x * (L(L(x,y,z),u,w) \ v5).
+L(L(x,y,z),u,w) \ (x * v5) = x * (L(L(x,y,z),u,w) \ v5).
+(x \ (y \ 1)) * (y \ ((y \ 1) \ x)) = ((y \ 1) \ x) \ (y \ ((y \ 1) \ x)).
+((x \ 1) \ y) \ (x \ ((x \ 1) \ y)) = (y \ (x \ 1)) * (x \ ((x \ 1) \ y)).
+x \ ((y \ 1) \ x) != z | L(y,y \ 1,y * x) = z.
+L(x,x \ 1,x * (((x \ 1) \ 1) \ y)) = (y \ ((x \ 1) \ 1)) * ((x \ 1) \ (((x \ 1) \ 1) \ y)).
+L(x,x \ 1,x * (x \ y)) = (y \ ((x \ 1) \ 1)) * ((x \ 1) \ (((x \ 1) \ 1) \ y)).
+L(x,x \ 1,y) = (y \ ((x \ 1) \ 1)) * ((x \ 1) \ (((x \ 1) \ 1) \ y)).
+(x \ ((y \ 1) \ 1)) * ((y \ 1) \ (((y \ 1) \ 1) \ x)) = L(y,y \ 1,x).
+(x \ y) * ((y \ 1) \ (((y \ 1) \ 1) \ x)) = L(y,y \ 1,x).
+(x \ y) * ((y \ 1) \ (y \ x)) = L(y,y \ 1,x).
+(x \ y) * z != L(y,u,((y * w) \ w) \ 1) | x = z.
+((x * y) \ y) \ 1 = (x \ 1) \ (x \ (((x * y) \ y) \ 1)).
+(x \ 1) \ (x \ (((x * y) \ y) \ 1)) = ((x * y) \ y) \ 1.
+(((x * y) \ y) \ 1) \ (x \ (((x * y) \ y) \ 1)) = x \ 1.
+(x \ (((x * y) \ y) \ 1)) * (x * L(x \ 1,z,u)) = (((x * y) \ y) \ 1) * L(x \ 1,z,u).
+((((x * y) \ y) \ 1) * L(x \ 1,x,y)) \ ((L(x \ 1,x,y) \ 1) \ x) = (x \ (L(x \ 1,x,y) \ 1)) \ 1.
+1 \ ((L(x \ 1,x,y) \ 1) \ x) = (x \ (L(x \ 1,x,y) \ 1)) \ 1.
+(x \ (L(x \ 1,x,y) \ 1)) \ 1 = 1 \ ((L(x \ 1,x,y) \ 1) \ x).
+(x \ (L(x \ 1,x,y) \ 1)) \ 1 = 1 \ (x * L(x \ 1,x,y)).
+x != 1 \ y | y = x.
+x * L(x \ 1,x,y) = (x \ (L(x \ 1,x,y) \ 1)) \ 1.
+(x \ (L(x \ 1,x,y) \ 1)) \ 1 = x * L(x \ 1,x,y).
+x \ y != z * L(u \ 1,u,w) | (z * ((u * w) \ w)) * x = y.
+(x * ((x * y) \ y)) * (x \ (L(x \ 1,x,y) \ 1)) = 1.
+(x * ((x * y) \ y)) * (x \ (((x * y) \ y) \ 1)) = 1.
+(x \ (((x * y) \ y) \ 1)) \ 1 = x * ((x * y) \ y).
+(x * ((x * y) \ y)) \ 1 = x \ (((x * y) \ y) \ 1).
+(x \ ((y \ (x \ y)) \ 1)) \ 1 = x * ((x * (x \ y)) \ (x \ y)).
+(x \ ((y \ (x \ y)) \ 1)) \ 1 = x * (y \ (x \ y)).
+(x * (y \ (x \ y))) \ 1 = x \ ((y \ (x \ y)) \ 1).
+x \ y != a(z \ 1,z,z \ ((z \ 1) \ u)) | x * a(z \ 1,z,u) = y.
+x * a(y \ 1,y,x) = y \ ((y \ 1) \ x).
+x != (y \ 1) \ z | L(y \ 1,y,u) * ((y \ 1) \ (((y * u) \ u) \ z)) = x.
+L(x \ 1,x,y) * ((x \ 1) \ (((x * y) \ y) \ (((x \ 1) \ 1) \ z))) = z * a((x \ 1) \ 1,x \ 1,z).
+L(x \ 1,x,y) * ((x \ 1) \ (((x * y) \ y) \ (((x \ 1) \ 1) \ z))) = z * a(x,x \ 1,z).
+L(x \ 1,x,y) * ((x \ 1) \ (((x * y) \ y) \ (x \ z))) = z * a(x,x \ 1,z).
+x * y != L(z \ 1,z,u) * ((z \ 1) \ (((z * u) \ u) \ w)) | x \ ((z \ 1) \ w) = y.
+x \ ((y \ 1) \ (y \ x)) = a(y,y \ 1,x).
+a((x \ 1) \ (x \ y),x \ 1,x) = a(x,x \ 1,y) \ 1.
+x != a(y,y \ 1,z) \ 1 | a(z,y \ 1,y) = x.
+a(x,y \ 1,y) = a((y \ 1) \ (y \ x),y \ 1,y).
+a((x \ 1) \ (x \ y),x \ 1,x) = a(y,x \ 1,x).
+L(a(x \ 1,x,y) \ z,a(x \ 1,x,y),L(y,x,x \ 1)) = (y * ((x \ 1) * x)) \ (z * ((x \ 1) * (x * y))).
+L(a(x \ 1,x,y) \ z,a(x \ 1,x,y),L(y,x,x \ 1)) = (y * 1) \ (z * ((x \ 1) * (x * y))).
+L(a(x \ 1,x,y) \ z,a(x \ 1,x,y),L(y,x,x \ 1)) = y \ (z * ((x \ 1) * (x * y))).
+L(a(x \ 1,x,y) \ z,a(x \ 1,x,y),L(y,x,x \ 1)) = y \ (z * L(y,x,x \ 1)).
+x != y \ (z * L(y,u,w)) | L(y,u,w) * (y \ z) = x.
+L(x,y,y \ 1) * (x \ z) = L(a(y \ 1,y,x) \ z,a(y \ 1,y,x),L(x,y,y \ 1)).
+L(a(x \ 1,x,y) \ z,a(x \ 1,x,y),L(y,x,x \ 1)) = L(y,x,x \ 1) * (y \ z).
+L(a(x \ 1,x,x \ ((x \ 1) \ y)) \ z,a(x \ 1,x,x \ ((x \ 1) \ y)),(x * (x \ 1)) \ y) = L(x \ ((x \ 1) \ y),x,x \ 1) * ((x \ ((x \ 1) \ y)) \ z).
+L(a(x \ 1,x,x \ ((x \ 1) \ y)) \ z,a(x \ 1,x,x \ ((x \ 1) \ y)),1 \ y) = L(x \ ((x \ 1) \ y),x,x \ 1) * ((x \ ((x \ 1) \ y)) \ z).
+L(a(x \ 1,x,x \ ((x \ 1) \ y)) \ z,a(x \ 1,x,x \ ((x \ 1) \ y)),y) = L(x \ ((x \ 1) \ y),x,x \ 1) * ((x \ ((x \ 1) \ y)) \ z).
+L(a(x \ 1,x,x \ ((x \ 1) \ y)) \ z,a(x \ 1,x,x \ ((x \ 1) \ y)),y) = ((x \ 1) * ((x \ 1) \ y)) * ((x \ ((x \ 1) \ y)) \ z).
+L(a(x \ 1,x,x \ ((x \ 1) \ y)) \ z,a(x \ 1,x,x \ ((x \ 1) \ y)),y) = y * ((x \ ((x \ 1) \ y)) \ z).
+L(a(x,y,y \ (x \ z)) \ u,a(x,y,y \ (x \ z)),z) != w | ((x * y) * (y \ (x \ z))) \ (z * u) = w.
+(((x \ 1) * x) * (x \ ((x \ 1) \ y))) \ (y * z) = y * ((x \ ((x \ 1) \ y)) \ z).
+(1 * (x \ ((x \ 1) \ y))) \ (y * z) = y * ((x \ ((x \ 1) \ y)) \ z).
+(x \ ((x \ 1) \ y)) \ (y * z) = y * ((x \ ((x \ 1) \ y)) \ z).
+(x * ((y \ ((y \ 1) \ x)) \ z)) \ (x * z) = y \ ((y \ 1) \ x).
+(x \ y) \ (z * ((x \ y) * (y \ x))) != u | ((x \ y) * (y \ x)) * ((x \ y) \ z) = u.
+((x \ ((x \ 1) \ y)) * (((x \ 1) \ y) \ x)) * ((x \ ((x \ 1) \ y)) \ y) = y * ((x \ ((x \ 1) \ y)) \ ((x \ ((x \ 1) \ y)) * (((x \ 1) \ y) \ x))).
+((x \ ((x \ 1) \ y)) * (((x \ 1) \ y) \ x)) * ((x \ ((x \ 1) \ y)) \ y) = y * (((x \ 1) \ y) \ x).
+((x \ ((x \ 1) \ y)) * (((x \ 1) \ y) \ x)) * a(y,x,x \ 1) = y * (((x \ 1) \ y) \ x).
+a(x,y,y \ 1) * ((y \ ((y \ 1) \ x)) * (((y \ 1) \ x) \ y)) = x * (((y \ 1) \ x) \ y).
+L((x \ (y \ x)) \ z,x \ (y \ x),y) = L(y * (x \ (y \ x)),u,y) \ (y * z).
+x != L(y,y \ z,u) \ (u * z) | u * (y \ z) = x.
+x * ((x * (y \ (x \ y))) \ z) = L((y \ (x \ y)) \ z,y \ (x \ y),x).
+L((x \ (y \ x)) \ z,x \ (y \ x),y) = y * ((y * (x \ (y \ x))) \ z).
+L((x \ (y * x)) \ z,x \ (L(y \ 1,y,x) \ x),L(y \ 1,y,x)) = L(y \ 1,y,x) * ((L(y \ 1,y,x) * (x \ (L(y \ 1,y,x) \ x))) \ z).
+L(x \ y,z \ (L(x \ 1,x,z) \ z),L(x \ 1,x,z)) = L(x \ 1,x,z) * ((L(x \ 1,x,z) * (z \ (L(x \ 1,x,z) \ z))) \ y).
+L(x \ 1,x,y) * ((L(x \ 1,x,y) * (y \ (L(x \ 1,x,y) \ y))) \ z) = L(x \ z,y \ (L(x \ 1,x,y) \ y),L(x \ 1,x,y)).
+L(x \ 1,x,y) * ((L(x \ 1,x,y) * (y \ (L(x \ 1,x,y) \ y))) \ z) = L(x \ z,y \ (x * y),L(x \ 1,x,y)).
+L(x \ 1,x,y) * ((L(x \ 1,x,y) * (y \ (L(x \ 1,x,y) \ y))) \ z) = L(x \ z,x,L(x \ 1,x,y)).
+L(x \ 1,x,y) * ((L(x \ 1,x,y) * (y \ (x * y))) \ z) = L(x \ z,x,L(x \ 1,x,y)).
+L(x \ 1,x,y) * ((L(x \ 1,x,y) * x) \ z) = L(x \ z,x,L(x \ 1,x,y)).
+L(x \ 1,x,y) * ((x * L(x \ 1,x,y)) \ z) = L(x \ z,x,L(x \ 1,x,y)).
+(x * y) \ ((z * y) * (z \ x)) = a(y,z,z \ x).
+(x * (y \ z)) \ (z * (y \ x)) = a(y \ z,y,y \ x).
+a(x \ y,x,x \ z) = (z * (x \ y)) \ (y * (x \ z)).
+x * y != (z * (u \ w)) \ (w * (u \ z)) | x \ a(u \ w,u,u \ z) = y.
+(x \ y) \ a(x \ 1,x,x \ y) = (y * (x \ 1)) \ 1.
+x * a(y \ 1,x * y,(x * y) \ y) = (y * x) * (y \ (x * ((y * x) \ y))).
+x * a(y \ 1,x * y,(x * y) \ y) = (x * y) * (y \ (x * ((y * x) \ y))).
+x * a(y \ 1,x * y,(x * y) \ y) = (x * y) * (y \ (x * ((x * y) \ y))).
+L(x,y,z) * ((u * L(x,y,z)) \ u) != w | L(x * L(x \ 1,L(x,y,z),u),y,z) = w.
+x \ y != a((z \ 1) \ (z \ u),z \ 1,z) | a(u,z \ 1,z) \ y = x.
+a(x,y \ 1,y) \ x = (y \ 1) \ (y \ x).
+a(x,y \ 1,y) * ((x \ y) * ((y \ 1) \ (y \ x))) = y.
+a(x,y \ 1,y) * L(y,y \ 1,x) = y.
+L(x,x \ 1,y) \ x = a(y,x \ 1,x).
+x \ y != a(z,u \ 1,u) * L(u,u \ 1,z) | u \ y = x.
+x \ (y * L(x,x \ 1,z)) = L(a(z,x \ 1,x) \ y,a(z,x \ 1,x),L(x,x \ 1,z)).
+L(a(x,y \ 1,y) \ z,a(x,y \ 1,y),L(y,y \ 1,x)) = y \ (z * L(y,y \ 1,x)).
+L(x,x \ 1,y) * (x \ z) = L(a(y,x \ 1,x) \ z,a(y,x \ 1,x),L(x,x \ 1,y)).
+L(a(x,y \ 1,y) \ z,a(x,y \ 1,y),L(y,y \ 1,x)) = L(y,y \ 1,x) * (y \ z).
+L(x,a(y,z \ 1,z),L(z,z \ 1,y)) = L(z,z \ 1,y) * (z \ (x * a(y,z \ 1,z))).
+L(x,x \ 1,y) * (x \ (z * a(y,x \ 1,x))) = L(z,a(y,x \ 1,x),L(x,x \ 1,y)).
+L(x \ 1,x,y) * ((x \ 1) \ (z * a(y,(x \ 1) \ 1,x \ 1))) = L(z,a(y,(x \ 1) \ 1,x \ 1),L(x \ 1,(x \ 1) \ 1,y)).
+L(x \ 1,x,y) * ((x \ 1) \ (z * a(y,x,x \ 1))) = L(z,a(y,(x \ 1) \ 1,x \ 1),L(x \ 1,(x \ 1) \ 1,y)).
+L(x,a(y,(z \ 1) \ 1,z \ 1),L(z \ 1,(z \ 1) \ 1,y)) = L(z \ 1,z,y) * ((z \ 1) \ (x * a(y,z,z \ 1))).
+L(x,a(y,z,z \ 1),L(z \ 1,(z \ 1) \ 1,y)) = L(z \ 1,z,y) * ((z \ 1) \ (x * a(y,z,z \ 1))).
+L(x \ 1,x,y) * ((x \ 1) \ (z * a(y,x,x \ 1))) = L(z,a(y,x,x \ 1),L(x \ 1,(x \ 1) \ 1,y)).
+L(L(x,a(y,x \ 1,x),z),x \ 1,y) \ (x * z) = z * (L(x,x \ 1,y) \ x).
+L(L(x,y,z),u,w) \ (x * v5) != v6 | x * (L(L(x,y,z),u,w) \ v5) = v6.
+x * (L(L(x,a(y,x \ 1,x),z),x \ 1,y) \ z) = z * (L(x,x \ 1,y) \ x).
+x * (L(L(x,a(y,x \ 1,x),z),x \ 1,y) \ z) = z * a(y,x \ 1,x).
+x \ (y * a(z,x \ 1,x)) = L(L(x,a(z,x \ 1,x),y),x \ 1,z) \ y.
+L(L(x,a(y,x \ 1,x),z),x \ 1,y) \ z = x \ (z * a(y,x \ 1,x)).
+(x \ (y * a(z,x \ 1,x))) * L(L(x,a(z,x \ 1,x),y),x \ 1,z) = y.
+L(x \ 1,x,y) * ((x \ 1) \ (z * a(y,x,x \ 1))) = L(z,a(y,x,x \ 1),L(x \ 1,x,y)).
+(x \ 1) * L(y,a(z,x,x \ 1),L(x \ 1,x,z)) = L(x \ 1,x,z) * (y * a(z,x,x \ 1)).
+L(x,a(y,z,z \ 1),L(z \ 1,z,y)) * u != L(z \ 1,z,y) * (x * a(y,z,z \ 1)) | z \ 1 = u.
+x \ 1 = a(y,x,x \ 1) * L(x \ 1,x,y).
+a(x,y,y \ 1) * L(y \ 1,y,x) = y \ 1.
+x * L(y \ 1,y,z) != y \ 1 | a(z,y,y \ 1) = x.
+a(x,y,y \ 1) = y \ (L(y \ 1,y,x) \ 1).
+x \ (L(x \ 1,x,y) \ 1) = a(y,x,x \ 1).
+x \ (L(y \ 1,y,z) \ u) != w | x \ (((y * z) \ z) \ u) = w.
+x \ (((x * y) \ y) \ 1) = a(y,x,x \ 1).
+x \ y != z \ (L(z \ 1,z,u) \ 1) | x * a(u,z,z \ 1) = y.
+x * a(y,x,x \ 1) = ((x * y) \ y) \ 1.
+((x * y) \ y) \ 1 = x * a(y,x,x \ 1).
+x \ ((y \ (x \ y)) \ 1) = a(x \ y,x,x \ 1).
+a(x \ y,x,x \ 1) = x \ ((y \ (x \ y)) \ 1).
+x \ y != z \ (((z * u) \ u) \ 1) | a(u,z,z \ 1) \ y = x.
+a(x,y,y \ 1) \ 1 = y * ((y * x) \ x).
+(x \ (y * a(z,x,x \ 1))) \ (x \ (y * (((x * z) \ z) \ 1))) = L(x,a(z,x,x \ 1),y).
+a(x,y,y \ 1) \ 1 != z | a(y \ 1,y,x) = z.
+a(x \ 1,x,y) = x * ((x * y) \ y).
+x * ((x * y) \ y) = a(x \ 1,x,y).
+x * ((y * z) \ z) != u | x * L(y \ 1,y,z) = u.
+x * L(x \ 1,x,y) = a(x \ 1,x,y).
+x * ((y * x) \ y) = a(x \ 1,x,y).
+(x \ y) * (y \ x) = a((x \ y) \ 1,x \ y,x).
+a((x \ y) \ 1,x \ y,x) = (x \ y) * (y \ x).
+L(x \ y,x,L(x \ 1,x,z)) = a(x \ 1,x,z) \ (y * L(x \ 1,x,z)).
+a(x \ 1,x,y) \ (z * L(x \ 1,x,y)) = L(x \ z,x,L(x \ 1,x,y)).
+a(x \ 1,x,y) \ L(x \ 1,x,y) = x \ 1.
+x * a(y \ 1,x * y,(x * y) \ y) = (x * y) * (y \ a(x \ 1,x,y)).
+L(x * L(x \ 1,L(x,y,z),u),y,z) = a(L(x,y,z) \ 1,L(x,y,z),u).
+a(x \ 1,x,y) * L(x,y,y \ 1) = x * a(y \ 1,y * x,(y * x) \ y).
+x * a(y \ 1,y * x,(y * x) \ y) = a(x \ 1,x,y) * L(x,y,y \ 1).
+a(x * y,x \ 1,x) * a(y \ 1,y,x) = ((x * y) \ x) * (y * a(x * y,x \ 1,x)).
+((x * y) \ x) * (y * a(x * y,x \ 1,x)) = a(x * y,x \ 1,x) * a(y \ 1,y,x).
+x * a(y \ 1,y * x,(y * x) \ y) = (y * x) * (y \ a(x \ 1,x,y)).
+L(x \ 1,x,y) * (a(x \ 1,x,y) \ z) = L(x \ z,x,L(x \ 1,x,y)).
+x \ y != a((z \ u) \ 1,z \ u,z) | ((z \ u) * (u \ z)) \ y = x.
+((x \ y) * (y \ x)) \ x = y * ((x \ y) \ 1).
+L(x \ 1,a(x \ 1,x,y),z) = (z * a(x \ 1,x,y)) \ (z * L(x \ 1,x,y)).
+(x * a(y \ 1,y,z)) \ (x * L(y \ 1,y,z)) = L(y \ 1,a(y \ 1,y,z),x).
+L(x \ (a(y \ 1,y,z) \ (x * L(y \ 1,y,z))),x,a(y \ 1,y,z)) = L(y \ 1,a(y \ 1,y,z),x).
+L(x \ L(y \ x,y,L(y \ 1,y,z)),x,a(y \ 1,y,z)) = L(y \ 1,a(y \ 1,y,z),x).
+x \ ((y * x) * (y \ a(x \ 1,x,y))) = a(y \ 1,y * x,(y * x) \ y).
+a(x \ 1,x * y,(x * y) \ x) = y \ ((x * y) * (x \ a(y \ 1,y,x))).
+a(x \ 1,x * y,(x * y) \ x) = y \ ((y * x) * (x \ a(y \ 1,y,x))).
+a(x \ 1,x * y,(y * x) \ x) = y \ ((y * x) * (x \ a(y \ 1,y,x))).
+a(x \ 1,x * y,(x * y) \ x) != y \ z | (y * x) * (x \ a(y \ 1,y,x)) = z.
+a(x \ 1,y * x,(y * x) \ x) = y \ ((y * x) * (x \ a(y \ 1,y,x))).
+x \ y != a(z \ 1,u * z,(u * z) \ z) | x * a(z \ 1,u * z,L(u \ 1,u,z)) = y.
+x * a(y \ 1,x * y,L(x \ 1,x,y)) = (x * y) * (y \ a(x \ 1,x,y)).
+x * a((x \ y) \ 1,y,(x * (x \ y)) \ (x \ y)) = (x * (x \ y)) * ((x \ y) \ a(x \ 1,x,x \ y)).
+(x * (x \ y)) * ((x \ y) \ a(x \ 1,x,x \ y)) = x * a((x \ y) \ 1,y,(x * (x \ y)) \ (x \ y)).
+(x * (x \ y)) * ((x \ y) \ a(x \ 1,x,x \ y)) = x * a((x \ y) \ 1,y,y \ (x \ y)).
+x * ((y \ x) \ a(y \ 1,y,y \ x)) = y * a((y \ x) \ 1,x,x \ (y \ x)).
+x * a((x \ y) \ 1,y,y \ (x \ y)) = y * ((x \ y) \ a(x \ 1,x,x \ y)).
+x * a((x \ y) \ 1,y,y \ (x \ y)) = y * ((y * (x \ 1)) \ 1).
+x \ (y * ((y * (x \ 1)) \ 1)) = a((x \ y) \ 1,y,y \ (x \ y)).
+a((x \ y) \ 1,y,y \ (x \ y)) = x \ (y * ((y * (x \ 1)) \ 1)).
+a((x \ y) \ 1,y,y \ (x \ y)) != z | L(x \ 1,x,x \ y) * (y * ((x \ y) \ 1)) = z.
+L(x \ 1,x,x \ y) * (y * ((x \ y) \ 1)) = x \ (y * ((y * (x \ 1)) \ 1)).
+L(x \ 1,x,y) * ((x * y) * ((x \ (x * y)) \ 1)) = x \ ((x * y) * (((x * y) * (x \ 1)) \ 1)).
+L(x \ 1,x,y) * ((x * y) * (y \ 1)) = x \ ((x * y) * (((x * y) * (x \ 1)) \ 1)).
+x \ ((x * y) * (((x * y) * (x \ 1)) \ 1)) = L(x \ 1,x,y) * ((x * y) * (y \ 1)).
+x \ ((x * y) * (((x * y) * (x \ 1)) \ 1)) = L(x \ 1,x,y) * L(x,y,y \ 1).
+a(x \ 1,y * x,L(y \ 1,y,x)) = y \ ((y * x) * (((y * x) * (y \ 1)) \ 1)).
+a(x \ 1,y * x,L(y \ 1,y,x)) = y \ ((y * x) * (L(x,y,y \ 1) \ 1)).
+a(x \ 1,x * y,L(y \ 1,y,x)) = y \ ((y * x) * (L(x,y,y \ 1) \ 1)).
+a(x \ 1,x * y,L(y \ 1,y,x)) = y \ ((x * y) * (L(x,y,y \ 1) \ 1)).
+a(x \ 1,x * y,L(y \ 1,y,x)) = y \ (y * a(x \ 1,x * y,y \ 1)).
+x != y \ (y * z) | z = x.
+a(x \ 1,x * y,y \ 1) = a(x \ 1,x * y,L(y \ 1,y,x)).
+a(x \ 1,x * y,L(y \ 1,y,x)) = a(x \ 1,x * y,y \ 1).
+a(x \ 1,y * x,L(y \ 1,y,x)) = y \ (y * a(x \ 1,x * y,y \ 1)).
+a(x \ 1,x * y,(x * y) \ x) = a(x \ 1,x * y,y \ 1).
+a(x \ 1,y * x,L(y \ 1,y,x)) = y \ (y * a(x \ 1,y * x,y \ 1)).
+a(x \ 1,y * x,y \ 1) = a(x \ 1,y * x,L(y \ 1,y,x)).
+a(x \ 1,y * x,L(y \ 1,y,x)) = a(x \ 1,y * x,y \ 1).
+x * a(y \ 1,x * y,x \ 1) = (x * y) * (y \ a(x \ 1,x,y)).
+(x * y) * (y \ a(x \ 1,x,y)) = x * a(y \ 1,x * y,x \ 1).
+(x \ (y * a(z,x,x \ 1))) \ ((((x * z) \ z) \ 1) * (x \ y)) = L(x,a(z,x,x \ 1),y).
+(x \ (y * a(z,x,x \ 1))) \ ((x * a(z,x,x \ 1)) * (x \ y)) = L(x,a(z,x,x \ 1),y).
+(x \ (y * a(z,x,x \ 1))) \ (x * ((x \ y) * a(z,x,x \ 1))) = L(x,a(z,x,x \ 1),y).
+(x \ (y * a(z \ 1,x,x \ 1))) \ (y * a(z \ 1,x,x \ 1)) = L(x,a(z \ 1,x,x \ 1),y).
+x = L(x,a(y \ 1,x,x \ 1),z).
+L(x,a(y \ 1,x,x \ 1),z) = x.
+L(x,a(y,x,x \ 1),z) = x.
+L(x,a(y,x \ 1,x),z) = x.
+L(x * L(x \ 1,x,y),a(z,x,x \ 1),u) = a(L(x,a(z,x,x \ 1),u) \ 1,L(x,a(z,x,x \ 1),u),y).
+a(L(x,a(y,x,x \ 1),z) \ 1,L(x,a(y,x,x \ 1),z),u) = L(x * L(x \ 1,x,u),a(y,x,x \ 1),z).
+a(L(x,a(y,x,x \ 1),z) \ 1,L(x,a(y,x,x \ 1),z),u) = L(a(x \ 1,x,u),a(y,x,x \ 1),z).
+a(x \ 1,L(x,a(y,x,x \ 1),z),u) = L(a(x \ 1,x,u),a(y,x,x \ 1),z).
+L(a(x \ 1,x,y),a(z,x,x \ 1),u) = a(x \ 1,L(x,a(z,x,x \ 1),u),y).
+L(a(x \ 1,x,y),a(z,x,x \ 1),u) = a(x \ 1,x,y).
+x * a(y \ 1,y,z) = a(z,y,y \ 1) \ x.
+a(x,y,y \ 1) \ z = z * a(y \ 1,y,x).
+a(x \ 1,x,y) \ z = z * a(y,x,x \ 1).
+(x * a(y \ 1,y,z)) \ x = a(z,y,y \ 1).
+(x * a(y,y \ 1,z)) \ x = a(y \ z,y,y \ 1).
+a(x \ y,x,x \ 1) = (z * a(x,x \ 1,y)) \ z.
+a(x \ y,x,x \ 1) = 1 \ a(y,x \ 1,x).
+a(x,y \ 1,y) = a(y \ x,y,y \ 1).
+a(x \ y,x,x \ 1) = a(y,x \ 1,x).
+a(x \ y,x,x \ 1) != z | x \ ((y \ (x \ y)) \ 1) = z.
+x \ ((y \ (x \ y)) \ 1) = a(y,x \ 1,x).
+a(x \ ((x \ 1) \ y),x,x \ 1) != z | a(y,x,x \ 1) = z.
+a(x,y,y \ 1) = a((y \ 1) \ x,y \ 1,y).
+a((x \ 1) \ y,x \ 1,x) = a(y,x,x \ 1).
+a(x \ y,x,x \ 1) != z | (x \ y) \ (y * (x \ 1)) = z.
+(x \ y) \ (y * (x \ 1)) = a(y,x \ 1,x).
+x \ y != a(z \ u,z,z \ 1) | x * a(u,z \ 1,z) = y.
+(x \ y) * a(y,x \ 1,x) = y * (x \ 1).
+a(x,y,y \ 1) = a(y * x,y \ 1,y).
+a(x * y,x \ 1,x) = a(y,x,x \ 1).
+x \ y != z \ ((u \ (z \ u)) \ 1) | a(u,z \ 1,z) \ y = x.
+a(x,y \ 1,y) \ 1 = y * (x \ (y \ x)).
+x * y != a(z,u \ 1,u) \ 1 | x \ a(u,u \ 1,z) = y.
+x \ a(x,x \ 1,y) = y \ (x \ y).
+x \ y != a((z \ 1) \ u,z \ 1,z) | x * a(u,z,z \ 1) = y.
+((x \ 1) \ y) * a(y,x,x \ 1) = x * y.
+((x * y) \ x) * (y * a(x * y,x \ 1,x)) = a(y,x,x \ 1) * a(y \ 1,y,x).
+((x * y) \ x) * (y * a(y,x,x \ 1)) = a(y,x,x \ 1) * a(y \ 1,y,x).
+((x * y) \ x) * L(y,x,x \ 1) = a(y,x,x \ 1) * a(y \ 1,y,x).
+a(x,y,y \ 1) * a(x \ 1,x,y) = ((y * x) \ y) * L(x,y,y \ 1).
+x != ((y * z) \ y) * L(z,y,y \ 1) | a(y \ 1,y * z,(y * z) \ y) = x.
+a(x \ 1,x * y,(x * y) \ x) = a(y,x,x \ 1) * a(y \ 1,y,x).
+a(x \ 1,x * y,(x * y) \ x) != z | a(x \ 1,x * y,y \ 1) = z.
+a(x \ 1,x * y,y \ 1) = a(y,x,x \ 1) * a(y \ 1,y,x).
+a(x,y,y \ 1) * a(x \ 1,x,y) = a(y \ 1,y * x,x \ 1).
+a(x,y,y \ 1) * a(x \ 1,x,y) = a(y \ 1,x * y,x \ 1).
+L(x \ 1,x,y) * (z * a(y,x,x \ 1)) = L(x \ z,x,L(x \ 1,x,y)).
+L(x \ 1,x,y) * (z * a(y,x,x \ 1)) != u | (x \ 1) * L(z,a(y,x,x \ 1),L(x \ 1,x,y)) = u.
+(x \ 1) * L(y,a(z,x,x \ 1),L(x \ 1,x,z)) = L(x \ y,x,L(x \ 1,x,z)).
+(x \ (y * a(z,x \ 1,x))) * L(x,x \ 1,z) = y.
+L(x,x \ 1,y) * (x \ (z * a(y,x \ 1,x))) = z.
+L(x,x \ 1,y) * (x \ (z * a(y,x \ 1,x))) != u | L(z,a(y,x \ 1,x),L(x,x \ 1,y)) = u.
+L(x,a(y,z \ 1,z),L(z,z \ 1,y)) = x.
+L(x,a(y,(z \ 1) \ 1,z \ 1),L(z \ 1,(z \ 1) \ 1,y)) != u | L(z \ 1,z,y) * ((z \ 1) \ (x * a(y,z,z \ 1))) = u.
+L(x \ 1,x,y) * ((x \ 1) \ (z * a(y,x,x \ 1))) = z.
+L(x \ 1,x,y) * ((x \ 1) \ (z * a(y,x,x \ 1))) != u | L(z,a(y,x,x \ 1),L(x \ 1,x,y)) = u.
+L(x,a(y,z,z \ 1),L(z \ 1,z,y)) = x.
+(x \ 1) * y = L(x \ y,x,L(x \ 1,x,z)).
+L(x \ y,x,L(x \ 1,x,z)) = (x \ 1) * y.
+x * (y \ 1) = L(y \ x,y,L(y \ 1,y,z)).
+L(x \ y,x,L(x \ 1,x,z)) = y * (x \ 1).
+L(x \ (x * (y \ 1)),x,a(y \ 1,y,z)) = L(y \ 1,a(y \ 1,y,z),x).
+L(x \ 1,y,a(x \ 1,x,z)) = L(x \ 1,a(x \ 1,x,z),y).
+L(x \ 1,a(x \ 1,x,y),z) = L(x \ 1,z,a(x \ 1,x,y)).
+x != L(y \ 1,z,a(y \ 1,y,u)) | y \ 1 = x.
+x \ 1 = L(x \ 1,a(x \ 1,x,y),z).
+L(x \ 1,a(x \ 1,x,y),z) = x \ 1.
+a((x \ 1) \ 1,y,y \ 1) = L(a(x,y,y \ 1),a(x \ 1,x,z),u).
+L(a(x,y,y \ 1),a(x \ 1,x,z),u) = a((x \ 1) \ 1,y,y \ 1).
+L(a(x,y,y \ 1),a(x \ 1,x,z),u) = a(x,y,y \ 1).
+L(x,x \ 1,x * y) * a((x \ 1) \ y,y \ 1,y) = ((x \ 1) \ y) * (y \ 1).
+(x \ 1) * ((y \ 1) \ x) = L(y,y \ 1,y * x) * a((y \ 1) \ x,x \ 1,x).
+L(x,x \ 1,x * y) * a((x \ 1) \ y,y \ 1,y) = (y \ 1) * ((x \ 1) \ y).
+L(x,x \ 1,x * y) * a(x,y,y \ 1) = (y \ 1) * ((x \ 1) \ y).
+x != y \ ((z \ 1) \ y) | L(z,z \ 1,z * y) = x.
+L(x,x \ 1,x * y) = (x \ 1) \ a(x \ 1,(x \ 1) \ 1,y).
+(x \ 1) \ a(x \ 1,(x \ 1) \ 1,y) = L(x,x \ 1,x * y).
+(x \ 1) \ a(x \ 1,x,y) = L(x,x \ 1,x * y).
+(x \ 1) \ a(x \ 1,x,y) != z | x * a(x \ 1,x,y) = z.
+x * a(x \ 1,x,y) = L(x,x \ 1,x * y).
+L(x,x \ 1,x * y) * a(x,z,z \ 1) = a(x \ 1,x,y) * L(x,z,z \ 1).
+L(x,x \ 1,x * y) * a(x,y,y \ 1) != z | (y \ 1) * ((x \ 1) \ y) = z.
+(x \ 1) * ((y \ 1) \ x) = a(y \ 1,y,x) * L(y,x,x \ 1).
+a(x \ 1,x,y) * L(x,y,y \ 1) = (y \ 1) * ((x \ 1) \ y).
+x * y != a(z \ 1,z,u) * L(z,u,u \ 1) | x \ ((u \ 1) * ((z \ 1) \ u)) = y.
+x \ ((y \ 1) * ((x \ 1) \ y)) = a(y \ 1,y * x,(y * x) \ y).
+a(x \ 1,x * y,(x * y) \ x) = y \ ((x \ 1) * ((y \ 1) \ x)).
+(x * y) * (y \ a(x \ 1,x,y)) = (y \ 1) * ((x \ 1) \ y).
+(x * y) * (y \ a(x \ 1,x,y)) != z | x * a(y \ 1,x * y,x \ 1) = z.
+x * a(y \ 1,x * y,x \ 1) = (y \ 1) * ((x \ 1) \ y).
+x * ((y \ x) \ a(y \ 1,y,y \ x)) = ((y \ x) \ 1) * ((y \ 1) \ (y \ x)).
+L(x,x \ 1,y) \ (y * ((y * (x \ 1)) \ 1)) = a(y,(y * (x \ 1)) \ 1,y * (x \ 1)).
+x * ((x * (y \ 1)) \ 1) = ((y \ x) \ 1) * ((y \ 1) \ (y \ x)).
+((x \ y) \ 1) * ((x \ 1) \ (x \ y)) = y * ((y * (x \ 1)) \ 1).
+x * y != ((z \ u) \ 1) * ((z \ 1) \ (z \ u)) | x \ (u * ((u * (z \ 1)) \ 1)) = y.
+((((x \ y) \ 1) \ 1) \ ((x \ 1) \ (x \ y))) \ (y * ((y * (x \ 1)) \ 1)) = a((x \ 1) \ (x \ y),(x \ y) \ 1,((x \ y) \ 1) \ 1).
+((x \ y) \ ((x \ 1) \ (x \ y))) \ (y * ((y * (x \ 1)) \ 1)) = a((x \ 1) \ (x \ y),(x \ y) \ 1,((x \ y) \ 1) \ 1).
+L(x,x \ 1,y) \ (y * ((y * (x \ 1)) \ 1)) = a((x \ 1) \ (x \ y),(x \ y) \ 1,((x \ y) \ 1) \ 1).
+a((x \ 1) \ (x \ y),(x \ y) \ 1,((x \ y) \ 1) \ 1) = L(x,x \ 1,y) \ (y * ((y * (x \ 1)) \ 1)).
+x != L(y,y \ 1,z) \ (z * ((z * (y \ 1)) \ 1)) | a(z,(z * (y \ 1)) \ 1,z * (y \ 1)) = x.
+a(x,(x * (y \ 1)) \ 1,x * (y \ 1)) = a((y \ 1) \ (y \ x),(y \ x) \ 1,((y \ x) \ 1) \ 1).
+a((x \ 1) \ (x \ y),(x \ y) \ 1,((x \ y) \ 1) \ 1) = a(y,(y * (x \ 1)) \ 1,y * (x \ 1)).
+a((x \ 1) \ (x \ y),(x \ y) \ 1,x \ y) = a(y,(y * (x \ 1)) \ 1,y * (x \ 1)).
+a((x \ 1) \ y,y \ 1,y) != z | a(x,y,y \ 1) = z.
+a(x,x \ y,(x \ y) \ 1) = a(y,(y * (x \ 1)) \ 1,y * (x \ 1)).
+a(x,(x * (y \ 1)) \ 1,x * (y \ 1)) = a(y,y \ x,(y \ x) \ 1).
+x != a(y,y \ z,(y \ z) \ 1) | y \ (z * ((y \ z) \ 1)) = x.
+x \ (y * ((x \ y) \ 1)) = a(y,(y * (x \ 1)) \ 1,y * (x \ 1)).
+a(x,(x * (y \ 1)) \ 1,x * (y \ 1)) = y \ (x * ((y \ x) \ 1)).
+a((x \ 1) \ y,(((x \ 1) \ y) * (x \ 1)) \ 1,((x \ 1) \ y) * (x \ 1)) = x \ (((x \ 1) \ y) * (((y * ((x \ ((x \ 1) \ y)) \ z)) \ (y * z)) \ 1)).
+a((x \ 1) \ y,y \ 1,((x \ 1) \ y) * (x \ 1)) = x \ (((x \ 1) \ y) * (((y * ((x \ ((x \ 1) \ y)) \ z)) \ (y * z)) \ 1)).
+x \ (((x \ 1) \ y) * (((y * ((x \ ((x \ 1) \ y)) \ z)) \ (y * z)) \ 1)) = a((x \ 1) \ y,y \ 1,((x \ 1) \ y) * (x \ 1)).
+x \ (((x \ 1) \ y) * (((y * ((x \ ((x \ 1) \ y)) \ z)) \ (y * z)) \ 1)) = a((x \ 1) \ y,y \ 1,y).
+x != a((y \ 1) \ z,z \ 1,z) | a(y,z,z \ 1) = x.
+a(x,y,y \ 1) = x \ (((x \ 1) \ y) * (((y * ((x \ ((x \ 1) \ y)) \ z)) \ (y * z)) \ 1)).
+x \ (((x \ 1) \ y) * (((y * ((x \ ((x \ 1) \ y)) \ z)) \ (y * z)) \ 1)) = a(x,y,y \ 1).
+x \ (((x \ 1) \ y) * ((x \ ((x \ 1) \ y)) \ 1)) = a(x,y,y \ 1).
+x \ y != a(x,z,z \ 1) | L(x,z,z \ 1) = y.
+L(x,y,y \ 1) = ((x \ 1) \ y) * ((x \ ((x \ 1) \ y)) \ 1).
+((x \ 1) \ y) * ((x \ ((x \ 1) \ y)) \ 1) = L(x,y,y \ 1).
+x \ y != ((z \ 1) \ u) * ((z \ ((z \ 1) \ u)) \ 1) | L(z,u,u \ 1) \ y = x.
+L(x,y,y \ 1) \ x = (x \ ((x \ 1) \ y)) * (((x \ 1) \ y) \ x).
+(x \ ((x \ 1) \ y)) * (((x \ 1) \ y) \ x) = L(x,y,y \ 1) \ x.
+x != L(y,z,z \ 1) \ y | a(z \ 1,z,y) = x.
+a(x \ 1,x,y) = (y \ ((y \ 1) \ x)) * (((y \ 1) \ x) \ y).
+(x \ ((x \ 1) \ y)) * (((x \ 1) \ y) \ x) = a(y \ 1,y,x).
+a(x,y,y \ 1) * a(x \ 1,x,y) = x * (((y \ 1) \ x) \ y).
+a(x,y,y \ 1) * a(x \ 1,x,y) != z | a(y \ 1,x * y,x \ 1) = z.
+a(x \ 1,y * x,y \ 1) = y * (((x \ 1) \ y) \ x).
+a(x,y,y \ 1) * a(x \ 1,x,y) != z | a(y \ 1,y * x,x \ 1) = z.
+a(x \ 1,x * y,y \ 1) = y * (((x \ 1) \ y) \ x).
+L(a(x,y,y \ 1),a(x \ 1,x,y),z) \ (z * (x * (((y \ 1) \ x) \ y))) = z * a(x \ 1,x,y).
+a(x,y,y \ 1) \ (z * (x * (((y \ 1) \ x) \ y))) = z * a(x \ 1,x,y).
+a(x,y,y \ 1) \ z != u | z * a(y \ 1,y,x) = u.
+(x * (y * (((z \ 1) \ y) \ z))) * a(z \ 1,z,y) = x * a(y \ 1,y,z).
+a(x \ 1,x,y) * (z * (y * (((x \ 1) \ y) \ x))) = z * a(y \ 1,y,x).
+L(x * (((y \ 1) \ x) \ y),x,x \ 1) = a(y \ 1,y * x,x \ 1).
+x != a(y \ 1,y * z,z \ 1) | z * (((y \ 1) \ z) \ y) = x.
+x * (((y \ 1) \ x) \ y) = L(x * (((y \ 1) \ x) \ y),x,x \ 1).
+L(x * (((y \ 1) \ x) \ y),x,x \ 1) = x * (((y \ 1) \ x) \ y).
+x * (x * (((y \ 1) \ x) \ y)) = (y \ 1) * ((x \ 1) \ y).
+x \ y != z * (z * (((u \ 1) \ z) \ u)) | x * ((u \ 1) * ((z \ 1) \ u)) = y.
+(x \ 1) * ((y \ 1) * ((x \ 1) \ y)) = L(x * (((y \ 1) \ x) \ y),x,x \ 1).
+L(x * (((y \ 1) \ x) \ y),x,x \ 1) = (x \ 1) * ((y \ 1) * ((x \ 1) \ y)).
+a(x \ 1,(y \ 1) \ x,y \ 1) = L(y * (((x \ 1) \ y) \ x),y,y \ 1).
+L(x * (((y \ 1) \ x) \ y),x,x \ 1) = a(y \ 1,(x \ 1) \ y,x \ 1).
+L(x * (((y \ 1) \ x) \ y),x,x \ 1) != z | x * (((y \ 1) \ x) \ y) = z.
+x * (((y \ 1) \ x) \ y) = a(y \ 1,(x \ 1) \ y,x \ 1).
+a(x \ 1,(y \ 1) \ x,y \ 1) = y * (((x \ 1) \ y) \ x).
+L(x * (((y \ 1) \ x) \ y),z,y) = L(a(y \ 1,(x \ 1) \ y,x \ 1),x,x \ 1).
+L(a(x \ 1,(y \ 1) \ x,y \ 1),y,y \ 1) = L(y * (((x \ 1) \ y) \ x),z,x).
+L(x * (((y \ 1) \ x) \ y),x,x \ 1) = L(x * (((y \ 1) \ x) \ y),z,y).
+L(x * (((y \ 1) \ x) \ y),z,y) = L(x * (((y \ 1) \ x) \ y),x,x \ 1).
+x != L(y * (((z \ 1) \ y) \ z),y,y \ 1) | y * (((z \ 1) \ y) \ z) = x.
+x * (((y \ 1) \ x) \ y) = L(x * (((y \ 1) \ x) \ y),z,y).
+L(x * (((y \ 1) \ x) \ y),z,y) = x * (((y \ 1) \ x) \ y).
+x \ y != L(z * (((u \ 1) \ z) \ u),w,u) | x * (z * (((u \ 1) \ z) \ u)) = y.
+(x * y) * (z * (((x \ 1) \ z) \ x)) = x * (y * (z * (((x \ 1) \ z) \ x))).
+a(x \ 1,x,y) * (x * (z * (y * (((x \ 1) \ y) \ x)))) = (x * z) * a(y \ 1,y,x).
+a(x \ 1,x,y) * (x * z) != u | x * (a(x \ 1,x,y) * z) = u.
+x * (a(x \ 1,x,y) * (z * (y * (((x \ 1) \ y) \ x)))) = (x * z) * a(y \ 1,y,x).
+x * (y * a(z \ 1,z,x)) = (x * y) * a(z \ 1,z,x).
+(x * y) * a(z \ 1,z,x) = x * (y * a(z \ 1,z,x)).
+a(x \ 1,x,y) * (y * z) = y * (z * a(x \ 1,x,y)).
+L(x,y,a(z \ 1,z,x)) = x.
+
+end_of_list.

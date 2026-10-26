@@ -1,0 +1,200 @@
+% ************************************************************************
+% AIM Corollaries
+%
+% 48 permutations of the single-a goals follow from Lemma nil3 15 (not
+% yet proved with Prover9) and the following Prover9 results.
+%
+%    nil3 15 => aK2_eq_aK3 (1243)
+%
+%    aK2_eq_aK3 (1243) => 11 other permutations of aK2_eq_aK3
+%
+%    a(K(x,y),z,u) = a(x,z,K(u,y)) # label("aK1_eq_aK3").
+%
+%    K(a(x,y,z),u) = a(x,y,K(z,u)) # label("Ka_eq_aK3").
+%
+%    x != y | y != z | x = z # label("Transitivity =").
+%
+% Omitting the 4 trivial (1234) permutations, one for each of the single
+% a goals, there are 44 permutations to prove.
+% ************************************************************************
+
+% ************************************************************************
+% S:
+% 48 of the 96 permutations of single-a goals (12 for each) then follow as trivial corollaries. 
+% https://www.cs.unm.edu/~veroff/AIM_REDONE/AKEQ/
+% Lemmas Relating the aK (single a) AIM Goals
+% ************************************************************************
+
+assign(order, kbo).
+set(lex_order_vars).
+
+clear(back_demod).
+set(restrict_denials).
+
+set(para_from_small).
+
+assign(max_weight,5).
+
+formulas(assumptions).
+
+   % 12 permutations of aK2_eq_aK3 that follow from nil3 15
+
+   a(x,K(y,z),u) = a(x,y,K(u,z)) # label("aK2_eq_aK3 (1243)").
+   a(x,K(y,z),u) = a(x,z,K(y,u)) # label("aK2_eq_aK3 (1324)").
+   a(x,K(y,z),u) = a(x,u,K(z,y)) # label("aK2_eq_aK3 (1432)").
+   a(x,K(y,z),u) = a(y,x,K(z,u)) # label("aK2_eq_aK3 (2134)").
+   a(x,K(y,z),u) = a(y,z,K(u,x)) # label("aK2_eq_aK3 (2341)").
+   a(x,K(y,z),u) = a(y,u,K(x,z)) # label("aK2_eq_aK3 (2413)").
+   a(x,K(y,z),u) = a(z,x,K(u,y)) # label("aK2_eq_aK3 (3142)").
+   a(x,K(y,z),u) = a(z,y,K(x,u)) # label("aK2_eq_aK3 (3214)").
+   a(x,K(y,z),u) = a(z,u,K(y,x)) # label("aK2_eq_aK3 (3421)").
+   a(x,K(y,z),u) = a(u,x,K(y,z)) # label("aK2_eq_aK3 (4123)").
+   a(x,K(y,z),u) = a(u,y,K(z,x)) # label("aK2_eq_aK3 (4231)").
+   a(x,K(y,z),u) = a(u,z,K(x,y)) # label("aK2_eq_aK3 (4312)").
+
+   % proved lemmas 
+   a(K(x,y),z,u) = a(x,z,K(u,y)) # label("aK1_eq_aK3").
+   K(a(x,y,z),u) = a(x,y,K(z,u)) # label("Ka_eq_aK3").
+   x != y | y != z | x = z # label("Transitivity =").
+
+end_of_list.
+
+% -----------------------------------------------------------------------
+% 48 of the 96 permutations of the single a goals follow from nil3 15,
+% 12 for each of the single a goals (11 without permutation (1234)).
+%
+% The following 44 goals leave out the 4 identity permutations.   
+% -----------------------------------------------------------------------
+
+formulas(goals).
+
+K(a(x,y,z),u) = K(a(x,z,u),y) # label("Ka (1342)").
+K(a(x,y,z),u) = K(a(x,u,y),z) # label("Ka (1423)").
+K(a(x,y,z),u) = K(a(y,x,u),z) # label("Ka (2143)").
+K(a(x,y,z),u) = K(a(y,z,x),u) # label("Ka (2314)").
+K(a(x,y,z),u) = K(a(y,u,z),x) # label("Ka (2431)").
+K(a(x,y,z),u) = K(a(z,x,y),u) # label("Ka (3124)").
+K(a(x,y,z),u) = K(a(z,y,u),x) # label("Ka (3241)").
+K(a(x,y,z),u) = K(a(z,u,x),y) # label("Ka (3412)").
+K(a(x,y,z),u) = K(a(u,x,z),y) # label("Ka (4132)").
+K(a(x,y,z),u) = K(a(u,y,x),z) # label("Ka (4213)").
+K(a(x,y,z),u) = K(a(u,z,y),x) # label("Ka (4321)").
+
+a(K(x,y),z,u) = a(K(x,z),u,y) # label("aK1 (1342)").
+a(K(x,y),z,u) = a(K(x,u),y,z) # label("aK1 (1423)").
+a(K(x,y),z,u) = a(K(y,x),u,z) # label("aK1 (2143)").
+a(K(x,y),z,u) = a(K(y,z),x,u) # label("aK1 (2314)").
+a(K(x,y),z,u) = a(K(y,u),z,x) # label("aK1 (2431)").
+a(K(x,y),z,u) = a(K(z,x),y,u) # label("aK1 (3124)").
+a(K(x,y),z,u) = a(K(z,y),u,x) # label("aK1 (3241)").
+a(K(x,y),z,u) = a(K(z,u),x,y) # label("aK1 (3412)").
+a(K(x,y),z,u) = a(K(u,x),z,y) # label("aK1 (4132)").
+a(K(x,y),z,u) = a(K(u,y),x,z) # label("aK1 (4213)").
+a(K(x,y),z,u) = a(K(u,z),y,x) # label("aK1 (4321)").
+
+a(x,K(y,z),u) = a(x,K(z,u),y) # label("aK2 (1342)").
+a(x,K(y,z),u) = a(x,K(u,y),z) # label("aK2 (1423)").
+a(x,K(y,z),u) = a(y,K(x,u),z) # label("aK2 (2143)").
+a(x,K(y,z),u) = a(y,K(z,x),u) # label("aK2 (2314)").
+a(x,K(y,z),u) = a(y,K(u,z),x) # label("aK2 (2431)").
+a(x,K(y,z),u) = a(z,K(x,y),u) # label("aK2 (3124)").
+a(x,K(y,z),u) = a(z,K(y,u),x) # label("aK2 (3241)").
+a(x,K(y,z),u) = a(z,K(u,x),y) # label("aK2 (3412)").
+a(x,K(y,z),u) = a(u,K(x,z),y) # label("aK2 (4132)").
+a(x,K(y,z),u) = a(u,K(y,x),z) # label("aK2 (4213)").
+a(x,K(y,z),u) = a(u,K(z,y),x) # label("aK2 (4321)").
+
+a(x,y,K(z,u)) = a(x,z,K(u,y)) # label("aK3 (1342)").
+a(x,y,K(z,u)) = a(x,u,K(y,z)) # label("aK3 (1423)").
+a(x,y,K(z,u)) = a(y,x,K(u,z)) # label("aK3 (2143)").
+a(x,y,K(z,u)) = a(y,z,K(x,u)) # label("aK3 (2314)").
+a(x,y,K(z,u)) = a(y,u,K(z,x)) # label("aK3 (2431)").
+a(x,y,K(z,u)) = a(z,x,K(y,u)) # label("aK3 (3124)").
+a(x,y,K(z,u)) = a(z,y,K(u,x)) # label("aK3 (3241)").
+a(x,y,K(z,u)) = a(z,u,K(x,y)) # label("aK3 (3412)").
+a(x,y,K(z,u)) = a(u,x,K(z,y)) # label("aK3 (4132)").
+a(x,y,K(z,u)) = a(u,y,K(x,z)) # label("aK3 (4213)").
+a(x,y,K(z,u)) = a(u,z,K(y,x)) # label("aK3 (4321)").
+
+end_of_list.
+
+%
+% Hints extracted from previously found proofs.
+%
+
+formulas(hints).
+
+a(x,y,K(z,u)) = a(x,z,K(u,y)).
+a(x,K(y,z),u) = a(x,y,K(u,z)).
+a(x,K(y,z),u) = a(x,z,K(y,u)).
+a(x,y,K(z,u)) = a(x,u,K(y,z)).
+a(x,K(y,z),u) = a(x,K(u,y),z).
+a(x,K(y,z),u) = a(x,K(z,u),y).
+a(x,y,K(z,u)) = a(y,x,K(u,z)).
+a(x,K(y,z),u) = a(y,x,K(z,u)).
+a(x,K(y,z),u) = a(y,K(x,u),z).
+a(x,y,K(z,u)) = a(z,x,K(y,u)).
+a(x,y,K(z,u)) = a(y,z,K(x,u)).
+a(x,K(y,z),u) = a(y,K(z,x),u).
+a(x,K(y,z),u) = a(z,K(x,y),u).
+a(x,y,K(z,u)) = a(u,x,K(z,y)).
+a(x,K(y,z),u) = a(x,u,K(z,y)).
+a(x,y,K(z,u)) = a(y,u,K(z,x)).
+a(x,K(y,z),u) = a(y,K(u,z),x).
+a(x,K(y,z),u) = a(u,K(x,z),y).
+a(x,y,K(z,u)) = a(u,y,K(x,z)).
+a(x,K(y,z),u) = a(y,z,K(u,x)).
+a(x,y,K(z,u)) = a(z,y,K(u,x)).
+a(x,y,K(z,u)) = a(u,z,K(y,x)).
+a(x,K(y,z),u) = a(z,K(y,u),x).
+a(x,K(y,z),u) = a(u,K(y,x),z).
+a(x,y,K(z,u)) = a(z,u,K(x,y)).
+a(x,K(y,z),u) = a(y,u,K(x,z)).
+a(x,K(y,z),u) = a(z,K(u,x),y).
+a(x,K(y,z),u) = a(z,x,K(u,y)).
+a(x,K(y,z),u) = a(u,K(z,y),x).
+a(K(x,y),z,u) = a(K(x,u),y,z).
+a(K(x,y),z,u) = a(x,z,K(u,y)).
+a(x,K(y,z),u) = a(K(x,z),y,u).
+a(K(x,y),z,u) = a(x,K(z,y),u).
+a(x,K(y,z),u) = a(K(x,u),z,y).
+a(K(x,y),z,u) = a(x,K(u,z),y).
+a(K(x,y),z,u) = a(K(x,z),u,y).
+a(K(x,y),z,u) = a(K(z,x),y,u).
+a(x,K(y,z),u) = a(K(x,y),u,z).
+a(K(x,y),z,u) = a(x,K(y,u),z).
+a(x,K(y,z),u) = a(K(y,u),x,z).
+a(K(x,y),z,u) = a(z,K(x,u),y).
+a(K(x,y),z,u) = a(K(y,z),x,u).
+a(K(x,y),z,u) = a(K(z,y),u,x).
+a(K(x,y),z,u) = a(K(u,y),x,z).
+a(K(x,y),z,u) = a(K(z,u),x,y).
+a(K(x,y),z,u) = a(K(y,x),u,z).
+a(x,K(y,z),u) = a(K(y,x),z,u).
+a(K(x,y),z,u) = a(y,K(x,z),u).
+a(K(x,y),z,u) = a(K(u,x),z,y).
+a(K(x,y),z,u) = a(K(y,u),z,x).
+a(K(x,y),z,u) = a(K(u,z),y,x).
+a(x,K(y,z),u) = a(K(y,z),u,x).
+a(K(x,y),z,u) = a(u,K(x,y),z).
+K(a(x,y,z),u) = K(a(x,z,u),y).
+K(a(x,y,z),u) = a(x,y,K(z,u)).
+a(x,y,K(z,u)) = K(a(x,y,z),u).
+a(x,K(y,z),u) = K(a(x,y,u),z).
+a(x,K(y,z),u) = K(a(x,z,y),u).
+K(a(x,y,z),u) = K(a(x,u,y),z).
+K(a(x,y,z),u) = K(a(y,u,z),x).
+a(x,K(y,z),u) = K(a(x,u,z),y).
+a(x,K(y,z),u) = K(a(y,x,z),u).
+K(a(x,y,z),u) = K(a(u,x,z),y).
+K(a(x,y,z),u) = K(a(y,z,x),u).
+K(a(x,y,z),u) = K(a(z,x,y),u).
+K(a(x,y,z),u) = K(a(y,x,u),z).
+K(a(x,y,z),u) = K(a(u,z,y),x).
+a(x,K(y,z),u) = K(a(y,z,u),x).
+K(a(x,y,z),u) = K(a(z,y,u),x).
+K(a(x,y,z),u) = K(a(u,y,x),z).
+K(a(x,y,z),u) = K(a(z,u,x),y).
+a(x,K(y,z),u) = K(a(y,u,x),z).
+
+end_of_list.

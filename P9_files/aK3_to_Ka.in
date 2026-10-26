@@ -1,0 +1,306 @@
+% ***************
+% AIM:  aK3 => Ka
+% ***************
+
+% *********************************************************
+% S:
+% Result 1: Equivalence of {Ka,aK1,aK2,aK3}
+% Case: aK3 => Ka
+% *********************************************************
+
+assign(order,kbo).
+set(lex_order_vars).
+
+set(para_from_small).
+
+clear(back_demod).
+set(restrict_denials).
+
+assign(max_weight,5).
+
+%set(tptp_output).
+
+formulas(assumptions).
+
+   % loop axioms
+   1 * x = x.
+   x * 1 = x.
+   x \ (x * y) = y.
+   x * (x \ y) = y.
+   (x * y) / y = x.
+   (x / y) * y = x.
+
+   % cancellation laws
+   x * y = u & x * z = u -> y = z.
+   y * x = u & z * x = u -> y = z.
+
+      % other form
+      x * y = x * z -> y = z.
+      y * x = z * x -> y = z.
+
+   % associator (right associated * a = left associated)
+   (x * (y * z)) \ ((x * y) * z) = a(x,y,z) # label("associator").
+
+   % commutator ( (x * y) * K(y,x) = y * x )
+   (x * y) \ (y * x) = K(y,x) # label("commutator").
+
+   % inner mappings
+   (y * x) \ (y * (x * u)) = L(u,x,y).
+   ((u * x) * y) / (x * y) = R(u,x,y).
+   x \ (u * x) = T(u,x).
+
+   % obvious compatibility
+   a(x,y,z) = 1 -> L(z,y,x) = z.
+   L(x,y,z) = x -> a(z,y,x) = 1.
+   T(x,y) = x -> T(y,x) = y.
+   T(x,y) = x -> K(x,y) = 1.
+   K(x,y) = 1 -> T(x,y) = x.
+
+   % abelian inner mapping group
+   T(T(u,x),y) = T(T(u,y),x).
+   T(L(u,x,y),z) = L(T(u,z),x,y).
+   T(R(u,x,y),z) = R(T(u,z),x,y).
+   L(R(u,x,y),z,w) = R(L(u,z,w),x,y).
+   L(L(u,x,y),z,w) = L(L(u,z,w),x,y).
+   R(R(u,x,y),z,w) = R(R(u,z,w),x,y).
+
+end_of_list.
+
+formulas(assumptions).
+
+   a(x,y,K(z,u)) = 1              # label("aK3").
+
+end_of_list.
+
+formulas(goals).
+
+   K(a(x,y,z),u) = 1              # label("Ka").
+
+end_of_list.
+
+%
+% Hints extracted from previously found proofs.
+%
+
+formulas(hints).
+
+K(x,a(y,z,u)) * w = w.
+K(x,a(y,z,u)) = 1.
+1 = K(x,a(y,z,u)).
+K(x,L(y,z,u) \ y) = 1.
+K(x,(y \ 1) * z) = K(x,y \ z).
+K(x,y \ L(z,u,w)) = K(x,y \ z).
+K(x,y \ L(y * z,u,w)) = K(x,z).
+K(x,(L(y,z,u) \ 1) * y) = 1.
+K(x,y * L(y \ z,u,w)) = K(x,z).
+K(x,y * L(z,u,w)) = K(x,y * z).
+T(x * L(y,z,u),w) \ (x * L(y,z,u)) = K(w,x * y).
+T(x * L(x \ (x * y),z,u),w) \ (x * L(y,z,u)) = K(w,x * y).
+T(x * L(x \ y,z,u),w) = x * L(x \ T(y,w),z,u).
+x * (y * L(y \ T(z,x),u,w)) = (y * L(y \ z,u,w)) * x.
+x * (y * L(y \ (x \ (z * y)),u,w)) = y * (x * L(x \ T(z,y),u,w)).
+K(x,(y \ 1) * y) = 1.
+K(x,K(y \ 1,y)) = 1.
+T(x,K(y \ 1,y)) = x.
+T(x,y \ L(y,z,u)) = x.
+x = T(x,y \ L(y,z,u)).
+T(x,(1 / y) * L(y,z,u)) = x.
+T(x,y * L(y \ 1,z,u)) = x.
+x * (y * L(y \ (x \ (y * z)),u,w)) = y * (x * L(x \ z,u,w)).
+x * (y * L(y \ z,u,w)) = y * (x * L(x \ (y \ (x * z)),u,w)).
+(x * L(x \ 1,y,z)) * u = u * (x * L(x \ 1,y,z)).
+x * (y * L(y \ 1,z,u)) = (y * L(y \ 1,z,u)) * x.
+T(x,y) * L(T(x,y) \ z,u,w) = x * L(x \ z,u,w).
+x * L(x \ y,z,u) = T(x,w) * L(T(x,w) \ y,z,u).
+x * (K(x,y) * L(K(x,y) \ (x \ z),u,w)) = T(x,y) * L(T(x,y) \ z,u,w).
+x * (T(y,x) * L(T(y,x) \ z,u,w)) = y * (x * L(x \ (y \ (x * z)),u,w)).
+(x * y) * L((x * y) \ (y * z),u,w) = y * (T(x,y) * L(T(x,y) \ z,u,w)).
+K(x,y) * L(K(x,y) \ z,u,w) = L(z,u,w).
+K(x,y) * L(K(x,y) \ z,u,w) = (L(z,u,w) / z) * z.
+(L(x,y,z) / x) * x = K(u,w) * L(K(u,w) \ x,y,z).
+(K(x,y) / z) * L(z * K(y,x),u,w) = L(z,u,w) / z.
+x * (T(y,x) * L(T(y,x) \ 1,z,u)) = (y * L(y \ 1,z,u)) * x.
+x * (T(y,x) * L(T(y,x) \ 1,z,u)) = (y * x) * L((y * x) \ x,z,u).
+(x * y) * L((x * y) \ y,z,u) = y * (T(x,y) * L(T(x,y) \ 1,z,u)).
+(x \ 1) * L((x \ 1) \ y,z,u) = x \ L(x * y,z,u).
+x \ L(x * y,z,u) = (x \ 1) * L((x \ 1) \ y,z,u).
+L(x / (y \ 1),z,u) * (y \ 1) = y \ L(y * x,z,u).
+L(x / (y \ 1),z,u) * (y \ 1) = y \ L(1 \ (y * x),z,u).
+x \ L(1 \ (x * y),z,u) = L(y / (x \ 1),z,u) * (x \ 1).
+x * (y * L(y \ (x \ (z * y)),u,w)) = (x * L(x \ z,u,w)) * y.
+(x * L(x \ y,z,u)) * w = x * (w * L(w \ (x \ (y * w)),z,u)).
+(x * y) * L((x * y) \ (z * y),u,w) = (x * L(x \ z,u,w)) * y.
+(x * y) * L((x * y) \ (z * y),u,w) = (L(z / x,u,w) * x) * y.
+L(x * K(y,z),u,w) / (x * K(y,z)) = (K(z,y) / x) * L(x * K(y,z),u,w).
+(K(x,y) / z) * L(z * K(y,x),u,w) = L(z * K(y,x),u,w) / (z * K(y,x)).
+(1 / x) * L(x,y,z) = L(x,y,z) / x.
+L(x,y,z) / x = (1 / x) * L(x,y,z).
+L(1 \ x,y,z) / x = (1 / x) * L(x,y,z).
+(1 / x) * L(x,y,z) = L(1 \ x,y,z) / x.
+(1 / x) * L((1 / x) \ 1,y,z) = L(1 \ x,y,z) / x.
+((K(x,y) / z) * L(z * K(y,x),u,w)) * z = K(x,y) * L(K(x,y) \ z,u,w).
+(x / y) * L((x / y) \ 1,z,u) = (x * L(x \ y,z,u)) / y.
+(x * L(x \ y,z,u)) / y = (x / y) * L((x / y) \ 1,z,u).
+((x / y) * L((x / y) \ 1,z,u)) * y = x * L(x \ y,z,u).
+((x / y) * L((x / y) \ 1,z,u)) * y = x * L(((x / y) * y) \ y,z,u).
+x * L(((x / y) * y) \ y,z,u) = ((x / y) * L((x / y) \ 1,z,u)) * y.
+(x * y) * L((x * y) \ y,z,u) = (x * L(x \ 1,z,u)) * y.
+(x * y) * L((x * y) \ y,z,u) = (L(1 / x,z,u) * x) * y.
+x * (K(x,y) * L(K(x,y) \ (x \ z),u,w)) = T(x,y) * L((x * K(x,y)) \ z,u,w).
+T(x,y) * L((x * K(x,y)) \ z,u,w) = x * (K(x,y) * L(K(x,y) \ (x \ z),u,w)).
+K(x,L(y,z,u) \ y) = K(x,a(u,z,y)).
+K(x,a(y,z,u)) = K(x,L(u,z,y) \ u).
+K(x,(y * (z * u)) \ ((y * z) * w)) = K(x,L(u,z,y) \ w).
+T(x,(1 / y) * z) = T(x,y \ z).
+T(x,L(y,z,u)) = T(x,y).
+T(x,y) = T(x,L(y,z,u)).
+K(x,(y * z) \ (y * u)) = K(x,z \ u).
+K(x,L(y,z,u)) = K(x,y).
+T(x,L(y,z,u)) = x / K(y,x).
+K(x,L(y,z,u)) = K(y,x) \ 1.
+K(x,y) \ 1 = K(y,L(x,z,u)).
+K(L(x,y,z),u) = K(x,u).
+(x * (y * z)) \ (x * (y * T(z,u))) = K(L(z,y,x),u).
+(x * L(y \ T(y * z,u),w,v5)) \ (x * L(z,w,v5)) = K(u,y * z).
+(x * y) * L((y * T(x,y)) \ y,z,u) = y * (T(x,y) * L(T(x,y) \ 1,z,u)).
+(x * (y * z)) \ ((x * y) * L(T(z,u),y,x)) = K(L(z,y,x),u).
+(x * L(y \ T(z,u),w,v5)) \ (x * L(y \ z,w,v5)) = K(u,z).
+L(x * K(y,z),u,w) / (v5 * K(y,z)) = L(x,u,w) / v5.
+(x * L(y,z,u)) \ (x * L(y * K(w,v5),z,u)) = K(w,v5).
+L(x * K(y,z),u,w) = L(x,u,w) * K(y,z).
+(x * y) \ (x * (y * (z * K(u,w)))) = L(z,y,x) * K(u,w).
+(x * T(y,x)) * L((y * x) \ (x * z),u,w) = x * (T(y,x) * L(T(y,x) \ z,u,w)).
+(x * y) * L((x * y) \ z,u,w) = x * (y * L(y \ (x \ z),u,w)).
+(x * y) * L((x * y) \ x,z,u) = x * (y * L(y \ 1,z,u)).
+(x * y) \ (x * ((y * z) * K(u,w))) = L(z,y,x) * K(u,w).
+x \ L(L((x \ 1) \ y,z,u),x \ 1,x) = L(y / (x \ 1),z,u) * (x \ 1).
+L(R(1 / x,x,y),z,u) * (x * y) = (x * y) * L((x * y) \ y,z,u).
+L(R(x / y,y,z),u,w) * (y * z) = (y * z) * L((y * z) \ (x * z),u,w).
+L(L((x \ y) \ z,u,w),x \ y,x) = L(y \ (x * z),u,w).
+L(x \ (y * z),u,w) = L(L((y \ x) \ z,u,w),y \ x,y).
+L(x \ y,x,1 / x) = (1 / x) * y.
+(1 / x) * y = L(x \ y,x,1 / x).
+(1 / x) * (x * y) = L(y,x,1 / x).
+L(x,y,1 / y) = (1 / y) * (y * x).
+x \ L(x,x \ 1,x) = K(x \ 1,x).
+K(x \ 1,x) = x \ L(x,x \ 1,x).
+x \ L(y,x \ 1,x) = (x \ 1) * y.
+x * ((x \ 1) * y) = L(y,x \ 1,x).
+L(x,y \ 1,y) = y * ((y \ 1) * x).
+(x \ T(y,z)) * K(z,y) = x \ y.
+x \ y = (x \ T(y,z)) * K(z,y).
+x \ (y * (z * K(u,w))) = (x \ (y * z)) * K(u,w).
+(K(x,y) / z) \ 1 = z * K(y,x).
+1 / (x * K(y,z)) = K(z,y) / x.
+x \ (y * K(z,u)) = (x \ y) * K(z,u).
+K(x,y) * z != 1 | K(y,x) = z.
+1 != K(x,y) * z | K(y,x) = z.
+T(x,y) = x / K(y,x).
+T(x,y) * K(y,x) = x.
+K(x,y) = T(y,x) \ y.
+T(x,y) \ x = K(y,x).
+K(x,y) * K(y,x) = 1.
+K(x,y) \ 1 = K(y,x).
+K(x,y) = K(y,x) \ 1.
+T(x,y) = x / (K(x,y) \ 1).
+x / (K(x,y) \ 1) = T(x,y).
+T(x,y) * (K(x,y) \ 1) = x.
+T(x,y) \ x = K(x,y) \ 1.
+(x * y) \ (y * x) = K(x,y) \ 1.
+(x * K(y,z)) \ x = K(y,z) \ 1.
+x \ (x / K(y,z)) = K(y,z) \ 1.
+(x * (y * z)) \ (x * (y * T(z,u))) = K(z,u).
+(x * (y * z)) \ ((x * y) * T(L(z,y,x),u)) = K(L(z,y,x),u).
+x * (K(y,z) \ 1) = x / K(y,z).
+1 / K(x,y) = K(x,y) \ 1.
+(K(x,y) \ 1) * K(x,y) = 1.
+(x * y) * K(y,z) = x * T(y,z).
+(x * y) \ (x * T(y,z)) = K(y,z).
+T(x,y) = x * K(x,y).
+(x \ 1) * K(y,z) = x \ K(y,z).
+x \ K(y,z) = (x \ 1) * K(y,z).
+(x * K(y,z)) / (u * K(y,z)) = x / u.
+x / y = (x * K(z,u)) / (y * K(z,u)).
+x * (y * K(y,x)) = y * x.
+x * ((x \ y) * K(z,u)) = y * K(z,u).
+x * K(y,z) = u * ((u \ x) * K(y,z)).
+R(x,y,K(z,u)) = x.
+x = R(x,y,K(z,u)).
+x * (y * z) != (u * y) * z | x = R(u,y,z).
+L(x / y,z,u) * y = y * L(y \ x,z,u).
+x * L(x \ y,z,u) = L(y / x,z,u) * x.
+x * (1 / K(y,z)) = x / K(y,z).
+x / K(y,z) = x * (1 / K(y,z)).
+R(x,x \ 1,y) \ y = (x \ 1) * y.
+R(1 / x,x,y) \ y = x * y.
+R(1 / x,x,y) = y / (x * y).
+L(R(x,y,z),u,w) * (y * z) = (L(x,u,w) * y) * z.
+x / L(y,1 / y,x) = x * (1 / y).
+x / L(y \ 1,y,x) = x * y.
+L(T(x,y) \ z,T(x,y),y) = (x * y) \ (y * z).
+L(x \ (y \ z),x,y) = (y * x) \ z.
+L((x \ y) \ z,x \ y,x) = y \ (x * z).
+L(x \ 1,x,y) = (y * x) \ y.
+(x * y) * K(z,u) = x * (y * K(z,u)).
+(x * y) * L(L(z,y,x),u,w) = x * (y * L(z,u,w)).
+K(x \ 1,x) = (x \ 1) * x.
+(x * y) \ (x * (y * K(z,u))) = K(z,u).
+K(x,y) = (z * u) \ (z * (u * K(x,y))).
+x * L(T(y,x),z,u) = L(y,z,u) * x.
+x * y != z * x | T(z,x) = y.
+x * y != y * z | T(x,y) = z.
+(x * y) / K(x,y) = y * x.
+L(K(x,y),z,u) = K(x,y).
+T(x / y,y) = y \ x.
+x * T(y,x) = y * x.
+R(x / y,y,z) = (x * z) / (y * z).
+R(x,y,z) * (y * z) = (x * y) * z.
+x \ ((x / y) * (y * z)) = L(z,y,x / y).
+L(x,y,z / y) = z \ ((z / y) * (y * x)).
+L(x \ y,x,z) = (z * x) \ (z * y).
+x \ (y * ((y \ x) * z)) = L(z,y \ x,y).
+L(x,y \ z,y) = z \ (y * ((y \ z) * x)).
+(x * y) * L(z,y,x) = x * (y * z).
+x \ ((y \ x) * y) = K(y \ x,y).
+K(x \ y,x) = y \ ((x \ y) * x).
+(x * y) * K(y,x) = y * x.
+x * y != z | z / y = x.
+x != y * z | x / z = y.
+x * y != z | x \ z = y.
+x != y * z | y \ x = z.
+(x / y) \ x = y.
+x / (y \ x) = y.
+x \ x = 1.
+1 \ x = x.
+K(a(c1,c2,c3),c4) != 1.
+a(x,y,K(z,u)) = 1.
+L(L(x,y,z),u,w) = L(L(x,u,w),y,z).
+R(L(x,y,z),u,w) = L(R(x,u,w),y,z).
+L(R(x,y,z),u,w) = R(L(x,u,w),y,z).
+L(T(x,y),z,u) = T(L(x,z,u),y).
+T(L(x,y,z),u) = L(T(x,u),y,z).
+T(x,y) != x | K(x,y) = 1.
+a(x,y,z) != 1 | L(z,y,x) = z.
+T(x,y) = y \ (x * y).
+x \ (y * x) = T(y,x).
+R(x,y,z) = ((x * y) * z) / (y * z).
+((x * y) * z) / (y * z) = R(x,y,z).
+L(x,y,z) = (z * y) \ (z * (y * x)).
+(x * y) \ (x * (y * z)) = L(z,y,x).
+K(x,y) = (y * x) \ (x * y).
+(x * y) \ (y * x) = K(y,x).
+a(x,y,z) = (x * (y * z)) \ ((x * y) * z).
+(x * (y * z)) \ ((x * y) * z) = a(x,y,z).
+x * y != z * y | x = z.
+x * y != x * z | y = z.
+x * y != z | u * y != z | u = x.
+(x / y) * y = x.
+(x * y) / y = x.
+x * (x \ y) = y.
+x \ (x * y) = y.
+x * 1 = x.
+1 * x = x.
+K(a(x,y,z),u) = 1.
+
+end_of_list.
+
