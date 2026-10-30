@@ -18,4 +18,4 @@
 | S15 | `aa1_inst_aa2-original_watchlist`<br>`aa1_inst_aa2-alternative_watchlist` | 
 
 
-
+Proofs corresponding to `a_instances_aK1_x1_x2`, `a_instances_aK2_x2_x3` and `a_instances_aK3_x3_x4` consist of less than 20 steps and can be found using no watchlist. 
