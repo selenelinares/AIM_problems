@@ -1,0 +1,1 @@
+--term-ordering=KBO --precedence="'a'>'R'>'L'>'/'>'K'>'\\'>'T'>'*'>'1'"  --order-weights="'1':1,'*':1,'T':1,'\\':1,'K':1,'/':1,'L':1,'R':1,'a':1" --no-eq-unfolding --local-rw=false -xUseWatchlist 
